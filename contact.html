@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Bridgewater Bocce</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .contact-layout {
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) minmax(280px, 2fr);
+    gap: 40px;
+    align-items: start;
+    margin-top: 24px;
+  }
+  @media (max-width: 700px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+  .contact-info h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .contact-info p {
+    margin: 6px 0;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <img class="logo" src="logo.png" alt="Bridgewater Bocce logo">
+  <h1 class="site-title">Bridgewater Bocce</h1>
+</header>
+
+<nav class="site-nav">
+  <a href="index.html">Home</a>
+  <a href="team-rosters.html">Team Rosters</a>
+  <a href="schedule.html">Schedule</a>
+  <a href="standings.html">Results &amp; Standings</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<main class="page-content">
+  <h1>Contact us</h1>
+  <p class="schedule-intro">Questions about the league, a team, or getting involved? Reach out to our club president directly, or send a message using the form below.</p>
+
+  <div class="contact-layout">
+    <div class="contact-info">
+      <h2>Steve Schwartz</h2>
+      <p>Club President</p>
+      <p>Email: <a href="mailto:aquasteve@aol.com">aquasteve@aol.com</a></p>
+      <p>Text: <a href="sms:7862556316">786-255-6316</a></p>
+    </div>
+
+    <form name="contact-form" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="message-form">
+      <input type="hidden" name="form-name" value="contact-form">
+      <p style="display:none">
+        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+      </p>
+
+      <label for="contact-name">Name</label>
+      <input type="text" id="contact-name" name="name" required>
+
+      <label for="contact-email">Email</label>
+      <input type="email" id="contact-email" name="email" required>
+
+      <label for="contact-message">Message</label>
+      <textarea id="contact-message" name="message" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <div class="legal-link-wrap">
+    <a class="legal-link" href="index.html">Home</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  Bridgewater Bocce
+</footer>
+
+</body>
+</html>
