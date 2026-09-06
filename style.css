@@ -5,8 +5,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap');
 
 :root {
-  --brand-green-dark: #1b3d2c;
-  --brand-green: #2f6b45;
+  --brand-blue-dark: #142850;
+  --brand-blue: #2a52be;
   --brand-gold: #c9a227;
   --brand-cream: #faf8f2;
   --text-dark: #222222;
@@ -27,11 +27,11 @@ body {
 
 h1, h2, h3 {
   font-family: 'Cinzel', Georgia, serif;
-  color: var(--brand-green-dark);
+  color: var(--brand-blue-dark);
 }
 
 a {
-  color: var(--brand-green);
+  color: var(--brand-blue);
 }
 
 a:hover {
@@ -45,13 +45,13 @@ a:hover {
   align-items: center;
   gap: 16px;
   padding: 20px 24px;
-  background: var(--brand-green-dark);
+  background: var(--brand-blue-dark);
   border-bottom: 4px solid var(--brand-gold);
 }
 
 .site-header .logo {
-  height: 64px;
-  width: 64px;
+  height: 110px;
+  width: 110px;
   object-fit: contain;
   border-radius: 50%;
   background: #fff;
@@ -86,7 +86,7 @@ a:hover {
   flex-wrap: wrap;
   gap: 20px;
   padding: 14px 24px;
-  background: var(--brand-green);
+  background: var(--brand-blue);
 }
 
 .site-nav a {
@@ -139,7 +139,7 @@ a:hover {
 .site-footer {
   text-align: center;
   padding: 20px;
-  background: var(--brand-green-dark);
+  background: var(--brand-blue-dark);
   color: #fff;
   font-size: 14px;
 }
@@ -213,7 +213,7 @@ a:hover {
 }
 
 .standings-table th {
-  background: var(--brand-green);
+  background: var(--brand-blue);
   color: #fff;
 }
 
@@ -258,7 +258,7 @@ a:hover {
 }
 
 .roster th {
-  color: var(--brand-green-dark);
+  color: var(--brand-blue-dark);
 }
 
 /* ---------- Forms (Contact + Registration) ---------- */
@@ -295,7 +295,7 @@ a:hover {
 .message-form button {
   margin-top: 24px;
   padding: 12px 20px;
-  background: var(--brand-green);
+  background: var(--brand-blue);
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -306,7 +306,7 @@ a:hover {
 }
 
 .message-form button:hover {
-  background: var(--brand-green-dark);
+  background: var(--brand-blue-dark);
 }
 
 /* ---------- Responsive ---------- */
