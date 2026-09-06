@@ -51,7 +51,7 @@ a:hover {
 }
 
 .site-header .logo {
-  height: 140px;
+  height: 280px;
   width: auto;
   object-fit: contain;
 }
@@ -60,19 +60,12 @@ a:hover {
   display: none;
 }
 
-.site-header.home-header {
-  justify-content: space-between;
-}
-
 .home-header .title-wrap {
   display: none;
 }
 
 .home-header .court-graphic {
-  max-height: 140px;
-  max-width: 220px;
-  width: auto;
-  height: auto;
+  display: none;
 }
 
 /* ---------- Nav ---------- */
