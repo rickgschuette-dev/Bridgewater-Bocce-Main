@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>League Registration — Bridgewater Bocce</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .thank-you {
+    display: none;
+    margin-top: 24px;
+  }
+  .thank-you.show {
+    display: block;
+  }
+  .checkbox-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 10px 0 20px;
+  }
+  .confirm-error {
+    display: none;
+    color: #b00020;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <img class="logo" src="logo.png" alt="Bridgewater Bocce logo">
+  <h1 class="site-title">Bridgewater Bocce</h1>
+</header>
+
+<nav class="site-nav">
+  <a href="index.html">Home</a>
+  <a href="registration.html">Registration</a>
+  <a href="team-rosters.html">Team Rosters</a>
+  <a href="schedule.html">Schedule</a>
+  <a href="standings.html">Results &amp; Standings</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<main class="page-content">
+  <h1>League registration</h1>
+  <p class="schedule-intro">The Bridgewater Bocce Fall Recreation League is set to begin play on Monday afternoon, October 5th.</p>
+  <p class="schedule-intro"><strong>All games on Mondays will start at 4:00 pm.</strong></p>
+  <p class="schedule-intro"><em>Note: this form is not yet connected to a submission service. The fields, matching checks, and Thank You message all work, but nothing is saved or emailed yet.</em></p>
+
+  <form class="message-form" data-thankyou="ty-registration" method="POST" name="registration" id="registration-form">
+    <input type="hidden" name="form-name" value="registration">
+    <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+
+    <label for="reg-first">First Name</label>
+    <input type="text" id="reg-first" name="First Name" required>
+
+    <label for="reg-last">Last Name</label>
+    <input type="text" id="reg-last" name="Last Name" required>
+
+    <label for="reg-email">Email Address</label>
+    <input type="email" id="reg-email" name="Email Address" required>
+
+    <label for="reg-email2">Confirm Email Address</label>
+    <input type="email" id="reg-email2" name="Confirm Email Address" required>
+
+    <label for="reg-phone">Text Number</label>
+    <input type="tel" id="reg-phone" name="Text Number" required>
+
+    <label for="reg-phone2">Confirm Text Number</label>
+    <input type="tel" id="reg-phone2" name="Confirm Text Number" required>
+
+    <label style="font-weight:bold;">Have you played in the BW Rec League previously?</label>
+    <div class="checkbox-row">
+      <label><input type="checkbox" name="Played Previously" value="Yes"> Yes</label>
+      <label><input type="checkbox" name="Played Previously" value="No, I am new"> No, I am new</label>
+      <label><input type="checkbox" name="Played Previously" value="No, but I play often"> No, but I play often</label>
+    </div>
+
+    <div class="confirm-error"></div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div class="thank-you" id="ty-registration">
+    <h2>Thank You!</h2>
+    <p>We will contact you with further information as we draw closer to the start of the schedule.</p>
+  </div>
+
+  <div class="legal-link-wrap">
+    <a class="legal-link" href="index.html">Home</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  Bridgewater Bocce
+</footer>
+
+<script>
+document.querySelectorAll('form[name]').forEach(function (form) {
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email1 = form.querySelector('#reg-email');
+    var email2 = form.querySelector('#reg-email2');
+    var phone1 = form.querySelector('#reg-phone');
+    var phone2 = form.querySelector('#reg-phone2');
+    var errorBox = form.querySelector('.confirm-error');
+    if (email1 && email2 && phone1 && phone2) {
+      var emailsMatch = email1.value.trim().toLowerCase() === email2.value.trim().toLowerCase();
+      var digitsOnly = function (v) { return v.replace(/\D/g, ''); };
+      var phonesMatch = digitsOnly(phone1.value) === digitsOnly(phone2.value);
+      if (!emailsMatch || !phonesMatch) {
+        if (errorBox) {
+          if (!emailsMatch && !phonesMatch) {
+            errorBox.textContent = 'Your Email Address and Text Number do not match their confirmation fields below them. Please check both and try again.';
+          } else if (!emailsMatch) {
+            errorBox.textContent = 'Your Email Address and Confirm Email Address do not match. Please check and try again.';
+          } else {
+            errorBox.textContent = 'Your Text Number and Confirm Text Number do not match. Please check and try again.';
+          }
+          errorBox.style.display = 'block';
+          errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        (!emailsMatch ? email2 : phone2).focus();
+        return;
+      }
+      if (errorBox) {
+        errorBox.style.display = 'none';
+      }
+    }
+    var data = new URLSearchParams(new FormData(form)).toString();
+    // TODO: Replace the placeholder below with the real Apps Script Web App URL
+    // from Deploy > New deployment (ends in /exec).
+    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwpS0-9Q3nRAYCV51fxdhBcEoPS6vbyvm18eMKA6IcscDVru4CndLyOtcW42Sv8BC5G/exec';
+    fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data })
+      .then(function () {
+        form.style.display = 'none';
+        var ty = document.getElementById(form.getAttribute('data-thankyou'));
+        if (ty) ty.classList.add('show');
+      })
+      .catch(function () {
+        alert('There was a problem submitting the form. Please check your connection and try again.');
+      });
+  });
+});
+</script>
+
+</body>
+</html>
