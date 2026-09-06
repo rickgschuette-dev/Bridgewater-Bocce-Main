@@ -130,9 +130,7 @@ document.querySelectorAll('form[name]').forEach(function (form) {
       }
     }
     var data = new URLSearchParams(new FormData(form)).toString();
-    // TODO: Replace the placeholder below with the real Apps Script Web App URL
-    // from Deploy > New deployment (ends in /exec).
-    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwpS0-9Q3nRAYCV51fxdhBcEoPS6vbyvm18eMKA6IcscDVru4CndLyOtcW42Sv8BC5G/exec';
+    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMkGBGIQ7rkJJpaoPobaXoiK7rCSyQID1cptC16Pa7vwQt_olHl2HwZR9KGYi8_Ueo/exec';
     fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data })
       .then(function () {
         form.style.display = 'none';
