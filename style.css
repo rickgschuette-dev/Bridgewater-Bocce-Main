@@ -1,1 +1,324 @@
+/* ============================================
+   Bridgewater Bocce — site-wide stylesheet
+   ============================================ */
 
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap');
+
+:root {
+  --brand-green-dark: #1b3d2c;
+  --brand-green: #2f6b45;
+  --brand-gold: #c9a227;
+  --brand-cream: #faf8f2;
+  --text-dark: #222222;
+  --border-light: #dcdcd2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  color: var(--text-dark);
+  background: var(--brand-cream);
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: 'Cinzel', Georgia, serif;
+  color: var(--brand-green-dark);
+}
+
+a {
+  color: var(--brand-green);
+}
+
+a:hover {
+  color: var(--brand-gold);
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--brand-green-dark);
+  border-bottom: 4px solid var(--brand-gold);
+}
+
+.site-header .logo {
+  height: 64px;
+  width: 64px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #fff;
+  padding: 4px;
+}
+
+.site-header .site-title {
+  margin: 0;
+  color: #fff;
+  font-size: 28px;
+}
+
+.site-header.home-header {
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.home-header .title-wrap {
+  flex: 1;
+  min-width: 200px;
+}
+
+.home-header .court-graphic {
+  max-width: 220px;
+  height: auto;
+}
+
+/* ---------- Nav ---------- */
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 14px 24px;
+  background: var(--brand-green);
+}
+
+.site-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.site-nav a:hover {
+  color: var(--brand-gold);
+  text-decoration: underline;
+}
+
+/* ---------- Main content ---------- */
+
+.page-content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+}
+
+.page-content h1 {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: 22px;
+  margin: 24px 0 14px;
+}
+
+.schedule-intro {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.legal-link-wrap {
+  margin-top: 36px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.legal-link {
+  font-weight: 600;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  text-align: center;
+  padding: 20px;
+  background: var(--brand-green-dark);
+  color: #fff;
+  font-size: 14px;
+}
+
+/* ---------- Home page: News section ---------- */
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.news-box {
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 40px 16px;
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}
+
+/* ---------- Schedule & Standings ---------- */
+
+.schedule-current,
+#standings-current {
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0 28px;
+}
+
+.schedule-match {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 15px;
+}
+
+.schedule-match:last-child {
+  border-bottom: none;
+}
+
+.schedule-jump {
+  display: flex;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.schedule-jump a {
+  font-weight: 600;
+}
+
+#schedule-weeks h3 {
+  margin-top: 28px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--brand-gold);
+}
+
+.standings-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.standings-table th,
+.standings-table td {
+  border: 1px solid var(--border-light);
+  padding: 10px 14px;
+  text-align: left;
+}
+
+.standings-table th {
+  background: var(--brand-green);
+  color: #fff;
+}
+
+.standings-table tr:nth-child(even) td {
+  background: #f5f3ec;
+}
+
+/* ---------- Team Rosters ---------- */
+
+.roster-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.roster-column {
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.roster-column h3 {
+  margin-top: 0;
+  font-size: 18px;
+  border-bottom: 2px solid var(--brand-gold);
+  padding-bottom: 8px;
+}
+
+.roster {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+.roster th,
+.roster td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 14px;
+  text-align: left;
+}
+
+.roster th {
+  color: var(--brand-green-dark);
+}
+
+/* ---------- Forms (Contact + Registration) ---------- */
+
+.message-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  margin-top: 16px;
+}
+
+.message-form label {
+  font-weight: 600;
+  margin-top: 14px;
+  margin-bottom: 4px;
+}
+
+.message-form input[type="text"],
+.message-form input[type="email"],
+.message-form input[type="tel"],
+.message-form textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.message-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.message-form button {
+  margin-top: 24px;
+  padding: 12px 20px;
+  background: var(--brand-green);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.message-form button:hover {
+  background: var(--brand-green-dark);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 600px) {
+  .site-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .site-nav {
+    justify-content: center;
+    text-align: center;
+  }
+}
