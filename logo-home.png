@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bridgewater Bocce</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header home-header">
+  <img class="logo" src="logo-home.png" alt="Bridgewater Bocce crest">
+  <div class="title-wrap">
+    <h1 class="site-title">Bridgewater Bocce</h1>
+  </div>
+  <svg class="court-graphic" width="330" height="300" viewBox="0 0 330 300" aria-hidden="true">
+    <defs>
+      <radialGradient id="redBall" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#e8746a"/>
+        <stop offset="55%" stop-color="#c23b30"/>
+        <stop offset="100%" stop-color="#8f2018"/>
+      </radialGradient>
+      <radialGradient id="greenBall" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#a9d9b0"/>
+        <stop offset="55%" stop-color="#6fb87a"/>
+        <stop offset="100%" stop-color="#3f7f4a"/>
+      </radialGradient>
+      <radialGradient id="pallino" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#fff8d6"/>
+        <stop offset="60%" stop-color="#f4d94a"/>
+        <stop offset="100%" stop-color="#c9a521"/>
+      </radialGradient>
+      <radialGradient id="shadow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="rgba(0,0,0,0.35)"/>
+        <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="65" cy="79" rx="30" ry="8" fill="url(#shadow)"/><ellipse cx="55" cy="177" rx="28" ry="7" fill="url(#shadow)"/><ellipse cx="285" cy="69" rx="30" ry="8" fill="url(#shadow)"/><ellipse cx="295" cy="172" rx="28" ry="7" fill="url(#shadow)"/><ellipse cx="168" cy="108" rx="12" ry="4" fill="url(#shadow)"/>
+    <clipPath id="clip-red1"><circle cx="65" cy="55" r="28"/></clipPath>
+    <circle cx="65" cy="55" r="28" fill="url(#redBall)" stroke="#5c130c" stroke-width="1.5"/>
+    <g clip-path="url(#clip-red1)">
+      <line x1="25.8" y1="64.3" x2="104.2" y2="64.3" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+      <line x1="71.3" y1="15.8" x2="71.3" y2="94.2" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+      <line x1="77.4" y1="15.8" x2="77.4" y2="94.2" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+    </g>
+    <clipPath id="clip-green1"><circle cx="55" cy="155" r="26"/></clipPath>
+    <circle cx="55" cy="155" r="26" fill="url(#greenBall)" stroke="#254d2c" stroke-width="1.5"/>
+    <g clip-path="url(#clip-green1)">
+      <line x1="18.6" y1="163.7" x2="91.4" y2="163.7" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+      <line x1="60.8" y1="118.6" x2="60.8" y2="191.4" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+      <line x1="66.5" y1="118.6" x2="66.5" y2="191.4" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+    </g>
+    <clipPath id="clip-red2"><circle cx="285" cy="45" r="28"/></clipPath>
+    <circle cx="285" cy="45" r="28" fill="url(#redBall)" stroke="#5c130c" stroke-width="1.5"/>
+    <g clip-path="url(#clip-red2)">
+      <line x1="245.8" y1="54.3" x2="324.2" y2="54.3" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+      <line x1="291.3" y1="5.8" x2="291.3" y2="84.2" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+      <line x1="297.4" y1="5.8" x2="297.4" y2="84.2" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+    </g>
+    <clipPath id="clip-green2"><circle cx="295" cy="150" r="26"/></clipPath>
+    <circle cx="295" cy="150" r="26" fill="url(#greenBall)" stroke="#254d2c" stroke-width="1.5"/>
+    <g clip-path="url(#clip-green2)">
+      <line x1="258.6" y1="158.7" x2="331.4" y2="158.7" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+      <line x1="300.8" y1="113.6" x2="300.8" y2="186.4" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+      <line x1="306.5" y1="113.6" x2="306.5" y2="186.4" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+    </g>
+    <circle cx="168" cy="100" r="10" fill="url(#pallino)" stroke="#7a611a" stroke-width="1"/>
+    <clipPath id="clip-red3"><circle cx="147" cy="247" r="28"/></clipPath>
+    <ellipse cx="137" cy="271" rx="30" ry="8" fill="url(#shadow)"/>
+    <circle cx="147" cy="247" r="28" fill="url(#redBall)" stroke="#5c130c" stroke-width="1.5"/>
+    <g clip-path="url(#clip-red3)">
+      <line x1="107.8" y1="256.3" x2="186.2" y2="256.3" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+      <line x1="153.3" y1="207.8" x2="153.3" y2="286.2" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+      <line x1="159.4" y1="207.8" x2="159.4" y2="286.2" stroke="#ffffff" stroke-width="2" opacity="0.9"/>
+    </g>
+  </svg>
+</header>
+<nav class="site-nav home-nav">
+  <a href="registration.html">Registration</a>
+  <a href="team-rosters.html">Team Rosters</a>
+  <a href="schedule.html">Schedule</a>
+  <a href="standings.html">Results &amp; Standings</a>
+  <a href="contact.html">Contact</a>
+</nav>
+<main class="page-content">
+  <h2 class="section-title">News</h2>
+  <div class="news-grid">
+    <div class="news-box">News / photo placeholder</div>
+    <div class="news-box">News / photo placeholder</div>
+    <div class="news-box">News / photo placeholder</div>
+  </div>
+</main>
+<footer class="site-footer">
+  Bridgewater Bocce
+</footer>
+</body>
+</html>
