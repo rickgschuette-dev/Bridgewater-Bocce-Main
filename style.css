@@ -46,7 +46,7 @@ a:hover {
   justify-content: center;
   gap: 16px;
   padding: 0 24px;
-  background: var(--brand-blue-dark);
+  background: radial-gradient(circle at center, var(--brand-blue) 0%, var(--brand-blue-dark) 75%);
   border-bottom: 4px solid var(--brand-gold);
 }
 
