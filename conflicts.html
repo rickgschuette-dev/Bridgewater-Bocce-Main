@@ -24,6 +24,12 @@
     display: flex;
     flex-direction: column;
   }
+  .form-row > div.field-wide {
+    flex: 2;
+  }
+  .form-row > div.field-narrow {
+    flex: 1;
+  }
   .conflicts-table-note {
     font-weight: bold;
     margin: 24px 0 4px;
@@ -102,11 +108,11 @@
     </div>
 
     <div class="form-row">
-      <div>
+      <div class="field-wide">
         <label for="conf-email">Email Address</label>
         <input type="email" id="conf-email" name="Email Address" required>
       </div>
-      <div>
+      <div class="field-narrow">
         <label for="conf-phone">Text Number</label>
         <input type="tel" id="conf-phone" name="Text Number" required>
       </div>
