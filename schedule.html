@@ -3,8 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Results and Standings — Bridgewater Bocce</title>
+<title>Schedule — Bridgewater Bocce</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  .schedule-week {
+    border: 1px solid #d8d8d8;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    background: #fff;
+  }
+  .schedule-week summary {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 17px;
+    padding: 12px 16px;
+    list-style: none;
+  }
+  .schedule-week summary::-webkit-details-marker {
+    display: none;
+  }
+  .schedule-week summary::before {
+    content: "+";
+    display: inline-block;
+    width: 18px;
+    font-weight: bold;
+    color: #6b6b6b;
+  }
+  .schedule-week[open] summary::before {
+    content: "\2212";
+  }
+  .schedule-week.makeup-round {
+    border-color: #c9d8e8;
+    background: #f7fafd;
+  }
+  .matchup-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 4px 16px 16px;
+  }
+  @media (max-width: 700px) {
+    .matchup-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .matchup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 1px solid #e2e2e2;
+    border-radius: 4px;
+    padding: 8px 6px;
+    font-size: 14px;
+    background: #fafafa;
+  }
+  .mnum {
+    font-weight: bold;
+  }
+  .mvs {
+    color: #999;
+    font-size: 12px;
+  }
+  .schedule-note {
+    font-size: 14px;
+    color: #555;
+    margin: 4px 0 20px;
+  }
+  .schedule-section-heading {
+    font-size: 20px;
+    margin: 30px 0 6px;
+  }
+</style>
 </head>
 <body>
 
@@ -15,42 +85,248 @@
 
 <nav class="site-nav">
   <a href="index.html">Home</a>
+  <a href="registration.html">Registration</a>
   <a href="team-rosters.html">Team Rosters</a>
-  <a href="schedule.html">Schedule</a>
-  <a href="standings.html">Results &amp; Standings</a>
+  <a href="standings.html">Standings</a>
   <a href="contact.html">Contact</a>
 </nav>
 
 <main class="page-content">
-  <h1>Results &amp; standings</h1>
-  <p class="schedule-intro">This page currently shows placeholder results and standings. Once the season is underway, the most recent week's results will be posted here, along with season-long win/loss totals for every team.</p>
+  <h1>Schedule</h1>
+  <p class="schedule-intro">The 10-week regular season schedule below has every team playing 3 games each Monday. Tap a week to see that week's match-ups. Dates skip the week of November 23 for Thanksgiving.</p>
 
-  <section class="schedule-current" id="standings-current">
-    <h2 style="font-size:18px; margin-bottom:10px;">Last Week's Results</h2>
-    <div class="schedule-match">Team 1 def. Team 2 — Placeholder score</div>
-    <div class="schedule-match">Team 3 def. Team 4 — Placeholder score</div>
-    <div class="schedule-match">Team 5 def. Team 6 — Placeholder score</div>
-    <div class="schedule-match">Team 7 def. Team 8 — Placeholder score</div>
-    <div class="schedule-match">Team 9 def. Team 10 — Placeholder score</div>
-  </section>
+  <details class="schedule-week" open>
+    <summary>Week 1 &mdash; Oct 5</summary>
+    <div class="matchup-grid">
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div>
+    </div>
+  </details>
 
-  <h2 style="font-size:20px; margin-bottom:14px;">Standings</h2>
+  <details class="schedule-week">
+    <summary>Week 2 &mdash; Oct 12</summary>
+    <div class="matchup-grid">
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 7</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
+      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+    </div>
+  </details>
 
-  <div id="standings-table-wrap">
-    <table class="standings-table">
-      <tr><th>Team</th><th>Wins</th><th>Losses</th></tr>
-      <tr><td>Team 1</td><td>0</td><td>0</td></tr>
-      <tr><td>Team 2</td><td>0</td><td>0</td></tr>
-      <tr><td>Team 3</td><td>0</td><td>0</td></tr>
-      <tr><td>Team 4</td><td>0</td><td>0</td></tr>
-      <tr><td>Team 5</td><td>0</td><td>0</td></tr>
-      <tr><td>Team 6</td><td>0</td><td>0</td></tr>
-      <tr><td>Team 7</td><td>0</td><td>0</td></tr>
-      <tr><td>Team 8</td><td>0</td><td>0</td></tr>
-      <tr><td>Team 9</td><td>0</td><td>0</td></tr>
-      <tr><td>Team 10</td><td>0</td><td>0</td></tr>
-    </table>
-  </div>
+  <details class="schedule-week">
+    <summary>Week 3 &mdash; Oct 19</summary>
+    <div class="matchup-grid">
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 2</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
+    </div>
+  </details>
+
+  <details class="schedule-week">
+    <summary>Week 4 &mdash; Oct 26</summary>
+    <div class="matchup-grid">
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 7</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+    </div>
+  </details>
+
+  <details class="schedule-week">
+    <summary>Week 5 &mdash; Nov 2</summary>
+    <div class="matchup-grid">
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
+      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 2</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+    </div>
+  </details>
+
+  <details class="schedule-week">
+    <summary>Week 6 &mdash; Nov 9</summary>
+    <div class="matchup-grid">
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+    </div>
+  </details>
+
+  <details class="schedule-week">
+    <summary>Week 7 &mdash; Nov 16</summary>
+    <div class="matchup-grid">
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 7</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
+      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 2</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+    </div>
+  </details>
+
+  <details class="schedule-week">
+    <summary>Week 8 &mdash; Nov 30</summary>
+    <div class="matchup-grid">
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div>
+    </div>
+  </details>
+
+  <details class="schedule-week">
+    <summary>Week 9 &mdash; Dec 7</summary>
+    <div class="matchup-grid">
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 7</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
+      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+    </div>
+  </details>
+
+  <details class="schedule-week">
+    <summary>Week 10 &mdash; Dec 14</summary>
+    <div class="matchup-grid">
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 2</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
+    </div>
+  </details>
+
+  <h2 class="schedule-section-heading">Schedule Balancing Rounds</h2>
+  <p class="schedule-note">These 10 extra games (5 short rounds) make sure every team ends up meeting every other team the same number of times over the full season. Dates for these will be added once they're finalized with the League Admin.</p>
+
+  <details class="schedule-week makeup-round">
+    <summary>Make-Up Round 1</summary>
+    <div class="matchup-grid">
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div>
+    </div>
+  </details>
+
+  <details class="schedule-week makeup-round">
+    <summary>Make-Up Round 2</summary>
+    <div class="matchup-grid">
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+    </div>
+  </details>
+
+  <details class="schedule-week makeup-round">
+    <summary>Make-Up Round 3</summary>
+    <div class="matchup-grid">
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mnum">Team 7</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+    </div>
+  </details>
+
+  <details class="schedule-week makeup-round">
+    <summary>Make-Up Round 4</summary>
+    <div class="matchup-grid">
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div>
+      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
+      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+    </div>
+  </details>
+
+  <details class="schedule-week makeup-round">
+    <summary>Make-Up Round 5</summary>
+    <div class="matchup-grid">
+      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 2</span></div>
+      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+    </div>
+  </details>
 
   <div class="legal-link-wrap">
     <a class="legal-link" href="index.html">Home</a>

@@ -60,6 +60,14 @@ a:hover {
   display: none;
 }
 
+.home-header .logo {
+  height: 276px;
+}
+
+.home-header {
+  padding-bottom: 20px;
+}
+
 .home-header .title-wrap {
   display: none;
 }
@@ -76,6 +84,9 @@ a:hover {
   gap: 20px;
   padding: 14px 24px;
   background: var(--brand-blue);
+  justify-content: space-between;
+  padding-left: 82px;
+  padding-right: 82px;
 }
 
 .site-nav a {
