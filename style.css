@@ -85,8 +85,8 @@ a:hover {
   padding: 14px 24px;
   background: var(--brand-blue);
   justify-content: space-between;
-  padding-left: 82px;
-  padding-right: 82px;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
 .site-nav a {
