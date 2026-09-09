@@ -465,6 +465,43 @@ a:hover {
   text-decoration: underline;
 }
 
+/* ---------- Add to Home Screen page: compact layout ----------
+   Tightened so both the Android and iPhone instructions fit on one
+   mobile screen without scrolling. */
+
+.add-home-page .page-content {
+  padding-top: 16px;
+}
+
+.add-home-page h1 {
+  font-size: 20px;
+  margin: 0 0 4px;
+}
+
+.add-home-page .schedule-intro {
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
+.add-home-page .section-title {
+  font-size: 16px;
+  margin: 10px 0 6px;
+}
+
+.add-home-page .install-banner {
+  margin: 0 0 8px;
+  padding: 10px 14px;
+}
+
+.add-home-page .install-banner-text {
+  font-size: 14px;
+}
+
+.add-home-page .install-steps li {
+  margin: 0 0 6px;
+  font-size: 14px;
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 600px) {
