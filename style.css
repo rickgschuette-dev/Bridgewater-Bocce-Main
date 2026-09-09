@@ -450,6 +450,21 @@ a:hover {
   font-weight: bold;
 }
 
+/* ---------- Homepage: "Add to your phone" plain-text link line ----------
+   Sits where the old auto-appearing install banners were, after the
+   Conflicts form. Links through to add-to-home-screen.html. */
+
+.home-screen-links {
+  margin: 0 0 24px;
+  font-size: 15px;
+}
+
+.home-screen-links a {
+  color: var(--brand-blue-dark);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 600px) {
