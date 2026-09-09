@@ -1,0 +1,5 @@
+# Deploy-artifact zips generated locally (large, not meant for the repo)
+deploy-*.zip
+
+# Netlify CLI's local site-link state -- machine-specific, not shared config
+.netlify/
