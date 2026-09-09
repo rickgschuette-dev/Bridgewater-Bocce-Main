@@ -321,4 +321,9 @@ a:hover {
     justify-content: center;
     text-align: center;
   }
+
+  .site-header .logo,
+  .home-header .logo {
+    height: 110px;
+  }
 }
