@@ -309,6 +309,147 @@ a:hover {
   background: var(--brand-blue-dark);
 }
 
+/* ---------- Homepage: "Add This to Your Phone" install banner ----------
+   Hidden by default; assets/install-prompt.js reveals it only on phones
+   where the browser has confirmed a one-tap install is available.
+   Light blue tint with a gold border so it stands out under the header
+   without clashing with the site's blue/gold palette. */
+
+.install-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #eaf1fb;
+  border: 1px solid var(--brand-gold);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 0 0 24px;
+}
+
+.install-banner-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-dark);
+}
+
+.install-banner-text strong {
+  color: var(--brand-blue-dark);
+  font-size: 16px;
+}
+
+.install-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.install-banner-btn {
+  background: var(--brand-blue);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.install-banner-btn:hover {
+  background: var(--brand-blue-dark);
+}
+
+.install-banner-dismiss {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.install-banner-ios {
+  display: block;
+}
+
+.install-steps-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.install-steps {
+  margin: 12px 0 0;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: install-step;
+}
+
+.install-steps li {
+  counter-increment: install-step;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 0 10px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-dark);
+}
+
+.install-steps li:last-child {
+  margin-bottom: 0;
+}
+
+.install-steps li::before {
+  content: counter(install-step);
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--brand-blue);
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.install-step-icon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--brand-blue-dark);
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.install-steps-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 10px;
+  row-gap: 10px;
+  margin: 0;
+}
+
+.install-steps-row li {
+  margin: 0;
+}
+
+.install-steps-row li:not(:last-child)::after {
+  content: "\2192";
+  margin-left: 10px;
+  color: #888;
+  font-weight: bold;
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 600px) {
