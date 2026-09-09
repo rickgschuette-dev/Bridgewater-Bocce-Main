@@ -170,28 +170,6 @@ if ('serviceWorker' in navigator) {
   <a href="contact.html">Contact</a>
 </nav>
 <main class="page-content">
-  <div id="install-banner" class="install-banner" hidden>
-    <p class="install-banner-text"><strong>Add This to Your Android Phone</strong><br>Puts a Bridgewater Bocce icon on your home screen, just like an app.</p>
-    <div class="install-banner-actions">
-      <button type="button" id="install-banner-btn" class="install-banner-btn">Add This to Your Android Phone</button>
-      <button type="button" id="install-banner-dismiss" class="install-banner-dismiss">Not now</button>
-    </div>
-  </div>
-
-  <div id="ios-install-banner" class="install-banner install-banner-ios" hidden>
-    <div class="install-banner-body">
-      <p class="install-banner-text"><strong>Add this to your iPhone:</strong> Put a shortcut icon on your home screen.</p>
-      <div class="install-steps-line">
-        <ol class="install-steps install-steps-row">
-          <li><span class="install-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V3"></path><path d="M7 8l5-5 5 5"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg></span> Tap Share at the bottom of your screen</li>
-          <li>Add to Home Screen</li>
-          <li>Add</li>
-        </ol>
-        <button type="button" id="ios-install-banner-dismiss" class="install-banner-dismiss">Got it</button>
-      </div>
-    </div>
-  </div>
-
   <section class="conflicts-section">
     <h2 class="section-title">Fall League Schedule Conflicts</h2>
     <p class="schedule-intro">Let us know now about any Mondays this season you already know you'll miss, and we'll do our best to work around it when finalizing that week's matchups. One submission covers your whole season &mdash; no need to fill this out more than once.</p>
@@ -298,12 +276,28 @@ if ('serviceWorker' in navigator) {
     </div>
   </section>
 
-  <h2 class="section-title">News</h2>
-  <div class="news-grid">
-    <div class="news-box">News / photo placeholder</div>
-    <div class="news-box">News / photo placeholder</div>
-    <div class="news-box">News / photo placeholder</div>
+  <div id="install-banner" class="install-banner" hidden>
+    <p class="install-banner-text"><strong>Add This to Your Android Phone</strong><br>Puts a Bridgewater Bocce icon on your home screen, just like an app.</p>
+    <div class="install-banner-actions">
+      <button type="button" id="install-banner-btn" class="install-banner-btn">Add This to Your Android Phone</button>
+      <button type="button" id="install-banner-dismiss" class="install-banner-dismiss">Not now</button>
+    </div>
   </div>
+
+  <div id="ios-install-banner" class="install-banner install-banner-ios" hidden>
+    <div class="install-banner-body">
+      <p class="install-banner-text"><strong>Add this to your iPhone:</strong> Put a shortcut icon on your home screen.</p>
+      <div class="install-steps-line">
+        <ol class="install-steps install-steps-row">
+          <li><span class="install-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V3"></path><path d="M7 8l5-5 5 5"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg></span> Tap Share at the bottom of your screen</li>
+          <li>Add to Home Screen</li>
+          <li>Add</li>
+        </ol>
+        <button type="button" id="ios-install-banner-dismiss" class="install-banner-dismiss">Got it</button>
+      </div>
+    </div>
+  </div>
+
 </main>
 <footer class="site-footer">
   Bridgewater Bocce
