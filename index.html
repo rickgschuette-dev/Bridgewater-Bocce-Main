@@ -419,7 +419,16 @@ if ('serviceWorker' in navigator) {
 document.querySelectorAll('form[name="conflicts"]').forEach(function (form) {
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    var submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn && submitBtn.disabled) {
+      return;
+    }
     var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxf2TpyEbcHGN0d7v9I4gxo6cauDGnhSGS4Xy1805LPIi73Smu5jRrp-khpMY5IEzsK/exec';
+    var originalBtnText = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting…';
+    }
     var data = new URLSearchParams(new FormData(form)).toString();
     fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data })
       .then(function () {
@@ -429,6 +438,10 @@ document.querySelectorAll('form[name="conflicts"]').forEach(function (form) {
       })
       .catch(function () {
         alert('There was a problem submitting the form. Please check your connection and try again.');
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+        }
       });
   });
 });
