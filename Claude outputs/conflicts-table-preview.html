@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview — Conflicts Table (not yet pushed)</title>
+<style>
+  :root {
+    --brand-blue-dark: #142850;
+    --brand-blue: #2a52be;
+    --brand-gold: #c9a227;
+    --brand-cream: #faf8f2;
+    --text-dark: #222222;
+    --border-light: #dcdcd2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 24px 16px 60px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    color: var(--text-dark);
+    background: var(--brand-cream);
+    line-height: 1.5;
+  }
+  .preview-banner {
+    max-width: 480px;
+    margin: 0 auto 20px;
+    padding: 10px 14px;
+    background: #fff4d6;
+    border: 1px solid var(--brand-gold);
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--brand-blue-dark);
+  }
+  .conflicts-table-note {
+    max-width: 480px;
+    margin: 0 auto 4px;
+    font-weight: bold;
+  }
+  .conflicts-table-wrap {
+    max-width: 480px;
+    margin: 12px auto 24px;
+    overflow-x: auto;
+  }
+  .conflicts-table {
+    width: 100%;
+    max-width: 480px;
+    border-collapse: collapse;
+    background: #fff;
+  }
+  .conflicts-table th,
+  .conflicts-table td {
+    border: 1px solid var(--border-light);
+    padding: 10px 12px;
+    text-align: center;
+    font-size: 14px;
+  }
+  .conflicts-table th {
+    background: var(--brand-blue);
+    color: #fff;
+    font-weight: 600;
+  }
+  .conflicts-table td:first-child {
+    text-align: left;
+    font-weight: 600;
+    color: var(--brand-blue-dark);
+    white-space: nowrap;
+  }
+  .conflicts-table tr:nth-child(even) td {
+    background: #f5f3ec;
+  }
+  .conflicts-table input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+  .conflicts-table tr.conflicts-divider-row td {
+    border: none;
+    background: transparent;
+    padding: 24px 0 10px;
+  }
+  .conflicts-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .conflicts-divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border-light);
+  }
+  .conflicts-divider-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--brand-blue-dark);
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+  <div class="preview-banner">Preview only — this is the local change on your machine, not yet pushed to GitHub/Netlify.</div>
+
+  <p class="conflicts-table-note">For each date you'll miss, check which start time(s) affect you. Leave a row blank if you have no conflict that week.</p>
+
+  <div class="conflicts-table-wrap">
+    <table class="conflicts-table">
+      <tr>
+        <th>Date</th>
+        <th>2:30 start</th>
+        <th>4:00 start</th>
+        <th>Both</th>
+      </tr>
+      <tr>
+        <td>Week 1 &mdash; Oct 5</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>Week 2 &mdash; Oct 12</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>Week 3 &mdash; Oct 19</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>Week 4 &mdash; Oct 26</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>Week 5 &mdash; Nov 2</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>Week 6 &mdash; Nov 9</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>Week 7 &mdash; Nov 16</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>Week 8 &mdash; Nov 30</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>Week 9 &mdash; Dec 7</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr class="conflicts-divider-row">
+        <td colspan="4">
+          <div class="conflicts-divider">
+            <span class="conflicts-divider-line"></span>
+            <span class="conflicts-divider-label">Make Up Weeks</span>
+            <span class="conflicts-divider-line"></span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Week 10 &mdash; Dec 14</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>Week 11 &mdash; Dec 21</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+    </table>
+  </div>
+
+</body>
+</html>
