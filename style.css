@@ -309,6 +309,12 @@ a:hover {
   background: var(--brand-blue-dark);
 }
 
+.message-form button:disabled {
+  background: #9aa0a6;
+  color: #f1f1f1;
+  cursor: not-allowed;
+}
+
 /* ---------- Homepage: "Add This to Your Phone" install banner ----------
    Hidden by default; assets/install-prompt.js reveals it only on phones
    where the browser has confirmed a one-tap install is available.
