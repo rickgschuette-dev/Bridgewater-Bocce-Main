@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Street Brawl — Bridgewater Bocce</title>
+<link rel="stylesheet" href="style.css">
+
+<!-- PWA: install-to-home-screen support -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#142850">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Bridgewater Bocce">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
+</script>
+<style>
+  .sb-intro {
+    font-size: 16px;
+    margin: 8px 0 24px;
+  }
+  .sb-bracket-heading {
+    font-size: 24px;
+    margin: 36px 0 4px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--brand-gold);
+  }
+  .sb-bracket-heading:first-of-type {
+    margin-top: 12px;
+  }
+  .sb-section-label {
+    font-size: 18px;
+    margin: 20px 0 8px;
+  }
+  .sb-status {
+    display: none;
+    background: #fdf3e0;
+    border: 1px solid var(--brand-gold);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    margin: 8px 0 20px;
+  }
+  .sb-games-table,
+  .standings-table.sb-standings {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    margin-bottom: 8px;
+  }
+  .sb-games-table th,
+  .sb-games-table td {
+    border: 1px solid var(--border-light);
+    padding: 8px 10px;
+    text-align: left;
+    font-size: 14px;
+  }
+  .sb-games-table th {
+    background: var(--brand-blue);
+    color: #fff;
+  }
+  .sb-games-table tr:nth-child(even) td {
+    background: #f5f3ec;
+  }
+  .sb-standings th,
+  .sb-standings td {
+    text-align: center;
+  }
+  .sb-standings th:first-child,
+  .sb-standings td:first-child {
+    text-align: left;
+  }
+  .sb-legend {
+    font-size: 13px;
+    color: #666;
+    margin: 4px 0 0;
+  }
+  .sb-refresh-row {
+    margin: 6px 0 18px;
+  }
+  .sb-refresh-btn {
+    background: var(--brand-blue);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .sb-refresh-btn:hover {
+    background: var(--brand-blue-dark);
+  }
+  .sb-updated {
+    font-size: 13px;
+    color: #666;
+    margin-left: 12px;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <img class="logo" src="logo-home.png" alt="Bridgewater Bocce logo">
+  <h1 class="site-title">Bridgewater Bocce</h1>
+</header>
+
+<nav class="site-nav">
+  <a href='/'>Home</a>
+  <a href='/registration'>Registration</a>
+  <a href='/team-rosters'>Team Rosters</a>
+  <a href='/schedule'>Schedule</a>
+  <a href='/standings'>Standings</a>
+  <a href='/contact'>Contact</a>
+</nav>
+
+<main class="page-content">
+  <h1>Street Brawl Tournament</h1>
+  <p class="sb-intro">Saturday, September 26, 2026. Two brackets, Phase North and Phase South, each play a full round robin on their own court. Standings and scores below update automatically once results are entered after each game.</p>
+
+  <div class="sb-status" id="street-brawl-status"></div>
+
+  <div class="sb-refresh-row">
+    <button type="button" class="sb-refresh-btn" id="sb-refresh-btn">Refresh scores</button>
+    <span class="sb-updated" id="sb-updated"></span>
+  </div>
+
+  <h2 class="sb-bracket-heading">Phase North</h2>
+
+  <h3 class="sb-section-label">Teams</h3>
+  <div class="roster-columns">
+    <div class="roster-column">
+      <h3>Alister West</h3>
+      <table class="roster roster-compact">
+        <tr><th>Player</th></tr>
+        <tr><td>Bruce Holmes</td></tr>
+        <tr><td>Lisa Holmes</td></tr>
+        <tr><td>Elaine France</td></tr>
+        <tr><td>Victoria Quinn</td></tr>
+        <tr><td>Ginny Casazza</td></tr>
+      </table>
+    </div>
+    <div class="roster-column">
+      <h3>Great Belt East</h3>
+      <table class="roster roster-compact">
+        <tr><th>Player</th></tr>
+        <tr><td>Lizbeth Heacock</td></tr>
+        <tr><td>Patrick Heacock</td></tr>
+        <tr><td>Robert Dasso</td></tr>
+        <tr><td>Sheryl Blais</td></tr>
+        <tr><td>Timothy McLaughlin</td></tr>
+        <tr><td>Hal Rose</td></tr>
+      </table>
+    </div>
+    <div class="roster-column">
+      <h3>Alister East</h3>
+      <table class="roster roster-compact">
+        <tr><th>Player</th></tr>
+        <tr><td>Amy Longtin</td></tr>
+        <tr><td>Dee Rodmer</td></tr>
+        <tr><td>Elizabeth Pierro-McManus</td></tr>
+        <tr><td>Jossie Robinson</td></tr>
+        <tr><td>Milton Robinson</td></tr>
+      </table>
+    </div>
+    <div class="roster-column">
+      <h3>Great Belt West B / Velkey</h3>
+      <table class="roster roster-compact">
+        <tr><th>Player</th></tr>
+        <tr><td>Johanne McCloskey</td></tr>
+        <tr><td>Wendy Henning</td></tr>
+        <tr><td>Jeff Henning</td></tr>
+        <tr><td>Bernadette Maurer</td></tr>
+        <tr><td>Vincent Maurer</td></tr>
+        <tr><td>Frances Bernal</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3 class="sb-section-label">Standings</h3>
+  <table class="standings-table sb-standings">
+    <thead>
+      <tr><th>Team</th><th>W</th><th>L</th><th>T</th><th>PF</th><th>PA</th><th>Diff</th></tr>
+    </thead>
+    <tbody id="north-standings-body">
+      <tr><td colspan="7">Loading standings&hellip;</td></tr>
+    </tbody>
+  </table>
+  <p class="sb-legend">W = wins, L = losses, T = ties, PF = points scored, PA = points allowed, Diff = point differential.</p>
+
+  <h3 class="sb-section-label">Schedule &amp; Scores</h3>
+  <table class="sb-games-table">
+    <thead>
+      <tr><th>Game</th><th>Round</th><th>Matchup</th><th>Score</th></tr>
+    </thead>
+    <tbody id="north-games-body">
+      <tr><td>1</td><td>1</td><td>Alister West vs. Great Belt East</td><td>Loading&hellip;</td></tr>
+      <tr><td>2</td><td>1</td><td>Alister East vs. Great Belt West B / Velkey</td><td>Loading&hellip;</td></tr>
+      <tr><td>3</td><td>2</td><td>Alister West vs. Great Belt West B / Velkey</td><td>Loading&hellip;</td></tr>
+      <tr><td>4</td><td>2</td><td>Alister East vs. Great Belt East</td><td>Loading&hellip;</td></tr>
+      <tr><td>5</td><td>3</td><td>Alister West vs. Alister East</td><td>Loading&hellip;</td></tr>
+      <tr><td>6</td><td>3</td><td>Great Belt West B / Velkey vs. Great Belt East</td><td>Loading&hellip;</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="sb-bracket-heading">Phase South</h2>
+
+  <h3 class="sb-section-label">Teams</h3>
+  <div class="roster-columns">
+    <div class="roster-column">
+      <h3>Chapel Bridge / Caravan</h3>
+      <table class="roster roster-compact">
+        <tr><th>Player</th></tr>
+        <tr><td>Beverly Perreault</td></tr>
+        <tr><td>Giles Stein</td></tr>
+        <tr><td>Laurie Stein</td></tr>
+        <tr><td>Ed Young</td></tr>
+        <tr><td>Jan Wallach</td></tr>
+      </table>
+    </div>
+    <div class="roster-column">
+      <h3>Trift Bridge / Millennium</h3>
+      <table class="roster roster-compact">
+        <tr><th>Player</th></tr>
+        <tr><td>Betsy Marvin</td></tr>
+        <tr><td>Deeon Singer</td></tr>
+        <tr><td>H L Singer</td></tr>
+        <tr><td>Janet Helfand</td></tr>
+        <tr><td>Steve Filler</td></tr>
+      </table>
+    </div>
+    <div class="roster-column">
+      <h3>Great Belt West A</h3>
+      <table class="roster roster-compact">
+        <tr><th>Player</th></tr>
+        <tr><td>Frank Colombo</td></tr>
+        <tr><td>Grace Colombo</td></tr>
+        <tr><td>Valerie Cole</td></tr>
+        <tr><td>Vernon Cole</td></tr>
+        <tr><td>Bob Mattes</td></tr>
+        <tr><td>Janet E. Mattes</td></tr>
+      </table>
+    </div>
+    <div class="roster-column">
+      <h3>Treasure Cay</h3>
+      <table class="roster roster-compact">
+        <tr><th>Player</th></tr>
+        <tr><td>Christine Passamonte</td></tr>
+        <tr><td>Eddie Skrod</td></tr>
+        <tr><td>Jan Sams</td></tr>
+        <tr><td>Tim Sams</td></tr>
+        <tr><td>Wanda Loonam</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h3 class="sb-section-label">Standings</h3>
+  <table class="standings-table sb-standings">
+    <thead>
+      <tr><th>Team</th><th>W</th><th>L</th><th>T</th><th>PF</th><th>PA</th><th>Diff</th></tr>
+    </thead>
+    <tbody id="south-standings-body">
+      <tr><td colspan="7">Loading standings&hellip;</td></tr>
+    </tbody>
+  </table>
+  <p class="sb-legend">W = wins, L = losses, T = ties, PF = points scored, PA = points allowed, Diff = point differential.</p>
+
+  <h3 class="sb-section-label">Schedule &amp; Scores</h3>
+  <table class="sb-games-table">
+    <thead>
+      <tr><th>Game</th><th>Round</th><th>Matchup</th><th>Score</th></tr>
+    </thead>
+    <tbody id="south-games-body">
+      <tr><td>1</td><td>1</td><td>Chapel Bridge / Caravan vs. Treasure Cay</td><td>Loading&hellip;</td></tr>
+      <tr><td>2</td><td>1</td><td>Trift Bridge / Millennium vs. Great Belt West A</td><td>Loading&hellip;</td></tr>
+      <tr><td>3</td><td>2</td><td>Chapel Bridge / Caravan vs. Great Belt West A</td><td>Loading&hellip;</td></tr>
+      <tr><td>4</td><td>2</td><td>Trift Bridge / Millennium vs. Treasure Cay</td><td>Loading&hellip;</td></tr>
+      <tr><td>5</td><td>3</td><td>Chapel Bridge / Caravan vs. Trift Bridge / Millennium</td><td>Loading&hellip;</td></tr>
+      <tr><td>6</td><td>3</td><td>Great Belt West A vs. Treasure Cay</td><td>Loading&hellip;</td></tr>
+    </tbody>
+  </table>
+
+  <div class="legal-link-wrap">
+    <a class='legal-link' href='/'>Home</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  Bridgewater Bocce
+</footer>
+
+<script>
+(function () {
+  // Read-only Apps Script Web App backing the "Bridgewater Bocce - Street Brawl Results" sheet.
+  // Deployed and verified 2026-09-24. If this ever needs to change, update this one constant.
+  var API_URL = 'https://script.google.com/macros/s/AKfycbxJ7eKifBZJFbvRtzGiPzjvozD11qg8_DAy7DMKn7V6DFd8BvJHLSKVo82DK8dd77VR/exec';
+
+  function clearBody(tbody) {
+    while (tbody.firstChild) {
+      tbody.removeChild(tbody.firstChild);
+    }
+  }
+
+  function cell(tag, text) {
+    var el = document.createElement(tag);
+    el.textContent = text;
+    return el;
+  }
+
+  function renderStandings(tbody, standings) {
+    clearBody(tbody);
+    if (!standings || standings.length === 0) {
+      var tr = document.createElement('tr');
+      tr.appendChild(cell('td', 'No teams found.'));
+      tbody.appendChild(tr);
+      return;
+    }
+    standings.forEach(function (t) {
+      var tr = document.createElement('tr');
+      tr.appendChild(cell('td', t.team));
+      tr.appendChild(cell('td', String(t.wins)));
+      tr.appendChild(cell('td', String(t.losses)));
+      tr.appendChild(cell('td', String(t.ties)));
+      tr.appendChild(cell('td', String(t.pointsFor)));
+      tr.appendChild(cell('td', String(t.pointsAgainst)));
+      tr.appendChild(cell('td', (t.diff > 0 ? '+' : '') + t.diff));
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderGames(tbody, games) {
+    clearBody(tbody);
+    if (!games || games.length === 0) {
+      var tr = document.createElement('tr');
+      tr.appendChild(cell('td', 'No games found.'));
+      tbody.appendChild(tr);
+      return;
+    }
+    games.forEach(function (g) {
+      var tr = document.createElement('tr');
+      tr.appendChild(cell('td', String(g.game)));
+      tr.appendChild(cell('td', String(g.round)));
+      tr.appendChild(cell('td', g.teamA + ' vs. ' + g.teamB));
+      var scoreText = g.played ? (g.scoreA + ' – ' + g.scoreB) : 'Not yet played';
+      tr.appendChild(cell('td', scoreText));
+      tbody.appendChild(tr);
+    });
+  }
+
+  function showStatus(msg) {
+    var el = document.getElementById('street-brawl-status');
+    el.textContent = msg;
+    el.style.display = msg ? 'block' : 'none';
+  }
+
+  function loadResults() {
+    showStatus('');
+    var updatedEl = document.getElementById('sb-updated');
+    updatedEl.textContent = 'Loading…';
+
+    fetch(API_URL)
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error('Server responded with status ' + res.status);
+        }
+        return res.json();
+      })
+      .then(function (data) {
+        if (!data.ok) {
+          throw new Error(data.error || 'Unknown error from the results sheet.');
+        }
+        var north = data.brackets && data.brackets['Phase North'];
+        var south = data.brackets && data.brackets['Phase South'];
+
+        if (north) {
+          renderStandings(document.getElementById('north-standings-body'), north.standings);
+          renderGames(document.getElementById('north-games-body'), north.games);
+        }
+        if (south) {
+          renderStandings(document.getElementById('south-standings-body'), south.standings);
+          renderGames(document.getElementById('south-games-body'), south.games);
+        }
+
+        var when = new Date(data.generatedAt);
+        updatedEl.textContent = 'Last updated ' + when.toLocaleTimeString();
+      })
+      .catch(function (err) {
+        updatedEl.textContent = '';
+        showStatus('Live standings and scores could not be loaded right now (' + err.message + '). The schedule below still shows the matchups. Try "Refresh scores," or reload the page.');
+      });
+  }
+
+  document.getElementById('sb-refresh-btn').addEventListener('click', loadResults);
+  loadResults();
+})();
+</script>
+
+</body>
+</html>
