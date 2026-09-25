@@ -153,13 +153,12 @@ if ('serviceWorker' in navigator) {
   <h3 class="sb-section-label">Standings</h3>
   <table class="standings-table sb-standings">
     <thead>
-      <tr><th>Team</th><th>W</th><th>L</th><th>T</th><th>PF</th><th>PA</th><th>Diff</th></tr>
+      <tr><th>Team</th><th>W</th><th>L</th><th>PF</th><th>PA</th><th>Diff</th></tr>
     </thead>
     <tbody id="north-standings-body">
-      <tr><td colspan="7">Loading standings&hellip;</td></tr>
+      <tr><td colspan="6">Loading standings&hellip;</td></tr>
     </tbody>
   </table>
-  <p class="sb-legend">W = wins, L = losses, T = ties, PF = points scored, PA = points allowed, Diff = point differential.</p>
 
   <h3 class="sb-section-label">Teams</h3>
   <div class="roster-columns">
@@ -231,13 +230,12 @@ if ('serviceWorker' in navigator) {
   <h3 class="sb-section-label">Standings</h3>
   <table class="standings-table sb-standings">
     <thead>
-      <tr><th>Team</th><th>W</th><th>L</th><th>T</th><th>PF</th><th>PA</th><th>Diff</th></tr>
+      <tr><th>Team</th><th>W</th><th>L</th><th>PF</th><th>PA</th><th>Diff</th></tr>
     </thead>
     <tbody id="south-standings-body">
-      <tr><td colspan="7">Loading standings&hellip;</td></tr>
+      <tr><td colspan="6">Loading standings&hellip;</td></tr>
     </tbody>
   </table>
-  <p class="sb-legend">W = wins, L = losses, T = ties, PF = points scored, PA = points allowed, Diff = point differential.</p>
 
   <h3 class="sb-section-label">Teams</h3>
   <div class="roster-columns">
@@ -341,7 +339,6 @@ if ('serviceWorker' in navigator) {
       tr.appendChild(cell('td', t.team));
       tr.appendChild(cell('td', String(t.wins)));
       tr.appendChild(cell('td', String(t.losses)));
-      tr.appendChild(cell('td', String(t.ties)));
       tr.appendChild(cell('td', String(t.pointsFor)));
       tr.appendChild(cell('td', String(t.pointsAgainst)));
       tr.appendChild(cell('td', (t.diff > 0 ? '+' : '') + t.diff));
