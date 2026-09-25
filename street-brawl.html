@@ -138,15 +138,15 @@ if ('serviceWorker' in navigator) {
   <h3 class="sb-section-label">Schedule &amp; Scores</h3>
   <table class="sb-games-table">
     <thead>
-      <tr><th>Game</th><th>Round</th><th>Matchup</th><th>Score</th></tr>
+      <tr><th>Game</th><th>Round</th><th>Start Time</th><th>Matchup</th><th>Score</th></tr>
     </thead>
     <tbody id="north-games-body">
-      <tr><td>1</td><td>1</td><td>Alister West vs. Great Belt East</td><td>Loading&hellip;</td></tr>
-      <tr><td>2</td><td>1</td><td>Alister East vs. Great Belt West B / Velkey</td><td>Loading&hellip;</td></tr>
-      <tr><td>3</td><td>2</td><td>Alister West vs. Great Belt West B / Velkey</td><td>Loading&hellip;</td></tr>
-      <tr><td>4</td><td>2</td><td>Alister East vs. Great Belt East</td><td>Loading&hellip;</td></tr>
-      <tr><td>5</td><td>3</td><td>Alister West vs. Alister East</td><td>Loading&hellip;</td></tr>
-      <tr><td>6</td><td>3</td><td>Great Belt West B / Velkey vs. Great Belt East</td><td>Loading&hellip;</td></tr>
+      <tr><td>1</td><td>1</td><td>10:00 a.m.</td><td>Alister West vs. Great Belt East</td><td>Loading&hellip;</td></tr>
+      <tr><td>2</td><td>1</td><td>10:30 a.m.</td><td>Alister East vs. Great Belt West B / Velkey</td><td>Loading&hellip;</td></tr>
+      <tr><td>3</td><td>2</td><td>11:00 a.m.</td><td>Alister West vs. Great Belt West B / Velkey</td><td>Loading&hellip;</td></tr>
+      <tr><td>4</td><td>2</td><td>11:30 a.m.</td><td>Alister East vs. Great Belt East</td><td>Loading&hellip;</td></tr>
+      <tr><td>5</td><td>3</td><td>12:00 p.m.</td><td>Alister West vs. Alister East</td><td>Loading&hellip;</td></tr>
+      <tr><td>6</td><td>3</td><td>12:30 p.m.</td><td>Great Belt West B / Velkey vs. Great Belt East</td><td>Loading&hellip;</td></tr>
     </tbody>
   </table>
 
@@ -216,15 +216,15 @@ if ('serviceWorker' in navigator) {
   <h3 class="sb-section-label">Schedule &amp; Scores</h3>
   <table class="sb-games-table">
     <thead>
-      <tr><th>Game</th><th>Round</th><th>Matchup</th><th>Score</th></tr>
+      <tr><th>Game</th><th>Round</th><th>Start Time</th><th>Matchup</th><th>Score</th></tr>
     </thead>
     <tbody id="south-games-body">
-      <tr><td>1</td><td>1</td><td>Chapel Bridge / Caravan vs. Treasure Cay</td><td>Loading&hellip;</td></tr>
-      <tr><td>2</td><td>1</td><td>Trift Bridge / Millennium vs. Great Belt West A</td><td>Loading&hellip;</td></tr>
-      <tr><td>3</td><td>2</td><td>Chapel Bridge / Caravan vs. Great Belt West A</td><td>Loading&hellip;</td></tr>
-      <tr><td>4</td><td>2</td><td>Trift Bridge / Millennium vs. Treasure Cay</td><td>Loading&hellip;</td></tr>
-      <tr><td>5</td><td>3</td><td>Chapel Bridge / Caravan vs. Trift Bridge / Millennium</td><td>Loading&hellip;</td></tr>
-      <tr><td>6</td><td>3</td><td>Great Belt West A vs. Treasure Cay</td><td>Loading&hellip;</td></tr>
+      <tr><td>1</td><td>1</td><td>10:00 a.m.</td><td>Chapel Bridge / Caravan vs. Treasure Cay</td><td>Loading&hellip;</td></tr>
+      <tr><td>2</td><td>1</td><td>10:30 a.m.</td><td>Trift Bridge / Millennium vs. Great Belt West A</td><td>Loading&hellip;</td></tr>
+      <tr><td>3</td><td>2</td><td>11:00 a.m.</td><td>Chapel Bridge / Caravan vs. Great Belt West A</td><td>Loading&hellip;</td></tr>
+      <tr><td>4</td><td>2</td><td>11:30 a.m.</td><td>Trift Bridge / Millennium vs. Treasure Cay</td><td>Loading&hellip;</td></tr>
+      <tr><td>5</td><td>3</td><td>12:00 p.m.</td><td>Chapel Bridge / Caravan vs. Trift Bridge / Millennium</td><td>Loading&hellip;</td></tr>
+      <tr><td>6</td><td>3</td><td>12:30 p.m.</td><td>Great Belt West A vs. Treasure Cay</td><td>Loading&hellip;</td></tr>
     </tbody>
   </table>
 
@@ -303,6 +303,19 @@ if ('serviceWorker' in navigator) {
   // Deployed and verified 2026-09-24. If this ever needs to change, update this one constant.
   var API_URL = 'https://script.google.com/macros/s/AKfycbxJ7eKifBZJFbvRtzGiPzjvozD11qg8_DAy7DMKn7V6DFd8BvJHLSKVo82DK8dd77VR/exec';
 
+  // Fixed game start times, half-hour intervals starting 10:00 a.m. Both courts
+  // (Phase North = Court 1, Phase South = Court 2) run the same timeline in parallel.
+  // Not read from the Sheet -- Rick asked to keep this static since he won't be able
+  // to update the Sheet live during the tournament.
+  var GAME_TIMES = {
+    1: '10:00 a.m.',
+    2: '10:30 a.m.',
+    3: '11:00 a.m.',
+    4: '11:30 a.m.',
+    5: '12:00 p.m.',
+    6: '12:30 p.m.'
+  };
+
   function clearBody(tbody) {
     while (tbody.firstChild) {
       tbody.removeChild(tbody.firstChild);
@@ -348,6 +361,7 @@ if ('serviceWorker' in navigator) {
       var tr = document.createElement('tr');
       tr.appendChild(cell('td', String(g.game)));
       tr.appendChild(cell('td', String(g.round)));
+      tr.appendChild(cell('td', GAME_TIMES[g.game] || ''));
       tr.appendChild(cell('td', g.teamA + ' vs. ' + g.teamB));
       var scoreText = g.played ? (g.scoreA + ' – ' + g.scoreB) : 'Not yet played';
       tr.appendChild(cell('td', scoreText));
