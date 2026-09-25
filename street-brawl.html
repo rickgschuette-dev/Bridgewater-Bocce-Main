@@ -133,7 +133,7 @@ if ('serviceWorker' in navigator) {
     <span class="sb-updated" id="sb-updated"></span>
   </div>
 
-  <h2 class="sb-bracket-heading">Phase North</h2>
+  <h2 class="sb-bracket-heading">Phase South</h2>
 
   <h3 class="sb-section-label">Schedule &amp; Scores</h3>
   <table class="sb-games-table">
@@ -210,7 +210,7 @@ if ('serviceWorker' in navigator) {
     </div>
   </div>
 
-  <h2 class="sb-bracket-heading">Phase South</h2>
+  <h2 class="sb-bracket-heading">Phase North</h2>
 
   <h3 class="sb-section-label">Schedule &amp; Scores</h3>
   <table class="sb-games-table">
@@ -302,7 +302,12 @@ if ('serviceWorker' in navigator) {
   var API_URL = 'https://script.google.com/macros/s/AKfycbxJ7eKifBZJFbvRtzGiPzjvozD11qg8_DAy7DMKn7V6DFd8BvJHLSKVo82DK8dd77VR/exec';
 
   // Fixed game start times, half-hour intervals starting 10:00 a.m. Both courts
-  // (Phase North = Court 1, Phase South = Court 2) run the same timeline in parallel.
+  // Court pairing did NOT change when the bracket names were swapped 2026-09-25 --
+  // courts stayed with the same teams. The team group first in this page (Alister/
+  // Great Belt cluster, still keyed as 'Phase North' in the Sheet and in this script)
+  // is on Court 1 and now DISPLAYS as "Phase South". The second group (Chapel Bridge/
+  // Trift Bridge cluster, still keyed as 'Phase South') is on Court 2 and now DISPLAYS
+  // as "Phase North". Both courts run the same start-time timeline in parallel.
   // Not read from the Sheet -- Rick asked to keep this static since he won't be able
   // to update the Sheet live during the tournament.
   var GAME_TIMES = {
@@ -388,6 +393,10 @@ if ('serviceWorker' in navigator) {
         if (!data.ok) {
           throw new Error(data.error || 'Unknown error from the results sheet.');
         }
+        // NOTE: these keys match the "Bracket" column text in the Google Sheet, which was
+        // NOT changed in the 2026-09-25 bracket-name swap. "Phase North" here is the Alister/
+        // Great Belt cluster, which now DISPLAYS under the "Phase South" heading above. Do not
+        // "fix" this to say 'Phase South' -- it would break the live data lookup.
         var north = data.brackets && data.brackets['Phase North'];
         var south = data.brackets && data.brackets['Phase South'];
 
