@@ -135,6 +135,32 @@ if ('serviceWorker' in navigator) {
 
   <h2 class="sb-bracket-heading">Phase North</h2>
 
+  <h3 class="sb-section-label">Schedule &amp; Scores</h3>
+  <table class="sb-games-table">
+    <thead>
+      <tr><th>Game</th><th>Round</th><th>Matchup</th><th>Score</th></tr>
+    </thead>
+    <tbody id="north-games-body">
+      <tr><td>1</td><td>1</td><td>Alister West vs. Great Belt East</td><td>Loading&hellip;</td></tr>
+      <tr><td>2</td><td>1</td><td>Alister East vs. Great Belt West B / Velkey</td><td>Loading&hellip;</td></tr>
+      <tr><td>3</td><td>2</td><td>Alister West vs. Great Belt West B / Velkey</td><td>Loading&hellip;</td></tr>
+      <tr><td>4</td><td>2</td><td>Alister East vs. Great Belt East</td><td>Loading&hellip;</td></tr>
+      <tr><td>5</td><td>3</td><td>Alister West vs. Alister East</td><td>Loading&hellip;</td></tr>
+      <tr><td>6</td><td>3</td><td>Great Belt West B / Velkey vs. Great Belt East</td><td>Loading&hellip;</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sb-section-label">Standings</h3>
+  <table class="standings-table sb-standings">
+    <thead>
+      <tr><th>Team</th><th>W</th><th>L</th><th>T</th><th>PF</th><th>PA</th><th>Diff</th></tr>
+    </thead>
+    <tbody id="north-standings-body">
+      <tr><td colspan="7">Loading standings&hellip;</td></tr>
+    </tbody>
+  </table>
+  <p class="sb-legend">W = wins, L = losses, T = ties, PF = points scored, PA = points allowed, Diff = point differential.</p>
+
   <h3 class="sb-section-label">Teams</h3>
   <div class="roster-columns">
     <div class="roster-column">
@@ -185,33 +211,33 @@ if ('serviceWorker' in navigator) {
     </div>
   </div>
 
-  <h3 class="sb-section-label">Standings</h3>
-  <table class="standings-table sb-standings">
-    <thead>
-      <tr><th>Team</th><th>W</th><th>L</th><th>T</th><th>PF</th><th>PA</th><th>Diff</th></tr>
-    </thead>
-    <tbody id="north-standings-body">
-      <tr><td colspan="7">Loading standings&hellip;</td></tr>
-    </tbody>
-  </table>
-  <p class="sb-legend">W = wins, L = losses, T = ties, PF = points scored, PA = points allowed, Diff = point differential.</p>
+  <h2 class="sb-bracket-heading">Phase South</h2>
 
   <h3 class="sb-section-label">Schedule &amp; Scores</h3>
   <table class="sb-games-table">
     <thead>
       <tr><th>Game</th><th>Round</th><th>Matchup</th><th>Score</th></tr>
     </thead>
-    <tbody id="north-games-body">
-      <tr><td>1</td><td>1</td><td>Alister West vs. Great Belt East</td><td>Loading&hellip;</td></tr>
-      <tr><td>2</td><td>1</td><td>Alister East vs. Great Belt West B / Velkey</td><td>Loading&hellip;</td></tr>
-      <tr><td>3</td><td>2</td><td>Alister West vs. Great Belt West B / Velkey</td><td>Loading&hellip;</td></tr>
-      <tr><td>4</td><td>2</td><td>Alister East vs. Great Belt East</td><td>Loading&hellip;</td></tr>
-      <tr><td>5</td><td>3</td><td>Alister West vs. Alister East</td><td>Loading&hellip;</td></tr>
-      <tr><td>6</td><td>3</td><td>Great Belt West B / Velkey vs. Great Belt East</td><td>Loading&hellip;</td></tr>
+    <tbody id="south-games-body">
+      <tr><td>1</td><td>1</td><td>Chapel Bridge / Caravan vs. Treasure Cay</td><td>Loading&hellip;</td></tr>
+      <tr><td>2</td><td>1</td><td>Trift Bridge / Millennium vs. Great Belt West A</td><td>Loading&hellip;</td></tr>
+      <tr><td>3</td><td>2</td><td>Chapel Bridge / Caravan vs. Great Belt West A</td><td>Loading&hellip;</td></tr>
+      <tr><td>4</td><td>2</td><td>Trift Bridge / Millennium vs. Treasure Cay</td><td>Loading&hellip;</td></tr>
+      <tr><td>5</td><td>3</td><td>Chapel Bridge / Caravan vs. Trift Bridge / Millennium</td><td>Loading&hellip;</td></tr>
+      <tr><td>6</td><td>3</td><td>Great Belt West A vs. Treasure Cay</td><td>Loading&hellip;</td></tr>
     </tbody>
   </table>
 
-  <h2 class="sb-bracket-heading">Phase South</h2>
+  <h3 class="sb-section-label">Standings</h3>
+  <table class="standings-table sb-standings">
+    <thead>
+      <tr><th>Team</th><th>W</th><th>L</th><th>T</th><th>PF</th><th>PA</th><th>Diff</th></tr>
+    </thead>
+    <tbody id="south-standings-body">
+      <tr><td colspan="7">Loading standings&hellip;</td></tr>
+    </tbody>
+  </table>
+  <p class="sb-legend">W = wins, L = losses, T = ties, PF = points scored, PA = points allowed, Diff = point differential.</p>
 
   <h3 class="sb-section-label">Teams</h3>
   <div class="roster-columns">
@@ -261,32 +287,6 @@ if ('serviceWorker' in navigator) {
       </table>
     </div>
   </div>
-
-  <h3 class="sb-section-label">Standings</h3>
-  <table class="standings-table sb-standings">
-    <thead>
-      <tr><th>Team</th><th>W</th><th>L</th><th>T</th><th>PF</th><th>PA</th><th>Diff</th></tr>
-    </thead>
-    <tbody id="south-standings-body">
-      <tr><td colspan="7">Loading standings&hellip;</td></tr>
-    </tbody>
-  </table>
-  <p class="sb-legend">W = wins, L = losses, T = ties, PF = points scored, PA = points allowed, Diff = point differential.</p>
-
-  <h3 class="sb-section-label">Schedule &amp; Scores</h3>
-  <table class="sb-games-table">
-    <thead>
-      <tr><th>Game</th><th>Round</th><th>Matchup</th><th>Score</th></tr>
-    </thead>
-    <tbody id="south-games-body">
-      <tr><td>1</td><td>1</td><td>Chapel Bridge / Caravan vs. Treasure Cay</td><td>Loading&hellip;</td></tr>
-      <tr><td>2</td><td>1</td><td>Trift Bridge / Millennium vs. Great Belt West A</td><td>Loading&hellip;</td></tr>
-      <tr><td>3</td><td>2</td><td>Chapel Bridge / Caravan vs. Great Belt West A</td><td>Loading&hellip;</td></tr>
-      <tr><td>4</td><td>2</td><td>Trift Bridge / Millennium vs. Treasure Cay</td><td>Loading&hellip;</td></tr>
-      <tr><td>5</td><td>3</td><td>Chapel Bridge / Caravan vs. Trift Bridge / Millennium</td><td>Loading&hellip;</td></tr>
-      <tr><td>6</td><td>3</td><td>Great Belt West A vs. Treasure Cay</td><td>Loading&hellip;</td></tr>
-    </tbody>
-  </table>
 
   <div class="legal-link-wrap">
     <a class='legal-link' href='/'>Home</a>
