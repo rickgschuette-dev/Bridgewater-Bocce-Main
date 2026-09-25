@@ -417,12 +417,13 @@ if ('serviceWorker' in navigator) {
         if (!data.ok) {
           throw new Error(data.error || 'Unknown error from the results sheet.');
         }
-        // NOTE: these keys match the "Bracket" column text in the Google Sheet, which was
-        // NOT changed in the 2026-09-25 bracket-name swap. "Phase North" here is the Alister/
-        // Great Belt cluster, which now DISPLAYS under the "Phase South" heading above. Do not
-        // "fix" this to say 'Phase South' -- it would break the live data lookup.
-        var north = data.brackets && data.brackets['Phase North'];
-        var south = data.brackets && data.brackets['Phase South'];
+        // NOTE: as of 2026-09-26, the "Bracket" column text in the Google Sheet was corrected
+        // to match the on-page headings (the Alister/Great Belt cluster is now literally
+        // labeled "Phase South" in the sheet, and Chapel Bridge/Trift Bridge is "Phase North").
+        // These lookup keys were swapped to match that sheet correction. If the sheet's
+        // Bracket column values are ever changed again, these two keys must be updated to match.
+        var north = data.brackets && data.brackets['Phase South'];
+        var south = data.brackets && data.brackets['Phase North'];
 
         if (north) {
           renderStandings(document.getElementById('north-standings-body'), north.standings);
