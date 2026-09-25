@@ -104,6 +104,26 @@ if ('serviceWorker' in navigator) {
     color: #666;
     margin-left: 12px;
   }
+  .sb-teams-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  .sb-teams-grid .roster-column {
+    padding: 10px 12px;
+  }
+  .sb-teams-grid .roster-column h3 {
+    font-size: 14px;
+    margin: 0 0 4px;
+    padding-bottom: 4px;
+  }
+  .sb-teams-grid .roster {
+    margin-top: 0;
+  }
+  .sb-teams-grid .roster th,
+  .sb-teams-grid .roster td {
+    padding: 3px 6px;
+    font-size: 12px;
+  }
 </style>
 </head>
 <body>
@@ -190,7 +210,7 @@ if ('serviceWorker' in navigator) {
   <h2 class="sb-bracket-heading">Teams</h2>
 
   <h3 class="sb-section-label">Phase South</h3>
-  <div class="roster-columns">
+  <div class="roster-columns sb-teams-grid">
     <div class="roster-column">
       <h3>Alister West</h3>
       <table class="roster roster-compact">
@@ -240,7 +260,7 @@ if ('serviceWorker' in navigator) {
   </div>
 
   <h3 class="sb-section-label">Phase North</h3>
-  <div class="roster-columns">
+  <div class="roster-columns sb-teams-grid">
     <div class="roster-column">
       <h3>Chapel Bridge / Caravan</h3>
       <table class="roster roster-compact">
