@@ -34,7 +34,7 @@ margin: 0 auto 28px;
 .photo-carousel {
 position: relative;
 width: 100%;
-aspect-ratio: 16 / 9;
+aspect-ratio: 4 / 3;
 overflow: hidden;
 border-radius: 8px;
 border: 1px solid var(--border-light);
@@ -114,7 +114,7 @@ background: #fff;
 .video-player-box {
 position: relative;
 width: 100%;
-aspect-ratio: 16 / 9;
+aspect-ratio: 3 / 1;
 overflow: hidden;
 border-radius: 8px;
 border: 1px solid var(--border-light);
@@ -172,7 +172,8 @@ margin-bottom: 8px;
 
 .street-brawl-promo-text h2 {
 margin: 0 0 8px;
-font-size: 26px;
+font-size: clamp(17px, 2.3vw, 24px);
+white-space: nowrap;
 color: var(--brand-blue-dark);
 }
 
@@ -204,6 +205,13 @@ text-align: center;
 .street-brawl-promo-logo {
 width: 120px;
 height: 120px;
+}
+.street-brawl-promo-text h2 {
+white-space: normal;
+font-size: 22px;
+}
+.photo-carousel {
+aspect-ratio: 1 / 1;
 }
 }
 </style>
