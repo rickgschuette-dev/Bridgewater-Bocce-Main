@@ -34,7 +34,7 @@ margin: 0 auto 28px;
 .photo-carousel {
 position: relative;
 width: 100%;
-aspect-ratio: 9 / 16;
+aspect-ratio: 16 / 9;
 overflow: hidden;
 border-radius: 8px;
 border: 1px solid var(--border-light);
@@ -132,6 +132,80 @@ font-size: 18px;
 letter-spacing: 0.03em;
 color: rgba(255, 255, 255, 0.85);
 }
+
+.street-brawl-promo {
+display: flex;
+align-items: center;
+gap: 24px;
+margin: 8px 0 28px;
+padding: 20px;
+background: #fff;
+border: 1px solid var(--border-light);
+border-radius: 8px;
+}
+
+.street-brawl-promo-logo {
+width: 150px;
+height: 150px;
+flex: 0 0 auto;
+object-fit: contain;
+}
+
+.street-brawl-promo-text {
+flex: 1 1 auto;
+min-width: 0;
+}
+
+.street-brawl-promo-mockup-tag {
+display: inline-block;
+font-size: 11px;
+font-weight: 700;
+letter-spacing: 0.04em;
+text-transform: uppercase;
+color: var(--brand-blue-dark);
+background: #fdf3e0;
+border: 1px solid var(--brand-gold);
+border-radius: 4px;
+padding: 2px 8px;
+margin-bottom: 8px;
+}
+
+.street-brawl-promo-text h2 {
+margin: 0 0 8px;
+font-size: 26px;
+color: var(--brand-blue-dark);
+}
+
+.street-brawl-promo-text p {
+margin: 0 0 12px;
+font-size: 15px;
+}
+
+.street-brawl-promo-btn {
+display: inline-block;
+background: var(--brand-blue);
+color: #fff;
+text-decoration: none;
+font-weight: 600;
+font-size: 14px;
+padding: 8px 16px;
+border-radius: 6px;
+}
+
+.street-brawl-promo-btn:hover {
+background: var(--brand-blue-dark);
+}
+
+@media (max-width: 600px) {
+.street-brawl-promo {
+flex-direction: column;
+text-align: center;
+}
+.street-brawl-promo-logo {
+width: 120px;
+height: 120px;
+}
+}
 </style>
 </head>
 <body>
@@ -211,7 +285,17 @@ color: rgba(255, 255, 255, 0.85);
 <a href="contact.html">Contact</a>
 </nav>
 <main class="page-content">
+
 <p class="home-screen-links"><a href="add-to-home-screen.html">Add Bridgewater Bocce to your phone</a></p>
+
+<section class="street-brawl-promo">
+<img src="assets/street-brawl-logo.png" alt="Street Brawl Tournament logo" class="street-brawl-promo-logo">
+<div class="street-brawl-promo-text">
+<h2>The Street Brawl Is Here &mdash; Saturday, September 26</h2>
+<p>Eight teams, two brackets &mdash; Phase North and Phase South &mdash; face off in a full round robin for Street Brawl bragging rights. Come cheer on your neighbors, grab a seat in the shade, and follow the schedule, live scores, and standings right here throughout the day.</p>
+<a href="street-brawl.html" class="street-brawl-promo-btn">See Schedule &amp; Standings</a>
+</div>
+</section>
 
 <section class="home-media-section">
 <div class="photo-carousel" id="photo-carousel">
