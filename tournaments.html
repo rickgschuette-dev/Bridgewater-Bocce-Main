@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Add to Your Home Screen — Bridgewater Bocce</title>
+<title>Tournaments — Bridgewater Bocce</title>
 <link rel="stylesheet" href="style.css">
 
 <!-- PWA: install-to-home-screen support -->
@@ -22,60 +22,77 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+<style>
+  .tournaments-intro {
+    font-size: 16px;
+    margin: 8px 0 28px;
+  }
+  .tournament-tiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .tournament-tile {
+    flex: 1 1 260px;
+    display: block;
+    background: #fff;
+    border: 1px solid var(--border-light);
+    border-left: 6px solid var(--brand-gold);
+    border-radius: 8px;
+    padding: 20px 22px;
+    text-decoration: none;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .tournament-tile:hover {
+    box-shadow: 0 4px 14px rgba(20, 40, 80, 0.15);
+    transform: translateY(-2px);
+  }
+  .tournament-tile h2 {
+    margin: 0 0 8px;
+    font-size: 22px;
+    color: var(--brand-blue-dark);
+  }
+  .tournament-tile p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--text-dark);
+  }
+</style>
 </head>
-<body class="add-home-page">
-
+<body>
 <header class="site-header">
   <img class="logo" src="logo-home.png" alt="Bridgewater Bocce logo">
   <h1 class="site-title">Bridgewater Bocce</h1>
 </header>
-
 <nav class="site-nav">
   <a href="index.html">Home</a>
-  <a href="tournaments.html">Tournaments</a>
   <a href="registration.html">Registration</a>
   <a href="team-rosters.html">Team Rosters</a>
   <a href="schedule.html">Schedule</a>
   <a href="standings.html">Results &amp; Standings</a>
   <a href="contact.html">Contact</a>
 </nav>
-
 <main class="page-content">
-  <h1>Add to your phone</h1>
-  <p class="schedule-intro">Pick your phone below.</p>
+  <h1>Tournaments</h1>
+  <p class="tournaments-intro">A look at Bridgewater Bocce's special tournament events. Pick one below for details, dates, and results.</p>
 
-  <h2 class="section-title">Add to Your Android Phone</h2>
-  <div id="install-banner" class="install-banner" hidden>
-    <p class="install-banner-text">Puts a Bridgewater Bocce icon on your home screen, just like an app.</p>
-    <div class="install-banner-actions">
-      <button type="button" id="install-banner-btn" class="install-banner-btn">Add to Home Screen</button>
-    </div>
-  </div>
-
-  <h2 class="section-title">Add to Your iPhone</h2>
-  <div class="install-banner install-banner-ios">
-    <div class="install-banner-body">
-      <p class="install-banner-text">Put a shortcut icon on your home screen.</p>
-      <div class="install-steps-line">
-        <ol class="install-steps install-steps-row">
-          <li><span class="install-step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V3"></path><path d="M7 8l5-5 5 5"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg></span> Tap Share at the bottom of your screen</li>
-          <li>Add to Home Screen</li>
-          <li>Add</li>
-        </ol>
-      </div>
-    </div>
+  <div class="tournament-tiles">
+    <a class="tournament-tile" href="jingle-mingle.html">
+      <h2>Jingle &amp; Mingle</h2>
+      <p>Our December bocce club holiday social &mdash; details and sign-up coming soon.</p>
+    </a>
+    <a class="tournament-tile" href="street-brawl.html">
+      <h2>Street Brawl</h2>
+      <p>Bridgewater&rsquo;s neighborhood bracket-style bocce tournament &mdash; see full results and standings.</p>
+    </a>
   </div>
 
   <div class="legal-link-wrap">
     <a class="legal-link" href="index.html">Home</a>
   </div>
 </main>
-
 <footer class="site-footer">
   Bridgewater Bocce
 </footer>
-
-<script src="assets/install-prompt.js"></script>
-
 </body>
 </html>
