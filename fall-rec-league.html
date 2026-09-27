@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tournaments — Bridgewater Bocce</title>
+<title>Fall Rec League — Bridgewater Bocce</title>
 <link rel="stylesheet" href="style.css">
 
 <!-- PWA: install-to-home-screen support -->
@@ -23,17 +23,17 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 <style>
-  .tournaments-intro {
+  .fall-rec-intro {
     font-size: 16px;
     margin: 8px 0 28px;
   }
-  .tournament-tiles {
+  .fall-rec-tiles {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
   }
-  .tournament-tile {
-    flex: 1 1 260px;
+  .fall-rec-tile {
+    flex: 1 1 220px;
     display: block;
     background: #fff;
     border: 1px solid var(--border-light);
@@ -43,16 +43,16 @@ if ('serviceWorker' in navigator) {
     text-decoration: none;
     transition: box-shadow 0.15s ease, transform 0.15s ease;
   }
-  .tournament-tile:hover {
+  .fall-rec-tile:hover {
     box-shadow: 0 4px 14px rgba(20, 40, 80, 0.15);
     transform: translateY(-2px);
   }
-  .tournament-tile h2 {
+  .fall-rec-tile h2 {
     margin: 0 0 8px;
     font-size: 22px;
     color: var(--brand-blue-dark);
   }
-  .tournament-tile p {
+  .fall-rec-tile p {
     margin: 0;
     font-size: 15px;
     color: var(--text-dark);
@@ -66,22 +66,26 @@ if ('serviceWorker' in navigator) {
 </header>
 <nav class="site-nav">
   <a href="index.html">Home</a>
+  <a href="tournaments.html">Tournaments</a>
   <a href="registration.html">League<br>Registration</a>
-  <a href="fall-rec-league.html">Fall Rec League</a>
   <a href="contact.html">Contact</a>
 </nav>
 <main class="page-content">
-  <h1>Tournaments</h1>
-  <p class="tournaments-intro">A look at Bridgewater Bocce's special tournament events. Pick one below for details, dates, and results.</p>
+  <h1>Fall Rec League</h1>
+  <p class="fall-rec-intro">Everything for the Monday Fall Rec League &mdash; who's on each team, when they play, and how the season stands.</p>
 
-  <div class="tournament-tiles">
-    <a class="tournament-tile" href="jingle-mingle.html">
-      <h2>Jingle &amp; Mingle</h2>
-      <p>Our December bocce club holiday social &mdash; details and sign-up coming soon.</p>
+  <div class="fall-rec-tiles">
+    <a class="fall-rec-tile" href="team-rosters.html">
+      <h2>Team Rosters</h2>
+      <p>See who's playing on each of the nine teams.</p>
     </a>
-    <a class="tournament-tile" href="street-brawl.html">
-      <h2>Street Brawl</h2>
-      <p>Bridgewater&rsquo;s neighborhood bracket-style bocce tournament &mdash; see full results and standings.</p>
+    <a class="fall-rec-tile" href="schedule.html">
+      <h2>Schedule</h2>
+      <p>The full season's week-by-week matchups.</p>
+    </a>
+    <a class="fall-rec-tile" href="standings.html">
+      <h2>Results &amp; Standings</h2>
+      <p>This week's results and the season standings.</p>
     </a>
   </div>
 
