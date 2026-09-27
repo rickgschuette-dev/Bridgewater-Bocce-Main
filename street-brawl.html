@@ -168,12 +168,26 @@ if ('serviceWorker' in navigator) {
   .sb-seed-badge.south {
     background: var(--brand-gold);
   }
+  .sb-semi-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 6px 0;
+  }
+  .sb-semi-divider::before,
+  .sb-semi-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border-light);
+  }
   .sb-semi-vs {
-    text-align: center;
-    font-size: 12px;
+    flex: 0 0 auto;
+    font-size: 11px;
     font-weight: 700;
-    color: #999;
-    margin: 2px 0;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--brand-blue-dark);
   }
   .sb-bracket-connector {
     font-size: 20px;
@@ -255,7 +269,7 @@ if ('serviceWorker' in navigator) {
             <span class="sb-semi-team-name">Chapel Bridge / Caravan</span>
             <span class="sb-seed-badge north">North &middot; #1 (+5)</span>
           </div>
-          <p class="sb-semi-vs">vs.</p>
+          <div class="sb-semi-divider"><span class="sb-semi-vs">VS</span></div>
           <div class="sb-semi-team">
             <span class="sb-semi-team-name">Alister West</span>
             <span class="sb-seed-badge south">South &middot; #2 (+2)</span>
@@ -267,7 +281,7 @@ if ('serviceWorker' in navigator) {
             <span class="sb-semi-team-name">Great Belt West B / Velkey</span>
             <span class="sb-seed-badge south">South &middot; #1 (+10)</span>
           </div>
-          <p class="sb-semi-vs">vs.</p>
+          <div class="sb-semi-divider"><span class="sb-semi-vs">VS</span></div>
           <div class="sb-semi-team">
             <span class="sb-semi-team-name">Great Belt West A</span>
             <span class="sb-seed-badge north">North &middot; #2 (+5)</span>
