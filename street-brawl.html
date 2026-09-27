@@ -316,7 +316,7 @@ if ('serviceWorker' in navigator) {
   <div class="sb-status" id="street-brawl-status"></div>
 
   <div class="sb-refresh-row">
-    <button type="button" class="sb-refresh-btn" id="sb-refresh-btn">Refresh scores</button>
+    <button type="button" class="sb-refresh-btn" id="sb-refresh-btn">Bracket Round Robin Results</button>
     <span class="sb-updated" id="sb-updated"></span>
   </div>
 
@@ -607,11 +607,16 @@ if ('serviceWorker' in navigator) {
       })
       .catch(function (err) {
         updatedEl.textContent = '';
-        showStatus('Live standings and scores could not be loaded right now (' + err.message + '). The schedule below still shows the matchups. Try "Refresh scores," or reload the page.');
+        showStatus('Live standings and scores could not be loaded right now (' + err.message + '). The schedule below still shows the matchups. Try reloading the page.');
       });
   }
 
-  document.getElementById('sb-refresh-btn').addEventListener('click', loadResults);
+  // Button click-to-refresh disabled 2026-09-27 at Rick's request: round-robin play is
+  // over, so the button now just labels the section ("Bracket Round Robin Results").
+  // The fetch/render code above (API_URL, loadResults, etc.) is left fully intact and
+  // wired to auto-load on page open -- to bring back manual refresh (e.g. for the
+  // December Bocce Battle Royale), just re-add:
+  //   document.getElementById('sb-refresh-btn').addEventListener('click', loadResults);
   loadResults();
 })();
 </script>
