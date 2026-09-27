@@ -490,9 +490,13 @@ a:hover {
 }
 
 .home-screen-links a {
+  display: inline-block;
   color: var(--brand-blue-dark);
   font-weight: 600;
   text-decoration: underline;
+  border: 2px solid var(--brand-gold);
+  border-radius: 8px;
+  padding: 10px 16px;
 }
 
 /* ---------- Add to Home Screen page: compact layout ----------
