@@ -11,6 +11,11 @@
   seat's existing "Player name placeholder" text in place — this script
   only ever fills in names, it never removes or blanks a row. If the
   fetch fails for any reason, the page is left exactly as it was.
+
+  Display order: Player 1's column is always the team captain — shown
+  first, bold, labeled ", Captain". The rest of the team (Player 2-6's
+  column values) is displayed below the captain sorted alphabetically
+  by last name, regardless of which column each name was in.
 */
 (function () {
   var SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1z0PNHH2Xff5jPsm-hAJTI5scq4DJDFrAIb-OAiPm6Cc/export?format=csv";
@@ -57,6 +62,11 @@
     });
   }
 
+  function lastNameOf(fullName) {
+    var parts = fullName.trim().split(/\s+/);
+    return parts[parts.length - 1];
+  }
+
   function applyRoster(text) {
     var rows = parseCSV(text).slice(1); // skip header row
     rows.forEach(function (cols) {
@@ -65,21 +75,35 @@
       var table = document.querySelector('table[data-team="Team ' + teamNum + '"]');
       if (!table) return;
       var seats = dataRowsOf(table);
-      for (var i = 0; i < seats.length; i++) {
-        var name = (cols[i + 1] || "").trim();
-        if (!name) continue; // leave existing placeholder text in place
-        var td = seats[i].querySelector("td");
-        if (!td) continue;
-        if (i === 0) {
-          // Seat 1 is the team captain — bold the name, then label it.
-          td.textContent = "";
+
+      // Seat 1 is always the team captain — bold the name, then label it.
+      var captainName = (cols[1] || "").trim();
+      if (captainName) {
+        var captainTd = seats[0] && seats[0].querySelector("td");
+        if (captainTd) {
+          captainTd.textContent = "";
           var strong = document.createElement("strong");
-          strong.textContent = name;
-          td.appendChild(strong);
-          td.appendChild(document.createTextNode(", Captain"));
-        } else {
-          td.textContent = name;
+          strong.textContent = captainName;
+          captainTd.appendChild(strong);
+          captainTd.appendChild(document.createTextNode(", Captain"));
         }
+      }
+
+      // Remaining seats (Player 2-6 columns) are sorted alphabetically
+      // by last name before being placed, regardless of sheet column order.
+      var others = [];
+      for (var i = 2; i < cols.length; i++) {
+        var name = (cols[i] || "").trim();
+        if (name) others.push(name);
+      }
+      others.sort(function (a, b) {
+        return lastNameOf(a).localeCompare(lastNameOf(b), undefined, { sensitivity: "base" });
+      });
+
+      for (var j = 0; j < others.length; j++) {
+        var seat = seats[j + 1];
+        var seatTd = seat && seat.querySelector("td");
+        if (seatTd) seatTd.textContent = others[j]; // leaves placeholder if seat is missing
       }
     });
   }
