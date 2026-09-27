@@ -106,11 +106,23 @@ a:hover {
 
 .fall-rec-subnav {
   max-width: none;
-  margin: 0 0 24px;
-  padding: 10px 18px;
+  margin: 0 0 20px;
+  padding: 14px 20px;
   justify-content: flex-start;
-  gap: 24px;
+  gap: 16px;
   border-radius: 8px;
+}
+
+.fall-rec-subnav a {
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.fall-rec-subnav a:hover {
+  background: rgba(255, 255, 255, 0.26);
+  text-decoration: none;
 }
 
 /* ---------- Main content ---------- */
