@@ -69,7 +69,17 @@
         var name = (cols[i + 1] || "").trim();
         if (!name) continue; // leave existing placeholder text in place
         var td = seats[i].querySelector("td");
-        if (td) td.textContent = name;
+        if (!td) continue;
+        if (i === 0) {
+          // Seat 1 is the team captain — bold the name, then label it.
+          td.textContent = "";
+          var strong = document.createElement("strong");
+          strong.textContent = name;
+          td.appendChild(strong);
+          td.appendChild(document.createTextNode(", Captain"));
+        } else {
+          td.textContent = name;
+        }
       }
     });
   }

@@ -285,11 +285,6 @@ a:hover {
   color: var(--brand-blue-dark);
 }
 
-/* First player row on each Fall Rec League team roster is the captain. */
-table[data-team] tr:nth-child(2) td {
-  font-weight: 700;
-}
-
 /* ---------- Forms (Contact + Registration) ---------- */
 
 .message-form {
