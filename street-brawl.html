@@ -40,6 +40,39 @@ if ('serviceWorker' in navigator) {
     font-size: 18px;
     margin: 20px 0 8px;
   }
+  .sb-status {
+    display: none;
+    background: #fdf3e0;
+    border: 1px solid var(--brand-gold);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    margin: 8px 0 20px;
+  }
+  .standings-table.sb-standings {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    margin-bottom: 8px;
+  }
+  .sb-standings th,
+  .sb-standings td {
+    text-align: center;
+    border: 1px solid var(--border-light);
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+  .sb-standings th {
+    background: var(--brand-blue);
+    color: #fff;
+  }
+  .sb-standings tr:nth-child(even) td {
+    background: #f5f3ec;
+  }
+  .sb-standings th:first-child,
+  .sb-standings td:first-child {
+    text-align: left;
+  }
   .sb-teams-grid {
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 12px;
@@ -207,7 +240,7 @@ if ('serviceWorker' in navigator) {
 
 <main class="page-content">
   <h1>Street Brawl Tournament</h1>
-  <p class="sb-intro">Saturday, September 26, 2026. Two brackets, Phase North and Phase South, each played a full round robin on their own court.</p>
+  <p class="sb-intro">Saturday, September 26, 2026. Two brackets, Phase North and Phase South, each played a full round robin on their own court. Final standings for each bracket are shown below.</p>
 
   <div class="sb-playoff-block">
     <h2 class="sb-playoff-headline">Round-Robin Complete &mdash; Four Teams Advance to the Semi-Finals!</h2>
@@ -248,6 +281,30 @@ if ('serviceWorker' in navigator) {
     </div>
     <p class="sb-bracket-legend">Seeding is cross-bracket: each bracket's #1 finisher faces the other bracket's #2 finisher.</p>
   </div>
+
+  <div class="sb-status" id="street-brawl-status"></div>
+
+  <h2 class="sb-bracket-heading">Phase South</h2>
+  <h3 class="sb-section-label">Standings</h3>
+  <table class="standings-table sb-standings">
+    <thead>
+      <tr><th>Team</th><th>W</th><th>L</th><th>PF</th><th>PA</th><th>Diff</th></tr>
+    </thead>
+    <tbody id="north-standings-body">
+      <tr><td colspan="6">Loading standings&hellip;</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="sb-bracket-heading">Phase North</h2>
+  <h3 class="sb-section-label">Standings</h3>
+  <table class="standings-table sb-standings">
+    <thead>
+      <tr><th>Team</th><th>W</th><th>L</th><th>PF</th><th>PA</th><th>Diff</th></tr>
+    </thead>
+    <tbody id="south-standings-body">
+      <tr><td colspan="6">Loading standings&hellip;</td></tr>
+    </tbody>
+  </table>
 
   <h2 class="sb-bracket-heading">Teams</h2>
 
@@ -351,7 +408,90 @@ if ('serviceWorker' in navigator) {
     </div>
   </div>
 
-  
+<script>
+(function () {
+  // Read-only Apps Script Web App backing the "Bridgewater Bocce - Street Brawl Results" sheet.
+  // Deployed and verified 2026-09-24. If this ever needs to change, update this one constant.
+  // Schedule/game-result rendering was removed 2026-09-27 at Rick's request (round-robin
+  // play is over); this now loads final Standings only. To bring back schedule/game
+  // rendering (e.g. for the December Bocce Battle Royale), see git history for this file.
+  var API_URL = 'https://script.google.com/macros/s/AKfycbxJ7eKifBZJFbvRtzGiPzjvozD11qg8_DAy7DMKn7V6DFd8BvJHLSKVo82DK8dd77VR/exec';
+
+  function clearBody(tbody) {
+    while (tbody.firstChild) {
+      tbody.removeChild(tbody.firstChild);
+    }
+  }
+
+  function cell(tag, text) {
+    var el = document.createElement(tag);
+    el.textContent = text;
+    return el;
+  }
+
+  function renderStandings(tbody, standings) {
+    clearBody(tbody);
+    if (!standings || standings.length === 0) {
+      var tr = document.createElement('tr');
+      tr.appendChild(cell('td', 'No teams found.'));
+      tbody.appendChild(tr);
+      return;
+    }
+    standings.forEach(function (t) {
+      var tr = document.createElement('tr');
+      tr.appendChild(cell('td', t.team));
+      tr.appendChild(cell('td', String(t.wins)));
+      tr.appendChild(cell('td', String(t.losses)));
+      tr.appendChild(cell('td', String(t.pointsFor)));
+      tr.appendChild(cell('td', String(t.pointsAgainst)));
+      tr.appendChild(cell('td', (t.diff > 0 ? '+' : '') + t.diff));
+      tbody.appendChild(tr);
+    });
+  }
+
+  function showStatus(msg) {
+    var el = document.getElementById('street-brawl-status');
+    el.textContent = msg;
+    el.style.display = msg ? 'block' : 'none';
+  }
+
+  function loadResults() {
+    showStatus('');
+
+    fetch(API_URL)
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error('Server responded with status ' + res.status);
+        }
+        return res.json();
+      })
+      .then(function (data) {
+        if (!data.ok) {
+          throw new Error(data.error || 'Unknown error from the results sheet.');
+        }
+        // NOTE: as of 2026-09-26, the "Bracket" column text in the Google Sheet was corrected
+        // to match the on-page headings (the Alister/Great Belt cluster is now literally
+        // labeled "Phase South" in the sheet, and Chapel Bridge/Trift Bridge is "Phase North").
+        // These lookup keys were swapped to match that sheet correction. If the sheet's
+        // Bracket column values are ever changed again, these two keys must be updated to match.
+        var north = data.brackets && data.brackets['Phase South'];
+        var south = data.brackets && data.brackets['Phase North'];
+
+        if (north) {
+          renderStandings(document.getElementById('north-standings-body'), north.standings);
+        }
+        if (south) {
+          renderStandings(document.getElementById('south-standings-body'), south.standings);
+        }
+      })
+      .catch(function (err) {
+        showStatus('Final standings could not be loaded right now (' + err.message + '). Try reloading the page.');
+      });
+  }
+
+  loadResults();
+})();
+</script>
 
 <div class="legal-link-wrap">
     <a class='legal-link' href='/'>Home</a>
