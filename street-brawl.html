@@ -124,6 +124,128 @@ if ('serviceWorker' in navigator) {
     padding: 3px 6px;
     font-size: 12px;
   }
+
+  .sb-playoff-block {
+    background: #fff;
+    border: 1px solid var(--brand-blue);
+    border-radius: 8px;
+    padding: 18px 20px 22px;
+    margin: 4px 0 28px;
+  }
+  .sb-playoff-headline {
+    margin: 0 0 8px;
+    font-size: clamp(19px, 2.6vw, 26px);
+    color: var(--brand-blue-dark);
+  }
+  .sb-playoff-blurb {
+    margin: 0 0 20px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .sb-bracket-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .sb-semis-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    width: 100%;
+  }
+  .sb-semi-card {
+    flex: 1 1 320px;
+    max-width: 400px;
+    background: var(--brand-cream);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  .sb-semi-label {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--brand-blue-dark);
+    margin: 0 0 8px;
+  }
+  .sb-semi-team {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 6px 0;
+  }
+  .sb-semi-team-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+  .sb-seed-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .sb-seed-badge.north {
+    background: var(--brand-blue);
+  }
+  .sb-seed-badge.south {
+    background: var(--brand-gold);
+  }
+  .sb-semi-vs {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #999;
+    margin: 2px 0;
+  }
+  .sb-bracket-connector {
+    font-size: 20px;
+    color: var(--brand-blue);
+    line-height: 1;
+  }
+  .sb-final-card {
+    background: var(--brand-blue-dark);
+    color: #fff;
+    border-radius: 8px;
+    padding: 14px 22px;
+    text-align: center;
+    max-width: 420px;
+    width: 100%;
+  }
+  .sb-final-label {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--brand-gold);
+    margin: 0 0 6px;
+  }
+  .sb-final-text {
+    font-size: 15px;
+    margin: 0;
+  }
+  .sb-bracket-legend {
+    font-size: 13px;
+    color: #666;
+    margin: 14px 0 0;
+    text-align: center;
+  }
+  @media (max-width: 600px) {
+    .sb-semis-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .sb-semi-card {
+      max-width: none;
+    }
+  }
 </style>
 </head>
 <body>
@@ -145,6 +267,46 @@ if ('serviceWorker' in navigator) {
 <main class="page-content">
   <h1>Street Brawl Tournament</h1>
   <p class="sb-intro">Saturday, September 26, 2026. Two brackets, Phase North and Phase South, each play a full round robin on their own court. Standings and scores below update automatically once results are entered after each game.</p>
+
+  <div class="sb-playoff-block">
+    <h2 class="sb-playoff-headline">Round-Robin Complete &mdash; Four Teams Advance to the Semi-Finals!</h2>
+    <p class="sb-playoff-blurb">Three rounds of round-robin play are in the books on both courts. Seeded by point differential, the top two finishers from each bracket move on: Chapel Bridge / Caravan and Great Belt West A from Phase North, and Great Belt West B / Velkey and Alister West from Phase South. Chapel Bridge / Caravan and Great Belt West A finished tied at +5 in Phase North &mdash; the tie was broken by their head-to-head result, a 10&ndash;7 win for Chapel Bridge / Caravan, giving them the top seed. Semi-final matchups are set below; dates and times will be announced soon.</p>
+
+    <div class="sb-bracket-diagram">
+      <div class="sb-semis-row">
+        <div class="sb-semi-card">
+          <p class="sb-semi-label">Semi-Final 1</p>
+          <div class="sb-semi-team">
+            <span class="sb-semi-team-name">Chapel Bridge / Caravan</span>
+            <span class="sb-seed-badge north">North &middot; #1 (+5)</span>
+          </div>
+          <p class="sb-semi-vs">vs.</p>
+          <div class="sb-semi-team">
+            <span class="sb-semi-team-name">Alister West</span>
+            <span class="sb-seed-badge south">South &middot; #2 (+2)</span>
+          </div>
+        </div>
+        <div class="sb-semi-card">
+          <p class="sb-semi-label">Semi-Final 2</p>
+          <div class="sb-semi-team">
+            <span class="sb-semi-team-name">Great Belt West B / Velkey</span>
+            <span class="sb-seed-badge south">South &middot; #1 (+10)</span>
+          </div>
+          <p class="sb-semi-vs">vs.</p>
+          <div class="sb-semi-team">
+            <span class="sb-semi-team-name">Great Belt West A</span>
+            <span class="sb-seed-badge north">North &middot; #2 (+5)</span>
+          </div>
+        </div>
+      </div>
+      <div class="sb-bracket-connector">&#8595;</div>
+      <div class="sb-final-card">
+        <p class="sb-final-label">Championship Final</p>
+        <p class="sb-final-text">Winner of Semi-Final 1 vs. Winner of Semi-Final 2 &mdash; date &amp; time TBD</p>
+      </div>
+    </div>
+    <p class="sb-bracket-legend">Seeding is cross-bracket: each bracket's #1 finisher faces the other bracket's #2 finisher.</p>
+  </div>
 
   <div class="sb-status" id="street-brawl-status"></div>
 
