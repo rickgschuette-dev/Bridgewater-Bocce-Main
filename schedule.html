@@ -66,14 +66,27 @@ if ('serviceWorker' in navigator) {
   }
   .matchup {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 4px;
     border: 1px solid #e2e2e2;
     border-radius: 4px;
     padding: 8px 6px;
     font-size: 14px;
     background: #fafafa;
+  }
+  .mtime {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--brand-blue-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .matchup-teams {
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
   .mnum {
     font-weight: bold;
@@ -114,15 +127,15 @@ if ('serviceWorker' in navigator) {
     <a href="standings.html">Results &amp; Standings</a>
   </nav>
   <h1>Monday Fall Rec League Schedule</h1>
-  <p class="schedule-intro">The 9-week regular season schedule below has every team playing one game each Monday, except the team with a bye that week. Tap a week to see that week’s match-up.</p>
+    <p class="schedule-intro">The 9-week regular season schedule below has every team playing one game each Monday, except the team with a bye that week. Tap a week to see that week’s match-up.</p>
 
   <details class="schedule-week" open>
     <summary>Week 1 &mdash; Oct 5</summary>
     <div class="matchup-grid">
-      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 9</span></div>
-      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
-      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
-      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 9</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div></div>
     </div>
     <p class="schedule-note">Team 1 has a bye this week.</p>
   </details>
@@ -130,10 +143,10 @@ if ('serviceWorker' in navigator) {
   <details class="schedule-week">
     <summary>Week 2 &mdash; Oct 12</summary>
     <div class="matchup-grid">
-      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div>
-      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 9</span></div>
-      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
-      <div class="matchup"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 1</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 9</span></div></div>
     </div>
     <p class="schedule-note">Team 2 has a bye this week.</p>
   </details>
@@ -141,10 +154,10 @@ if ('serviceWorker' in navigator) {
   <details class="schedule-week">
     <summary>Week 3 &mdash; Oct 19</summary>
     <div class="matchup-grid">
-      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
-      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
-      <div class="matchup"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 9</span></div>
-      <div class="matchup"><span class="mnum">Team 7</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 9</span></div></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 7</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 2</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 1</span></div></div>
     </div>
     <p class="schedule-note">Team 3 has a bye this week.</p>
   </details>
@@ -152,10 +165,10 @@ if ('serviceWorker' in navigator) {
   <details class="schedule-week">
     <summary>Week 4 &mdash; Oct 26</summary>
     <div class="matchup-grid">
-      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
-      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
-      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
-      <div class="matchup"><span class="mnum">Team 8</span><span class="mvs">vs</span><span class="mnum">Team 9</span></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 8</span><span class="mvs">vs</span><span class="mnum">Team 9</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 2</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 7</span><span class="mvs">vs</span><span class="mnum">Team 1</span></div></div>
     </div>
     <p class="schedule-note">Team 4 has a bye this week.</p>
   </details>
@@ -163,10 +176,10 @@ if ('serviceWorker' in navigator) {
   <details class="schedule-week">
     <summary>Week 5 &mdash; Nov 2</summary>
     <div class="matchup-grid">
-      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 9</span></div>
-      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
-      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
-      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 7</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 8</span><span class="mvs">vs</span><span class="mnum">Team 2</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 9</span><span class="mvs">vs</span><span class="mnum">Team 1</span></div></div>
     </div>
     <p class="schedule-note">Team 5 has a bye this week.</p>
   </details>
@@ -174,10 +187,10 @@ if ('serviceWorker' in navigator) {
   <details class="schedule-week">
     <summary>Week 6 &mdash; Nov 9</summary>
     <div class="matchup-grid">
-      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 2</span></div>
-      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 9</span></div>
-      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
-      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 8</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 9</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 2</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 7</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div></div>
     </div>
     <p class="schedule-note">Team 6 has a bye this week.</p>
   </details>
@@ -185,10 +198,10 @@ if ('serviceWorker' in navigator) {
   <details class="schedule-week">
     <summary>Week 7 &mdash; Nov 16</summary>
     <div class="matchup-grid">
-      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
-      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div>
-      <div class="matchup"><span class="mnum">Team 5</span><span class="mvs">vs</span><span class="mnum">Team 9</span></div>
-      <div class="matchup"><span class="mnum">Team 6</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 8</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 9</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 3</span></div></div>
     </div>
     <p class="schedule-note">Team 7 has a bye this week.</p>
   </details>
@@ -196,10 +209,10 @@ if ('serviceWorker' in navigator) {
   <details class="schedule-week">
     <summary>Week 8 &mdash; Nov 23</summary>
     <div class="matchup-grid">
-      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
-      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
-      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div>
-      <div class="matchup"><span class="mnum">Team 7</span><span class="mvs">vs</span><span class="mnum">Team 9</span></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 9</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 4</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div></div>
     </div>
     <p class="schedule-note">Team 8 has a bye this week.</p>
   </details>
@@ -207,10 +220,10 @@ if ('serviceWorker' in navigator) {
   <details class="schedule-week">
     <summary>Week 9 &mdash; Nov 30</summary>
     <div class="matchup-grid">
-      <div class="matchup"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div>
-      <div class="matchup"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div>
-      <div class="matchup"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div>
-      <div class="matchup"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 3</span><span class="mvs">vs</span><span class="mnum">Team 6</span></div></div>
+      <div class="matchup"><span class="mtime">2:30 PM</span><div class="matchup-teams"><span class="mnum">Team 4</span><span class="mvs">vs</span><span class="mnum">Team 5</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 1</span><span class="mvs">vs</span><span class="mnum">Team 8</span></div></div>
+      <div class="matchup"><span class="mtime">4:30 PM</span><div class="matchup-teams"><span class="mnum">Team 2</span><span class="mvs">vs</span><span class="mnum">Team 7</span></div></div>
     </div>
     <p class="schedule-note">Team 9 has a bye this week.</p>
   </details>
