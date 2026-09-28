@@ -131,7 +131,7 @@
     var scoredWeeks = weeks.filter(function (w) { return w.matches.some(function (m) { return m.scored; }); });
     var earlier = scoredWeeks.slice(0, -1).reverse(); // everything before the current week, newest first
     if (!earlier.length) { el.innerHTML = ""; return; }
-    var html = '<details class="previous-weeks-all"><summary>All previous weeks (' + earlier.length + ")</summary>" +
+    var html = '<details class="previous-weeks-all"><summary>All previous weeks results</summary>' +
       '<div class="previous-weeks-body">';
     earlier.forEach(function (wk, i) {
       // native collapsible box; the most recent earlier week starts open, older weeks start closed
