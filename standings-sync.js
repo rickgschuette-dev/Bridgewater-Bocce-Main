@@ -90,13 +90,22 @@
   }
 
   function matchResultHtml(m) {
-    var homeWon = m.homeScore > m.visScore;
-    var visWon = m.visScore > m.homeScore;
-    var homeLabel = "Team " + escapeHtml(m.home) + " &mdash; " + m.homeScore;
-    var visLabel = "Team " + escapeHtml(m.vis) + " &mdash; " + m.visScore;
-    var homeSpan = '<span class="' + (homeWon ? "result-winner" : "result-loser") + '">' + homeLabel + "</span>";
-    var visSpan = '<span class="' + (visWon ? "result-winner" : "result-loser") + '">' + visLabel + "</span>";
-    return '<div class="schedule-match"><div class="matchup">' + visSpan + '<span class="at-word">vs</span>' + homeSpan + "</div></div>";
+    var homeName = "Team " + escapeHtml(m.home);
+    var visName = "Team " + escapeHtml(m.vis);
+    var inner;
+    if (m.homeScore === m.visScore) {
+      // tie — not expected for this league; show neutrally so a scoring typo is easy to spot
+      inner = homeName + ' <span class="at-word">vs</span> ' + visName + ": " + m.homeScore + " &ndash; " + m.visScore;
+    } else {
+      var homeWon = m.homeScore > m.visScore;
+      var winName = homeWon ? homeName : visName;
+      var loseName = homeWon ? visName : homeName;
+      var winScore = homeWon ? m.homeScore : m.visScore;
+      var loseScore = homeWon ? m.visScore : m.homeScore;
+      inner = '<span class="result-winner">' + winName + '</span> def. <span class="result-loser">' + loseName + "</span>: " +
+        winScore + " &ndash; " + loseScore;
+    }
+    return '<div class="schedule-match"><div class="matchup">' + inner + "</div></div>";
   }
 
   function renderResults(el, weeks) {
