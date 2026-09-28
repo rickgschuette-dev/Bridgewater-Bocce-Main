@@ -553,6 +553,27 @@ a:hover {
   .home-header .logo {
     height: 110px;
   }
+
+  /* Phone menu: lighter-blue button boxes so the links read as buttons */
+  .site-nav:not(.fall-rec-subnav) {
+    gap: 10px;
+    padding: 12px 12px;
+  }
+
+  .site-nav:not(.fall-rec-subnav) a {
+    flex: 1 1 28%;
+    padding: 10px 8px;
+    background: #4a72d8;
+    border: 1px solid #8fa9ee;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(10, 20, 50, 0.35);
+  }
+
+  .site-nav:not(.fall-rec-subnav) a:hover {
+    background: #5f84e2;
+    text-decoration: none;
+    color: #fff;
+  }
 }
 
 #standings-previous {
