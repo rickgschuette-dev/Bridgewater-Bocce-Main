@@ -55,7 +55,7 @@ aspect-ratio: 4 / 3;
 overflow: hidden;
 border-radius: 8px;
 border: 1px solid var(--border-light);
-background: #142850;
+background: var(--brand-cream);
 }
 
 .carousel-slide {
@@ -66,6 +66,8 @@ height: 100%;
 object-fit: cover;
 opacity: 0;
 transition: opacity 0.6s ease;
+-webkit-mask-image: radial-gradient(ellipse 88% 45% at center, black 66%, transparent 100%);
+mask-image: radial-gradient(ellipse 88% 45% at center, black 66%, transparent 100%);
 }
 
 .carousel-slide.active {
