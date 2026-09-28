@@ -169,6 +169,34 @@
     }
   }
 
+  // Schedule page: put each team's current win-loss record beneath its name in every match-up box.
+  function renderScheduleRecords(weeks) {
+    var labels = document.querySelectorAll(".mnum");
+    if (!labels.length) return; // not the Schedule page
+    var stats = {};
+    for (var t = 1; t <= 9; t++) stats[t] = { w: 0, l: 0 };
+    weeks.forEach(function (wk) {
+      wk.matches.forEach(function (m) {
+        if (!m.scored) return;
+        if (m.homeScore === m.visScore) return; // tie — skipped, same as the standings table
+        var winner = m.homeScore > m.visScore ? m.home : m.vis;
+        var loser = m.homeScore > m.visScore ? m.vis : m.home;
+        if (stats[winner]) stats[winner].w += 1;
+        if (stats[loser]) stats[loser].l += 1;
+      });
+    });
+    for (var i = 0; i < labels.length; i++) {
+      var label = labels[i];
+      if (label.querySelector(".mrec")) continue;
+      var found = /Team\s+(\d+)/.exec(label.textContent);
+      if (!found || !stats[found[1]]) continue;
+      var rec = document.createElement("span");
+      rec.className = "mrec";
+      rec.textContent = stats[found[1]].w + "-" + stats[found[1]].l;
+      label.appendChild(rec);
+    }
+  }
+
   function load() {
     var resultsEl = document.getElementById("standings-current");
     if (resultsEl) resultsEl.innerHTML = '<p class="schedule-loading">Loading results&hellip;</p>';
@@ -183,6 +211,7 @@
         if (resultsEl) renderResults(resultsEl, weeks);
         renderStandings(weeks);
         renderPrevious(document.getElementById("standings-previous"), weeks);
+        renderScheduleRecords(weeks);
       })
       .catch(function (err) {
         console.error("Standings sync error:", err);
