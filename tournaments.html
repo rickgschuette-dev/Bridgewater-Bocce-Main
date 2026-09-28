@@ -57,6 +57,26 @@ if ('serviceWorker' in navigator) {
     font-size: 15px;
     color: var(--text-dark);
   }
+  .tournament-tile-static:hover {
+    box-shadow: none;
+    transform: none;
+  }
+  .tournament-tile-static p {
+    margin: 0 0 14px;
+  }
+  .tournament-register-btn {
+    display: inline-block;
+    background: var(--brand-blue);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 10px 18px;
+    border-radius: 6px;
+  }
+  .tournament-register-btn:hover {
+    background: var(--brand-blue-dark);
+  }
 </style>
 </head>
 <body>
@@ -75,6 +95,11 @@ if ('serviceWorker' in navigator) {
   <p class="tournaments-intro">A look at Bridgewater Bocce's special tournament events. Pick one below for details, dates, and results.</p>
 
   <div class="tournament-tiles">
+    <div class="tournament-tile tournament-tile-static">
+      <h2>Battle Royale &mdash; Saturday, January 9th</h2>
+      <p>Rookies. Regulars. Ringers. From every street, challengers arise! Everyone is invited into the arena for Bridgewater Bocce&rsquo;s next tournament. Early registration is open now.</p>
+      <a class="tournament-register-btn" href="https://dynamic-narwhal-1d5542.netlify.app/" target="_blank" rel="noopener">Register for Battle Royale</a>
+    </div>
     <a class="tournament-tile" href="jingle-mingle.html">
       <h2>Jingle &amp; Mingle</h2>
       <p>Our December bocce club holiday social &mdash; details and sign-up coming soon.</p>
