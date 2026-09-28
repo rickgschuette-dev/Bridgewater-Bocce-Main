@@ -554,3 +554,32 @@ a:hover {
     height: 110px;
   }
 }
+
+#standings-previous {
+  margin-top: 36px;
+}
+
+.previous-week {
+  margin: 12px 0;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.previous-week summary {
+  cursor: pointer;
+  padding: 14px 18px;
+  font-size: 18px;
+  font-weight: 600;
+  border-left: 4px solid var(--brand-gold);
+  border-radius: 8px;
+}
+
+.previous-week[open] summary {
+  border-bottom: 1px solid var(--border-light);
+  border-radius: 8px 8px 0 0;
+}
+
+.previous-week .schedule-match-list {
+  padding: 4px 18px 10px;
+}

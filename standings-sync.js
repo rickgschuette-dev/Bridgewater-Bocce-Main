@@ -126,6 +126,23 @@
     el.innerHTML = html;
   }
 
+  function renderPrevious(el, weeks) {
+    if (!el) return;
+    var scoredWeeks = weeks.filter(function (w) { return w.matches.some(function (m) { return m.scored; }); });
+    var earlier = scoredWeeks.slice(0, -1).reverse(); // everything before the current week, newest first
+    if (!earlier.length) { el.innerHTML = ""; return; }
+    var html = '<h2 style="font-size:20px; margin-bottom:14px;">All previous weeks</h2>';
+    earlier.forEach(function (wk, i) {
+      // native collapsible box; the most recent earlier week starts open, older weeks start closed
+      html += '<details class="previous-week"' + (i === 0 ? " open" : "") + ">" +
+        "<summary>Week " + escapeHtml(wk.n) + (wk.dateStr ? " &mdash; " + escapeHtml(wk.dateStr) : "") + "</summary>" +
+        '<div class="schedule-match-list">';
+      wk.matches.filter(function (m) { return m.scored; }).forEach(function (m) { html += matchResultHtml(m); });
+      html += "</div></details>";
+    });
+    el.innerHTML = html;
+  }
+
   function renderStandings(weeks) {
     var stats = {};
     for (var t = 1; t <= 9; t++) stats[t] = { w: 0, l: 0 };
@@ -163,6 +180,7 @@
         var weeks = buildWeeks(parseCSV(text));
         if (resultsEl) renderResults(resultsEl, weeks);
         renderStandings(weeks);
+        renderPrevious(document.getElementById("standings-previous"), weeks);
       })
       .catch(function (err) {
         console.error("Standings sync error:", err);
