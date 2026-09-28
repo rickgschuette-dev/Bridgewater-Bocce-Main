@@ -583,3 +583,27 @@ a:hover {
 .previous-week .schedule-match-list {
   padding: 4px 18px 10px;
 }
+
+.previous-weeks-all {
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.previous-weeks-all > summary {
+  cursor: pointer;
+  padding: 16px 18px;
+  font-size: 20px;
+  font-weight: 700;
+  border-left: 4px solid var(--brand-gold);
+  border-radius: 8px;
+}
+
+.previous-weeks-all[open] > summary {
+  border-bottom: 1px solid var(--border-light);
+  border-radius: 8px 8px 0 0;
+}
+
+.previous-weeks-body {
+  padding: 6px 14px 14px;
+}

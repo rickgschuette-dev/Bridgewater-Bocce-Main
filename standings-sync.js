@@ -105,7 +105,7 @@
       inner = '<span class="result-winner">' + winName + '</span> def. <span class="result-loser">' + loseName + "</span>: " +
         winScore + " &ndash; " + loseScore;
     }
-    return '<div class="schedule-match"><div class="matchup">' + inner + "</div></div>";
+    return '<div class="schedule-match"><div class="matchup"><span>' + inner + "</span></div></div>";
   }
 
   function renderResults(el, weeks) {
@@ -131,7 +131,8 @@
     var scoredWeeks = weeks.filter(function (w) { return w.matches.some(function (m) { return m.scored; }); });
     var earlier = scoredWeeks.slice(0, -1).reverse(); // everything before the current week, newest first
     if (!earlier.length) { el.innerHTML = ""; return; }
-    var html = '<h2 style="font-size:20px; margin-bottom:14px;">All previous weeks</h2>';
+    var html = '<details class="previous-weeks-all"><summary>All previous weeks (' + earlier.length + ")</summary>" +
+      '<div class="previous-weeks-body">';
     earlier.forEach(function (wk, i) {
       // native collapsible box; the most recent earlier week starts open, older weeks start closed
       html += '<details class="previous-week"' + (i === 0 ? " open" : "") + ">" +
@@ -140,6 +141,7 @@
       wk.matches.filter(function (m) { return m.scored; }).forEach(function (m) { html += matchResultHtml(m); });
       html += "</div></details>";
     });
+    html += "</div></details>";
     el.innerHTML = html;
   }
 
