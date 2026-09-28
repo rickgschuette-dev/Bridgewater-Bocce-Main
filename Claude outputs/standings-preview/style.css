@@ -1,0 +1,556 @@
+/* ============================================
+   Bridgewater Bocce — site-wide stylesheet
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap');
+
+:root {
+  --brand-blue-dark: #142850;
+  --brand-blue: #2a52be;
+  --brand-gold: #c9a227;
+  --brand-cream: #faf8f2;
+  --text-dark: #222222;
+  --border-light: #dcdcd2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  color: var(--text-dark);
+  background: var(--brand-cream);
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: 'Cinzel', Georgia, serif;
+  color: var(--brand-blue-dark);
+}
+
+a {
+  color: var(--brand-blue);
+}
+
+a:hover {
+  color: var(--brand-gold);
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 0 24px;
+  background: radial-gradient(circle at center, var(--brand-blue) 0%, var(--brand-blue-dark) 75%);
+  border-bottom: 4px solid var(--brand-gold);
+}
+
+.site-header .logo {
+  height: 280px;
+  width: auto;
+  object-fit: contain;
+}
+
+.site-header .site-title {
+  display: none;
+}
+
+.home-header .logo {
+  height: 276px;
+}
+
+.home-header {
+  padding-bottom: 20px;
+}
+
+.home-header .title-wrap {
+  display: none;
+}
+
+.home-header .court-graphic {
+  display: none;
+}
+
+/* ---------- Nav ---------- */
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 24px;
+  background: var(--brand-blue);
+  justify-content: space-between;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.site-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.site-nav a:hover {
+  color: var(--brand-gold);
+  text-decoration: underline;
+}
+
+.fall-rec-subnav {
+  max-width: none;
+  margin: 0 0 20px;
+  padding: 14px 20px;
+  justify-content: flex-start;
+  gap: 16px;
+  border-radius: 8px;
+}
+
+.fall-rec-subnav a {
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.fall-rec-subnav a:hover {
+  background: rgba(255, 255, 255, 0.26);
+  text-decoration: none;
+}
+
+/* ---------- Main content ---------- */
+
+.page-content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+}
+
+.page-content h1 {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: 22px;
+  margin: 24px 0 14px;
+}
+
+.schedule-intro {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.legal-link-wrap {
+  margin-top: 36px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.legal-link {
+  font-weight: 600;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  text-align: center;
+  padding: 20px;
+  background: var(--brand-blue-dark);
+  color: #fff;
+  font-size: 14px;
+}
+
+/* ---------- Home page: News section ---------- */
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.news-box {
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 40px 16px;
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}
+
+/* ---------- Schedule & Standings ---------- */
+
+.schedule-current,
+#standings-current {
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0 28px;
+}
+
+.schedule-match {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 15px;
+}
+
+.schedule-match:last-child {
+  border-bottom: none;
+}
+
+.schedule-jump {
+  display: flex;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.schedule-jump a {
+  font-weight: 600;
+}
+
+#schedule-weeks h3 {
+  margin-top: 28px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--brand-gold);
+}
+
+.standings-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.standings-table th,
+.standings-table td {
+  border: 1px solid var(--border-light);
+  padding: 10px 14px;
+  text-align: left;
+}
+
+.standings-table th {
+  background: var(--brand-blue);
+  color: #fff;
+}
+
+.standings-table tr:nth-child(even) td {
+  background: #f5f3ec;
+}
+
+/* ---------- Team Rosters ---------- */
+
+.roster-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.roster-column {
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.roster-column h3 {
+  margin-top: 0;
+  font-size: 18px;
+  border-bottom: 2px solid var(--brand-gold);
+  padding-bottom: 8px;
+}
+
+.roster {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+.roster th,
+.roster td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 14px;
+  text-align: left;
+}
+
+.roster th {
+  color: var(--brand-blue-dark);
+}
+
+/* ---------- Forms (Contact + Registration) ---------- */
+
+.message-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  margin-top: 16px;
+}
+
+.message-form label {
+  font-weight: 600;
+  margin-top: 14px;
+  margin-bottom: 4px;
+}
+
+.message-form input[type="text"],
+.message-form input[type="email"],
+.message-form input[type="tel"],
+.message-form textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+.message-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.message-form button {
+  margin-top: 24px;
+  padding: 12px 20px;
+  background: var(--brand-blue);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.message-form button:hover {
+  background: var(--brand-blue-dark);
+}
+
+.message-form button:disabled {
+  background: #9aa0a6;
+  color: #f1f1f1;
+  cursor: not-allowed;
+}
+
+/* ---------- Homepage: "Add This to Your Phone" install banner ----------
+   Hidden by default; assets/install-prompt.js reveals it only on phones
+   where the browser has confirmed a one-tap install is available.
+   Light blue tint with a gold border so it stands out under the header
+   without clashing with the site's blue/gold palette. */
+
+.install-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #eaf1fb;
+  border: 1px solid var(--brand-gold);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 0 0 24px;
+}
+
+.install-banner-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-dark);
+}
+
+.install-banner-text strong {
+  color: var(--brand-blue-dark);
+  font-size: 16px;
+}
+
+.install-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.install-banner-btn {
+  background: var(--brand-blue);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.install-banner-btn:hover {
+  background: var(--brand-blue-dark);
+}
+
+.install-banner-dismiss {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.install-banner-ios {
+  display: block;
+}
+
+.install-steps-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.install-steps {
+  margin: 12px 0 0;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: install-step;
+}
+
+.install-steps li {
+  counter-increment: install-step;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 0 10px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-dark);
+}
+
+.install-steps li:last-child {
+  margin-bottom: 0;
+}
+
+.install-steps li::before {
+  content: counter(install-step);
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--brand-blue);
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.install-step-icon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--brand-blue-dark);
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.install-steps-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 10px;
+  row-gap: 10px;
+  margin: 0;
+}
+
+.install-steps-row li {
+  margin: 0;
+}
+
+.install-steps-row li:not(:last-child)::after {
+  content: "\2192";
+  margin-left: 10px;
+  color: #888;
+  font-weight: bold;
+}
+
+/* ---------- Homepage: "Add to your phone" plain-text link line ----------
+   Sits where the old auto-appearing install banners were, after the
+   Conflicts form. Links through to add-to-home-screen.html. */
+
+.home-screen-links {
+  margin: 0 0 24px;
+  font-size: 15px;
+}
+
+.home-screen-links a {
+  display: inline-block;
+  color: var(--brand-blue-dark);
+  font-weight: 600;
+  text-decoration: underline;
+  border: 2px solid var(--brand-gold);
+  border-radius: 8px;
+  padding: 10px 16px;
+}
+
+/* ---------- Add to Home Screen page: compact layout ----------
+   Tightened so both the Android and iPhone instructions fit on one
+   mobile screen without scrolling. */
+
+.add-home-page .page-content {
+  padding-top: 16px;
+}
+
+.add-home-page h1 {
+  font-size: 20px;
+  margin: 0 0 4px;
+}
+
+.add-home-page .schedule-intro {
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
+.add-home-page .section-title {
+  font-size: 16px;
+  margin: 10px 0 6px;
+}
+
+.add-home-page .install-banner {
+  margin: 0 0 8px;
+  padding: 10px 14px;
+}
+
+.add-home-page .install-banner-text {
+  font-size: 14px;
+}
+
+.add-home-page .install-steps li {
+  margin: 0 0 6px;
+  font-size: 14px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 600px) {
+  .site-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .site-nav {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .site-header .logo,
+  .home-header .logo {
+    height: 110px;
+  }
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Standings — Bridgewater Bocce</title>
+<link rel="stylesheet" href="style.css">
+
+<!-- PWA: install-to-home-screen support -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#142850">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Bridgewater Bocce">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
+</script>
+<style>
+  .schedule-current {
+    margin: 6px 0 26px;
+  }
+  .current-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #6b6b6b;
+    margin: 0 0 2px;
+  }
+  .schedule-current h2 {
+    font-size: 20px;
+    margin: 0 0 10px;
+  }
+  .schedule-match-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .schedule-match {
+    border: 1px solid #e2e2e2;
+    border-radius: 6px;
+    padding: 10px 14px;
+    background: #fafafa;
+  }
+  .matchup {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+  }
+  .at-word {
+    color: #999;
+    font-size: 12px;
+  }
+  .result-winner {
+    font-weight: bold;
+  }
+  .result-loser {
+    color: #666;
+  }
+  .schedule-loading {
+    font-size: 14px;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <img class="logo" src="logo-home.png" alt="Bridgewater Bocce crest">
+  <h1 class="site-title">Bridgewater Bocce</h1>
+</header>
+<nav class="site-nav">
+  <a href="index.html">Home</a>
+  <a href="tournaments.html">Tournaments</a>
+  <a href="registration.html">League<br>Registration</a>
+  <a href="fall-rec-league.html">Fall &rsquo;26<br>Rec League</a>
+  <a href="contact.html">Contact</a>
+</nav>
+<main class="page-content">
+  <nav class="site-nav fall-rec-subnav">
+    <a href="team-rosters.html">Team Rosters</a>
+    <a href="schedule.html">Schedule</a>
+  </nav>
+  <h1>Monday Fall Rec League Standings</h1>
+  <p class="schedule-intro">This week&rsquo;s results and the season standings below are pulled live from the schedule Sheet &mdash; they update automatically as soon as a week&rsquo;s Home/Visiting Team Wins are entered.</p>
+
+  <section class="schedule-current" id="standings-current">
+    <p class="schedule-loading">Loading results&hellip;</p>
+  </section>
+
+  <h2 style="font-size:20px; margin-bottom:14px;">Season standings</h2>
+
+  <div id="standings-table-wrap">
+    <table class="standings-table">
+      <tr><th>Team</th><th>Wins</th><th>Losses</th></tr>
+      <tr data-team="1"><td>Team 1</td><td>0</td><td>0</td></tr>
+      <tr data-team="2"><td>Team 2</td><td>0</td><td>0</td></tr>
+      <tr data-team="3"><td>Team 3</td><td>0</td><td>0</td></tr>
+      <tr data-team="4"><td>Team 4</td><td>0</td><td>0</td></tr>
+      <tr data-team="5"><td>Team 5</td><td>0</td><td>0</td></tr>
+      <tr data-team="6"><td>Team 6</td><td>0</td><td>0</td></tr>
+      <tr data-team="7"><td>Team 7</td><td>0</td><td>0</td></tr>
+      <tr data-team="8"><td>Team 8</td><td>0</td><td>0</td></tr>
+      <tr data-team="9"><td>Team 9</td><td>0</td><td>0</td></tr>
+    </table>
+  </div>
+
+  <div class="legal-link-wrap">
+    <a class="legal-link" href="index.html">Home</a>
+  </div>
+</main>
+<footer class="site-footer">
+  Bridgewater Bocce
+</footer>
+<script src="standings-sync.js"></script>
+</body>
+</html>
