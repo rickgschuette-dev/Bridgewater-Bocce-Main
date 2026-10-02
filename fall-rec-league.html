@@ -33,13 +33,14 @@ if ('serviceWorker' in navigator) {
     gap: 20px;
   }
   .fall-rec-tile {
-    flex: 1 1 220px;
+    flex: 1 1 0;
+    min-width: 190px;
     display: block;
     background: #fff;
     border: 1px solid var(--border-light);
     border-left: 6px solid var(--brand-gold);
     border-radius: 8px;
-    padding: 20px 22px;
+    padding: 18px 16px;
     text-decoration: none;
     transition: box-shadow 0.15s ease, transform 0.15s ease;
   }
@@ -49,12 +50,12 @@ if ('serviceWorker' in navigator) {
   }
   .fall-rec-tile h2 {
     margin: 0 0 8px;
-    font-size: 22px;
+    font-size: 20px;
     color: var(--brand-blue-dark);
   }
   .fall-rec-tile p {
     margin: 0;
-    font-size: 15px;
+    font-size: 14px;
     color: var(--text-dark);
   }
 </style>
@@ -87,6 +88,10 @@ if ('serviceWorker' in navigator) {
     <a class="fall-rec-tile" href="standings.html">
       <h2>Results &amp; Standings</h2>
       <p>This week's results and the season standings.</p>
+    </a>
+    <a class="fall-rec-tile" href="fall-rec-league-rules.html">
+      <h2>Rules</h2>
+      <p>The official rules of play for the season.</p>
     </a>
   </div>
 
