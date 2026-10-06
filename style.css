@@ -646,14 +646,14 @@ a:hover {
   flex: 1 1 180px;
   max-width: 230px;
   border-collapse: collapse;
-  background: #fafafa;
-  border: 1px solid var(--border-light);
+  background: #eaeef7;
+  border: 1px solid #aebbd8;
   border-radius: 8px;
   overflow: hidden;
 }
 
 .mu th {
-  background: #e8edf9;
+  background: #d3ddf3;
   color: var(--brand-blue-dark);
   padding: 8px;
   font-size: 15px;
@@ -664,7 +664,7 @@ a:hover {
   text-align: center;
   padding: 6px 8px;
   font-size: 17px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #c9d2e6;
 }
 
 .mu th.vs,
