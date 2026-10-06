@@ -1,29 +1,33 @@
 /*
   Bridgewater Bocce — Rec League results & standings sync
-  Reads the "Fall '26 Rec League Schedule" Google Sheet (the same sheet
-  the Schedule page's matchups were mirrored from) and uses its
-  Home Team Score / Visiting Team Score columns to build:
-    1) a "This week's results" box (id="standings-current") showing the
-       most recently scored week's matches
+  Reads the "Bridgewater_Fall26_Rec_League_Game_Scores" Google Sheet and builds:
+    1) a "Weekly results" box (id="standings-current"): one collapsible box per
+       week that has scores, newest week first and open, older weeks closed.
+       Each match-up shows the two team names as column headings with that
+       match-up's three game scores listed beneath them (winning score bold).
+       Beneath the weekly boxes, an "Up next" strip shows the next unplayed
+       week's match-ups with each team's current games won-lost record.
     2) the season standings table (rows tagged data-team="1".."9" inside
-       #standings-table-wrap) — Wins/Losses are MATCH results: whichever
-       team has the higher of the two scores in a week's match gets +1
-       Win that week, the other +1 Loss.
+       #standings-table-wrap) — Wins/Losses are total GAMES won and lost.
+    3) on the Schedule page, each team's games won-lost record beneath its
+       name in every match-up box.
 
-  SHEET FORMAT (Week, Date, Time, Home Team, Visiting Team, Location,
-  Home Team Score, Visiting Team Score):
-   - Home Team / Visiting Team are plain numbers (1-9), or "BYE" on a
-     team's bye-week row — bye rows are always skipped, they're never
-     scored.
-   - Leave both Score columns blank until that week's match has been
-     played. Once both are filled in (e.g. 12 and 7), that match counts
-     — whichever team's score is higher is the winner of that match.
+  SHEET FORMAT (row 1 is a header row; columns in this exact order):
+    A Week | B Date | C Time | D Visiting Team | E Home Team |
+    F Visiting G1 | G Home G1 | H Visiting G2 | I Home G2 |
+    J Visiting G3 | K Home G3 | (L blank) | M note (ignored)
+   - Visiting Team is the team shown on the LEFT of the scoreboard and
+     website; Home Team is the team on the RIGHT.
+   - Leave a game's two score cells blank until that game has been played.
+     A game counts only when BOTH of its score cells are filled in; the
+     higher score wins that game.
    - If the fetch fails, or nothing has been scored yet, the page falls
      back to a friendly message / the static 0-0 table already in the
      HTML — it never breaks.
 */
 (function () {
-  var SCHEDULE_CSV_URL = "https://docs.google.com/spreadsheets/d/1N_vy05xeTAT7_AJLOBtJ0NNgG5aZWFgCT9Jx6ntZ4o8/export?format=csv&gid=1427020535";
+  var SCORES_CSV_URL = "https://docs.google.com/spreadsheets/d/1uqZa-7lQ8keGyMNIDgJCpt0YoigYfjovqNSotPd7JtQ/export?format=csv&gid=2036022231";
+  var TEAM_COUNT = 9;
 
   function parseCSV(text) {
     var rows = [], row = [], field = "", inQuotes = false;
@@ -55,112 +59,123 @@
   }
 
   // Groups the sheet's rows into an ordered array of week objects:
-  // { n, dateStr, matches: [{ home, vis, homeScore, visScore, scored }] }
-  // Bye rows (Visiting or Home Team = "BYE") are skipped entirely, same
-  // as they are on the Schedule page's own matchup list.
+  // { n, dateStr, matches: [{ vis, home, games: [{ v, h }] }] }
+  // A game is included only when both of its score cells are filled in.
   function buildWeeks(rows) {
     var byWeek = {};
     var order = [];
-    var pendingDate = "";
     rows.slice(1).forEach(function (cols) { // row 0 is the header
       var week = (cols[0] || "").trim();
-      var dateCell = (cols[1] || "").trim();
-      var home = (cols[3] || "").trim();
-      var vis = (cols[4] || "").trim();
-      var scoreHomeRaw = cols[6];
-      var scoreVisRaw = cols[7];
+      var dateStr = (cols[1] || "").trim();
+      var vis = (cols[3] || "").trim();
+      var home = (cols[4] || "").trim();
+      if (!week || !vis || !home) return;
 
-      if (!home && !vis) {
-        pendingDate = dateCell; // spacer row carrying that week's date
-        return;
+      var games = [];
+      for (var g = 0; g < 3; g++) {
+        var v = parseScore(cols[5 + g * 2]);
+        var h = parseScore(cols[6 + g * 2]);
+        if (v !== null && h !== null) games.push({ v: v, h: h });
       }
-      if (!week || !home || !vis) return;
-      if (/^bye$/i.test(vis) || /^bye$/i.test(home)) return; // bye row — never scored
 
-      var effectiveDate = dateCell || pendingDate;
-      var homeScore = parseScore(scoreHomeRaw);
-      var visScore = parseScore(scoreVisRaw);
-      var scored = homeScore !== null && visScore !== null;
-
-      if (!byWeek[week]) { byWeek[week] = { n: week, dateStr: effectiveDate, matches: [] }; order.push(week); }
-      if (effectiveDate && !byWeek[week].dateStr) byWeek[week].dateStr = effectiveDate;
-      byWeek[week].matches.push({ home: home, vis: vis, homeScore: homeScore, visScore: visScore, scored: scored });
+      if (!byWeek[week]) { byWeek[week] = { n: week, dateStr: dateStr, matches: [] }; order.push(week); }
+      if (dateStr && !byWeek[week].dateStr) byWeek[week].dateStr = dateStr;
+      byWeek[week].matches.push({ vis: vis, home: home, games: games });
     });
     return order.map(function (w) { return byWeek[w]; });
   }
 
-  function matchResultHtml(m) {
-    var homeName = "Team " + escapeHtml(m.home);
-    var visName = "Team " + escapeHtml(m.vis);
-    var inner;
-    if (m.homeScore === m.visScore) {
-      // tie — not expected for this league; show neutrally so a scoring typo is easy to spot
-      inner = homeName + ' <span class="at-word">vs</span> ' + visName + ": " + m.homeScore + " &ndash; " + m.visScore;
-    } else {
-      var homeWon = m.homeScore > m.visScore;
-      var winName = homeWon ? homeName : visName;
-      var loseName = homeWon ? visName : homeName;
-      var winScore = homeWon ? m.homeScore : m.visScore;
-      var loseScore = homeWon ? m.visScore : m.homeScore;
-      inner = '<span class="result-winner">' + winName + '</span> def. <span class="result-loser">' + loseName + "</span>: " +
-        winScore + " &ndash; " + loseScore;
-    }
-    return '<div class="schedule-match"><div class="matchup"><span>' + inner + "</span></div></div>";
+  function weekHasScores(wk) {
+    return wk.matches.some(function (m) { return m.games.length > 0; });
   }
 
-  function renderResults(el, weeks) {
-    var scoredWeeks = weeks.filter(function (w) { return w.matches.some(function (m) { return m.scored; }); });
-    if (!scoredWeeks.length) {
-      el.innerHTML = '<p class="current-eyebrow">This week&rsquo;s results</p>' +
-        "<h2>No results yet</h2>" +
-        '<p class="schedule-loading">Results will appear here once scores are entered for Week 1.</p>';
-      return;
-    }
-    var current = scoredWeeks[scoredWeeks.length - 1];
-    var scoredMatches = current.matches.filter(function (m) { return m.scored; });
-    var html = '<p class="current-eyebrow">This week&rsquo;s results</p>' +
-      "<h2>Week " + escapeHtml(current.n) + (current.dateStr ? " &mdash; " + escapeHtml(current.dateStr) : "") + "</h2>" +
-      '<div class="schedule-match-list">';
-    scoredMatches.forEach(function (m) { html += matchResultHtml(m); });
-    html += "</div>";
-    el.innerHTML = html;
-  }
-
-  function renderPrevious(el, weeks) {
-    if (!el) return;
-    var scoredWeeks = weeks.filter(function (w) { return w.matches.some(function (m) { return m.scored; }); });
-    var earlier = scoredWeeks.slice(0, -1).reverse(); // everything before the current week, newest first
-    if (!earlier.length) { el.innerHTML = ""; return; }
-    var html = '<details class="previous-weeks-all"><summary>All previous weeks results</summary>' +
-      '<div class="previous-weeks-body">';
-    earlier.forEach(function (wk, i) {
-      // native collapsible box; the most recent earlier week starts open, older weeks start closed
-      html += '<details class="previous-week"' + (i === 0 ? " open" : "") + ">" +
-        "<summary>Week " + escapeHtml(wk.n) + (wk.dateStr ? " &mdash; " + escapeHtml(wk.dateStr) : "") + "</summary>" +
-        '<div class="schedule-match-list">';
-      wk.matches.filter(function (m) { return m.scored; }).forEach(function (m) { html += matchResultHtml(m); });
-      html += "</div></details>";
-    });
-    html += "</div></details>";
-    el.innerHTML = html;
-  }
-
-  function renderStandings(weeks) {
+  // Total games won / lost per team across every game entered so far.
+  function computeStats(weeks) {
     var stats = {};
-    for (var t = 1; t <= 9; t++) stats[t] = { w: 0, l: 0 };
-
+    for (var t = 1; t <= TEAM_COUNT; t++) stats[t] = { w: 0, l: 0 };
     weeks.forEach(function (wk) {
       wk.matches.forEach(function (m) {
-        if (!m.scored) return;
-        if (m.homeScore === m.visScore) return; // tie — not expected for this league, skip rather than guess
-        var winner = m.homeScore > m.visScore ? m.home : m.vis;
-        var loser = m.homeScore > m.visScore ? m.vis : m.home;
-        if (stats[winner]) stats[winner].w += 1;
-        if (stats[loser]) stats[loser].l += 1;
+        m.games.forEach(function (g) {
+          if (g.v === g.h) return; // tie — not expected, skipped rather than guessed
+          var winner = g.v > g.h ? m.vis : m.home;
+          var loser = g.v > g.h ? m.home : m.vis;
+          if (stats[winner]) stats[winner].w += 1;
+          if (stats[loser]) stats[loser].l += 1;
+        });
       });
     });
+    return stats;
+  }
 
-    for (var team = 1; team <= 9; team++) {
+  function recordText(stats, team) {
+    var s = stats[team];
+    return s ? s.w + "–" + s.l : "";
+  }
+
+  function weekHeading(wk) {
+    return "Week " + escapeHtml(wk.n) + (wk.dateStr ? " &mdash; Mon, " + escapeHtml(wk.dateStr) : "");
+  }
+
+  // One match-up: team names as column headings, "v." between them, the
+  // three game scores listed vertically beneath (winning score in bold).
+  function matchTableHtml(m) {
+    var html = '<table class="mu"><tr><th>Team ' + escapeHtml(m.vis) + '</th><th class="vs">v.</th><th>Team ' +
+      escapeHtml(m.home) + "</th></tr>";
+    m.games.forEach(function (g) {
+      var vTxt = g.v > g.h ? "<b>" + g.v + "</b>" : String(g.v);
+      var hTxt = g.h > g.v ? "<b>" + g.h + "</b>" : String(g.h);
+      html += "<tr><td>" + vTxt + '</td><td class="vs"></td><td>' + hTxt + "</td></tr>";
+    });
+    return html + "</table>";
+  }
+
+  function nextWeekHtml(weeks, stats) {
+    var next = null;
+    for (var i = 0; i < weeks.length; i++) {
+      if (!weekHasScores(weeks[i])) { next = weeks[i]; break; }
+    }
+    if (!next) return ""; // every week already has scores — season over
+    var playing = {};
+    var html = '<div class="nextwk"><h3>Up next &mdash; ' + weekHeading(next) + '</h3><div class="nextwk-row">';
+    next.matches.forEach(function (m) {
+      playing[m.vis] = true; playing[m.home] = true;
+      html += '<div class="nx"><span>Team ' + escapeHtml(m.vis) + " <i>(" + recordText(stats, m.vis) + ")</i></span>" +
+        "<em>v.</em><span>Team " + escapeHtml(m.home) + " <i>(" + recordText(stats, m.home) + ")</i></span></div>";
+    });
+    html += "</div>";
+    var byes = [];
+    for (var t = 1; t <= TEAM_COUNT; t++) { if (!playing[t]) byes.push("Team " + t); }
+    html += '<p class="nextwk-note">' + (byes.length ? byes.join(", ") + (byes.length > 1 ? " have a bye. " : " has a bye. ") : "") +
+      "Records shown are total games won&ndash;lost.</p></div>";
+    return html;
+  }
+
+  function renderResults(el, weeks, stats) {
+    var scoredWeeks = weeks.filter(weekHasScores);
+    var html = '<p class="current-eyebrow">Weekly results</p>';
+    if (!scoredWeeks.length) {
+      html += "<h2>No results yet</h2>" +
+        '<p class="schedule-loading">Results will appear here once scores are entered for Week 1.</p>';
+    } else {
+      scoredWeeks.slice().reverse().forEach(function (wk, i) {
+        var scored = wk.matches.filter(function (m) { return m.games.length > 0; });
+        var missing = wk.matches.length - scored.length;
+        html += '<details class="previous-week"' + (i === 0 ? " open" : "") + "><summary>" + weekHeading(wk) + "</summary>" +
+          '<div class="mu-wrap">';
+        scored.forEach(function (m) { html += matchTableHtml(m); });
+        html += "</div>";
+        if (missing > 0) {
+          html += '<p class="week-note">' + missing + (missing === 1 ? " match-up has" : " match-ups have") + " not been reported yet.</p>";
+        }
+        html += "</details>";
+      });
+    }
+    html += nextWeekHtml(weeks, stats);
+    el.innerHTML = html;
+  }
+
+  function renderStandings(stats) {
+    for (var team = 1; team <= TEAM_COUNT; team++) {
       var row = document.querySelector('tr[data-team="' + team + '"]');
       if (!row) continue;
       var cells = row.querySelectorAll("td");
@@ -169,22 +184,10 @@
     }
   }
 
-  // Schedule page: put each team's current win-loss record beneath its name in every match-up box.
-  function renderScheduleRecords(weeks) {
+  // Schedule page: put each team's games won-lost record beneath its name in every match-up box.
+  function renderScheduleRecords(stats) {
     var labels = document.querySelectorAll(".mnum");
     if (!labels.length) return; // not the Schedule page
-    var stats = {};
-    for (var t = 1; t <= 9; t++) stats[t] = { w: 0, l: 0 };
-    weeks.forEach(function (wk) {
-      wk.matches.forEach(function (m) {
-        if (!m.scored) return;
-        if (m.homeScore === m.visScore) return; // tie — skipped, same as the standings table
-        var winner = m.homeScore > m.visScore ? m.home : m.vis;
-        var loser = m.homeScore > m.visScore ? m.vis : m.home;
-        if (stats[winner]) stats[winner].w += 1;
-        if (stats[loser]) stats[loser].l += 1;
-      });
-    });
     for (var i = 0; i < labels.length; i++) {
       var label = labels[i];
       if (label.querySelector(".mrec")) continue;
@@ -192,7 +195,7 @@
       if (!found || !stats[found[1]]) continue;
       var rec = document.createElement("span");
       rec.className = "mrec";
-      rec.textContent = stats[found[1]].w + "-" + stats[found[1]].l;
+      rec.textContent = recordText(stats, found[1]);
       label.appendChild(rec);
     }
   }
@@ -201,17 +204,20 @@
     var resultsEl = document.getElementById("standings-current");
     if (resultsEl) resultsEl.innerHTML = '<p class="schedule-loading">Loading results&hellip;</p>';
 
-    fetch(SCHEDULE_CSV_URL)
+    fetch(SCORES_CSV_URL)
       .then(function (res) {
         if (!res.ok) throw new Error("HTTP " + res.status);
         return res.text();
       })
       .then(function (text) {
         var weeks = buildWeeks(parseCSV(text));
-        if (resultsEl) renderResults(resultsEl, weeks);
-        renderStandings(weeks);
-        renderPrevious(document.getElementById("standings-previous"), weeks);
-        renderScheduleRecords(weeks);
+        if (!weeks.length) throw new Error("No schedule rows found");
+        var stats = computeStats(weeks);
+        if (resultsEl) renderResults(resultsEl, weeks, stats);
+        renderStandings(stats);
+        var previousEl = document.getElementById("standings-previous");
+        if (previousEl) previousEl.innerHTML = ""; // older weeks now live inside the weekly results box
+        renderScheduleRecords(stats);
       })
       .catch(function (err) {
         console.error("Standings sync error:", err);

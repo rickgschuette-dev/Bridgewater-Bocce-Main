@@ -628,3 +628,121 @@ a:hover {
 .previous-weeks-body {
   padding: 6px 14px 14px;
 }
+
+/* ---------- Weekly results: team-column match-up tables & "Up next" strip (added Oct 2026) ---------- */
+
+#standings-current .current-eyebrow {
+  margin: 0 0 8px;
+}
+
+.mu-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 12px 18px 14px;
+}
+
+.mu {
+  flex: 1 1 180px;
+  max-width: 230px;
+  border-collapse: collapse;
+  background: #fafafa;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mu th {
+  background: #e8edf9;
+  color: var(--brand-blue-dark);
+  padding: 8px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.mu td {
+  text-align: center;
+  padding: 6px 8px;
+  font-size: 17px;
+  border-top: 1px solid #eee;
+}
+
+.mu th.vs,
+.mu td.vs {
+  width: 1%;
+  padding: 0 2px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #666;
+}
+
+.week-note {
+  margin: 0;
+  padding: 0 18px 12px;
+  font-size: 13px;
+  color: #666;
+}
+
+.nextwk {
+  margin-top: 16px;
+  border: 1px solid var(--border-light);
+  border-left: 6px solid var(--brand-gold);
+  border-radius: 8px;
+  background: #fff;
+  padding: 10px 14px 12px;
+}
+
+.nextwk h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.nextwk-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 8px 14px;
+}
+
+.nx {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #f4f6fc;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 15px;
+}
+
+.nx i {
+  font-style: normal;
+  color: #666;
+  font-size: 13px;
+}
+
+.nx em {
+  font-style: normal;
+  color: #666;
+  font-size: 13px;
+}
+
+.nextwk-note {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: #666;
+}
+
+@media (max-width: 600px) {
+  .mu-wrap {
+    gap: 10px;
+    padding: 10px 10px 12px;
+  }
+  .mu {
+    flex: 1 1 calc(50% - 10px);
+    max-width: none;
+  }
+  .mu th {
+    font-size: 14px;
+    padding: 8px 4px;
+  }
+}
