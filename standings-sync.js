@@ -163,14 +163,17 @@
       scoredWeeks.slice().reverse().forEach(function (wk, i) {
         var scored = wk.matches.filter(function (m) { return m.games.length > 0; });
         var missing = wk.matches.length - scored.length;
-        html += '<details class="previous-week"' + (i === 0 ? " open" : "") + "><summary>" + weekHeading(wk) + HINT + "</summary>" +
+        // Newest week is shown directly under the main "Weekly results" bar; older weeks fold away.
+        html += (i === 0
+          ? '<div class="week-latest"><h3>' + weekHeading(wk) + "</h3>"
+          : '<details class="previous-week"><summary>' + weekHeading(wk) + HINT + "</summary>") +
           '<div class="mu-wrap">';
         scored.forEach(function (m) { html += matchTableHtml(m); });
         html += "</div>";
         if (missing > 0) {
           html += '<p class="week-note">' + missing + (missing === 1 ? " match-up has" : " match-ups have") + " not been reported yet.</p>";
         }
-        html += "</details>";
+        html += (i === 0 ? "</div>" : "</details>");
       });
     }
     html += nextWeekHtml(weeks, stats);

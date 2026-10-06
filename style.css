@@ -767,3 +767,19 @@ details:not([open]) > summary .hint-close,
 details[open] > summary .hint-open {
   display: none;
 }
+
+/* Newest week sits directly inside the main Weekly results box (added Oct 2026) */
+.week-latest h3 {
+  margin: 4px 0 0;
+  padding: 0 4px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.week-latest .mu-wrap {
+  padding: 10px 0 14px;
+}
+
+.week-latest .week-note {
+  padding: 0 4px 12px;
+}
