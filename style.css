@@ -753,3 +753,17 @@ a:hover {
   border: 0;
   padding: 0;
 }
+
+/* "click to open / close" prompt beside results box titles (added Oct 2026) */
+.tap-hint {
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: italic;
+  color: #5a5a5a;
+}
+
+details:not([open]) > summary .hint-close,
+details[open] > summary .hint-open {
+  display: none;
+}

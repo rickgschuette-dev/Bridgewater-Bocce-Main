@@ -150,6 +150,9 @@
     return html;
   }
 
+  // Small prompt beside each box title telling visitors the box can be clicked.
+  var HINT = '<span class="tap-hint"><span class="hint-open">&mdash; click to open</span><span class="hint-close">&mdash; click to close</span></span>';
+
   function renderResults(el, weeks, stats) {
     var scoredWeeks = weeks.filter(weekHasScores);
     var html = "";
@@ -160,7 +163,7 @@
       scoredWeeks.slice().reverse().forEach(function (wk, i) {
         var scored = wk.matches.filter(function (m) { return m.games.length > 0; });
         var missing = wk.matches.length - scored.length;
-        html += '<details class="previous-week"' + (i === 0 ? " open" : "") + "><summary>" + weekHeading(wk) + "</summary>" +
+        html += '<details class="previous-week"' + (i === 0 ? " open" : "") + "><summary>" + weekHeading(wk) + HINT + "</summary>" +
           '<div class="mu-wrap">';
         scored.forEach(function (m) { html += matchTableHtml(m); });
         html += "</div>";
@@ -171,7 +174,7 @@
       });
     }
     html += nextWeekHtml(weeks, stats);
-    el.innerHTML = '<details class="previous-weeks-all" open><summary>Weekly results</summary>' +
+    el.innerHTML = '<details class="previous-weeks-all" open><summary>Weekly results' + HINT + '</summary>' +
       '<div class="previous-weeks-body">' + html + "</div></details>";
   }
 
