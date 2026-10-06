@@ -182,14 +182,46 @@
       '<div class="previous-weeks-body">' + html + "</div></details>";
   }
 
+  // Fills Wins/Losses, adds a Place column, and orders the rows by record:
+  // win percentage (highest first), then total wins, then team number.
+  // A team with no games played yet (0-0) is listed last.
   function renderStandings(stats) {
+    var wrap = document.getElementById("standings-table-wrap");
+    var table = wrap && wrap.querySelector("table");
+    if (!table) return;
+    var headerRow = table.querySelector("tr");
+    if (headerRow && !headerRow.querySelector("th.place")) {
+      var th = document.createElement("th");
+      th.className = "place";
+      th.textContent = "Place";
+      headerRow.insertBefore(th, headerRow.firstChild);
+    }
+    var items = [];
     for (var team = 1; team <= TEAM_COUNT; team++) {
       var row = document.querySelector('tr[data-team="' + team + '"]');
       if (!row) continue;
-      var cells = row.querySelectorAll("td");
+      var cells = row.querySelectorAll("td:not(.place)");
       if (cells[1]) cells[1].textContent = stats[team].w;
       if (cells[2]) cells[2].textContent = stats[team].l;
+      items.push({ team: team, row: row, w: stats[team].w, l: stats[team].l });
     }
+    items.sort(function (a, b) {
+      var ga = a.w + a.l, gb = b.w + b.l;
+      var pa = ga ? a.w / ga : -1, pb = gb ? b.w / gb : -1;
+      if (pb !== pa) return pb - pa;
+      if (b.w !== a.w) return b.w - a.w;
+      return a.team - b.team;
+    });
+    items.forEach(function (it, i) {
+      var placeCell = it.row.querySelector("td.place");
+      if (!placeCell) {
+        placeCell = document.createElement("td");
+        placeCell.className = "place";
+        it.row.insertBefore(placeCell, it.row.firstChild);
+      }
+      placeCell.textContent = i + 1;
+      it.row.parentNode.appendChild(it.row);
+    });
   }
 
   // Schedule page: put each team's games won-lost record beneath its name in every match-up box.
