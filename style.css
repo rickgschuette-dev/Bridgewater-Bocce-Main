@@ -746,3 +746,10 @@ a:hover {
     padding: 8px 4px;
   }
 }
+
+/* Whole "Weekly results" block is one collapsible box (added Oct 2026) */
+#standings-current:has(> .previous-weeks-all) {
+  background: none;
+  border: 0;
+  padding: 0;
+}

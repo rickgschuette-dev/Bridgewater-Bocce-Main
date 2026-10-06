@@ -152,7 +152,7 @@
 
   function renderResults(el, weeks, stats) {
     var scoredWeeks = weeks.filter(weekHasScores);
-    var html = '<p class="current-eyebrow">Weekly results</p>';
+    var html = "";
     if (!scoredWeeks.length) {
       html += "<h2>No results yet</h2>" +
         '<p class="schedule-loading">Results will appear here once scores are entered for Week 1.</p>';
@@ -171,7 +171,8 @@
       });
     }
     html += nextWeekHtml(weeks, stats);
-    el.innerHTML = html;
+    el.innerHTML = '<details class="previous-weeks-all" open><summary>Weekly results</summary>' +
+      '<div class="previous-weeks-body">' + html + "</div></details>";
   }
 
   function renderStandings(stats) {
