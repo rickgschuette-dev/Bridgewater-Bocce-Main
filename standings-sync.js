@@ -67,6 +67,7 @@
     rows.slice(1).forEach(function (cols) { // row 0 is the header
       var week = (cols[0] || "").trim();
       var dateStr = (cols[1] || "").trim();
+      var timeStr = (cols[2] || "").trim();
       var vis = (cols[3] || "").trim();
       var home = (cols[4] || "").trim();
       if (!week || !vis || !home) return;
@@ -80,7 +81,7 @@
 
       if (!byWeek[week]) { byWeek[week] = { n: week, dateStr: dateStr, matches: [] }; order.push(week); }
       if (dateStr && !byWeek[week].dateStr) byWeek[week].dateStr = dateStr;
-      byWeek[week].matches.push({ vis: vis, home: home, games: games });
+      byWeek[week].matches.push({ vis: vis, home: home, time: timeStr, games: games });
     });
     return order.map(function (w) { return byWeek[w]; });
   }
@@ -139,7 +140,7 @@
     var html = '<div class="nextwk"><h3>Up next &mdash; ' + weekHeading(next) + '</h3><div class="nextwk-row">';
     next.matches.forEach(function (m) {
       playing[m.vis] = true; playing[m.home] = true;
-      html += '<div class="nx"><span>Team ' + escapeHtml(m.vis) + " <i>(" + recordText(stats, m.vis) + ")</i></span>" +
+      html += '<div class="nx">' + (m.time ? '<b class="nx-time">' + escapeHtml(m.time) + "</b>" : "") + "<span>Team " + escapeHtml(m.vis) + " <i>(" + recordText(stats, m.vis) + ")</i></span>" +
         "<em>v.</em><span>Team " + escapeHtml(m.home) + " <i>(" + recordText(stats, m.home) + ")</i></span></div>";
     });
     html += "</div>";

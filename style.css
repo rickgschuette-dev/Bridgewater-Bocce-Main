@@ -783,3 +783,14 @@ details[open] > summary .hint-open {
 .week-latest .week-note {
   padding: 0 4px 12px;
 }
+
+/* Match time shown at the left of each "Up next" match-up (added Oct 2026) */
+.nx .nx-time {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brand-blue-dark);
+  background: #e1e8f7;
+  border-radius: 4px;
+  padding: 2px 7px;
+  white-space: nowrap;
+}
