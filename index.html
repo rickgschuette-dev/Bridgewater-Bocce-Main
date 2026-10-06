@@ -226,6 +226,51 @@ width: 190px;
 height: 190px;
 }
 
+/* Two news cards side by side (tall rectangles); stack on narrow screens */
+.home-promos {
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 24px;
+margin: 8px 0 28px;
+}
+
+.home-promos .street-brawl-promo {
+flex-direction: column;
+text-align: center;
+margin: 0;
+}
+
+.home-promos .street-brawl-promo-logo,
+.home-promos .battle-royale-news .street-brawl-promo-logo {
+width: 170px;
+height: 170px;
+}
+
+.home-promos .street-brawl-promo-text {
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+}
+
+.home-promos .street-brawl-promo-text h2 {
+font-size: clamp(18px, 2vw, 22px);
+}
+
+.home-promos .street-brawl-promo-text p {
+text-align: left;
+}
+
+.home-promos .street-brawl-promo-btn {
+margin-top: auto;
+}
+
+@media (max-width: 760px) {
+.home-promos {
+grid-template-columns: 1fr;
+}
+}
+
 @media (max-width: 600px) {
 .street-brawl-promo {
 flex-direction: column;
@@ -335,6 +380,7 @@ font-size: 17px;
 
 <p class="home-screen-links"><a href="add-to-home-screen.html">Add Bridgewater Bocce to your phone</a></p>
 
+<div class="home-promos">
 <section class="street-brawl-promo battle-royale-news">
 <img src="assets/battle-royale-logo.png" alt="Bridgewater Bocce Battle Royale, Saturday, January 9th" class="street-brawl-promo-logo">
 <div class="street-brawl-promo-text">
@@ -352,6 +398,7 @@ font-size: 17px;
 <a href="street-brawl.html" class="street-brawl-promo-btn">See Round-Robin Results</a>
 </div>
 </section>
+</div>
 
 <section class="home-media-section">
 <div class="home-media-heading-wrap">
