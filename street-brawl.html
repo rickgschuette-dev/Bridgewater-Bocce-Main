@@ -296,30 +296,6 @@ if ('serviceWorker' in navigator) {
     <p class="sb-bracket-legend">Seeding is cross-bracket: each bracket's #1 finisher faces the other bracket's #2 finisher.</p>
   </div>
 
-  <div class="sb-status" id="street-brawl-status"></div>
-
-  <h2 class="sb-bracket-heading">Phase South</h2>
-  <h3 class="sb-section-label">Standings</h3>
-  <table class="standings-table sb-standings">
-    <thead>
-      <tr><th>Team</th><th>W</th><th>L</th><th>PF</th><th>PA</th><th>Diff</th></tr>
-    </thead>
-    <tbody id="north-standings-body">
-      <tr><td colspan="6">Loading standings&hellip;</td></tr>
-    </tbody>
-  </table>
-
-  <h2 class="sb-bracket-heading">Phase North</h2>
-  <h3 class="sb-section-label">Standings</h3>
-  <table class="standings-table sb-standings">
-    <thead>
-      <tr><th>Team</th><th>W</th><th>L</th><th>PF</th><th>PA</th><th>Diff</th></tr>
-    </thead>
-    <tbody id="south-standings-body">
-      <tr><td colspan="6">Loading standings&hellip;</td></tr>
-    </tbody>
-  </table>
-
   <h2 class="sb-bracket-heading">Teams</h2>
 
   <h3 class="sb-section-label">Phase South</h3>
@@ -421,91 +397,6 @@ if ('serviceWorker' in navigator) {
       </table>
     </div>
   </div>
-
-<script>
-(function () {
-  // Read-only Apps Script Web App backing the "Bridgewater Bocce - Street Brawl Results" sheet.
-  // Deployed and verified 2026-09-24. If this ever needs to change, update this one constant.
-  // Schedule/game-result rendering was removed 2026-09-27 at Rick's request (round-robin
-  // play is over); this now loads final Standings only. To bring back schedule/game
-  // rendering (e.g. for the December Jingle & Mingle), see git history for this file.
-  var API_URL = 'https://script.google.com/macros/s/AKfycbxJ7eKifBZJFbvRtzGiPzjvozD11qg8_DAy7DMKn7V6DFd8BvJHLSKVo82DK8dd77VR/exec';
-
-  function clearBody(tbody) {
-    while (tbody.firstChild) {
-      tbody.removeChild(tbody.firstChild);
-    }
-  }
-
-  function cell(tag, text) {
-    var el = document.createElement(tag);
-    el.textContent = text;
-    return el;
-  }
-
-  function renderStandings(tbody, standings) {
-    clearBody(tbody);
-    if (!standings || standings.length === 0) {
-      var tr = document.createElement('tr');
-      tr.appendChild(cell('td', 'No teams found.'));
-      tbody.appendChild(tr);
-      return;
-    }
-    standings.forEach(function (t) {
-      var tr = document.createElement('tr');
-      tr.appendChild(cell('td', t.team));
-      tr.appendChild(cell('td', String(t.wins)));
-      tr.appendChild(cell('td', String(t.losses)));
-      tr.appendChild(cell('td', String(t.pointsFor)));
-      tr.appendChild(cell('td', String(t.pointsAgainst)));
-      tr.appendChild(cell('td', (t.diff > 0 ? '+' : '') + t.diff));
-      tbody.appendChild(tr);
-    });
-  }
-
-  function showStatus(msg) {
-    var el = document.getElementById('street-brawl-status');
-    el.textContent = msg;
-    el.style.display = msg ? 'block' : 'none';
-  }
-
-  function loadResults() {
-    showStatus('');
-
-    fetch(API_URL)
-      .then(function (res) {
-        if (!res.ok) {
-          throw new Error('Server responded with status ' + res.status);
-        }
-        return res.json();
-      })
-      .then(function (data) {
-        if (!data.ok) {
-          throw new Error(data.error || 'Unknown error from the results sheet.');
-        }
-        // NOTE: as of 2026-09-26, the "Bracket" column text in the Google Sheet was corrected
-        // to match the on-page headings (the Alister/Great Belt cluster is now literally
-        // labeled "Phase South" in the sheet, and Chapel Bridge/Trift Bridge is "Phase North").
-        // These lookup keys were swapped to match that sheet correction. If the sheet's
-        // Bracket column values are ever changed again, these two keys must be updated to match.
-        var north = data.brackets && data.brackets['Phase South'];
-        var south = data.brackets && data.brackets['Phase North'];
-
-        if (north) {
-          renderStandings(document.getElementById('north-standings-body'), north.standings);
-        }
-        if (south) {
-          renderStandings(document.getElementById('south-standings-body'), south.standings);
-        }
-      })
-      .catch(function (err) {
-        showStatus('Final standings could not be loaded right now (' + err.message + '). Try reloading the page.');
-      });
-  }
-
-  loadResults();
-})();
-</script>
 
 <div class="legal-link-wrap">
     <a class='legal-link' href='/'>Home</a>
