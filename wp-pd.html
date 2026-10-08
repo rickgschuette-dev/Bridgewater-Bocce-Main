@@ -23,6 +23,12 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+<style>
+  .pd-heading { font-size: 20px; margin: 26px 0 12px; }
+  .pd-note { font-size: 15px; color: #555; }
+  .pd-scroll { overflow-x: auto; }
+  .pd-date { font-weight: 400; font-size: 12px; }
+</style>
 </head>
 <body>
 <header class="site-header">
@@ -39,7 +45,13 @@ if ('serviceWorker' in navigator) {
 </nav>
 <main class="page-content">
   <h1>Win Percentage &amp; Point Differential</h1>
-  <p>This page will track each team&rsquo;s winning percentage and point differential as the Monday Fall Rec League season unfolds. Check back soon.</p>
+  <p class="pd-note">League admin view. Point differential (PD) is each team&rsquo;s points scored minus points allowed, added up over every game entered so far. Winning percentage is coming next.</p>
+
+  <h2 class="pd-heading">Season point differential</h2>
+  <div id="pd-season"><p class="pd-note">Loading scores&hellip;</p></div>
+
+  <h2 class="pd-heading">Cumulative point differential by week</h2>
+  <div id="pd-weekly"></div>
 
   <div class="legal-link-wrap">
     <a class="legal-link" href="standings.html">&larr; Back to Standings</a>
@@ -48,5 +60,6 @@ if ('serviceWorker' in navigator) {
 <footer class="site-footer">
   Bridgewater Bocce
 </footer>
+<script src="wp-pd.js"></script>
 </body>
 </html>
