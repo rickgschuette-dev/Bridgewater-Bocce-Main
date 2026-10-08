@@ -491,10 +491,11 @@ a:hover {
 
 .home-screen-links a {
   display: inline-block;
-  color: var(--brand-blue-dark);
+  color: #ffffff;
+  background: #a8423c;
   font-weight: 600;
   text-decoration: underline;
-  border: 2px solid var(--brand-gold);
+  border: 2px solid #8a332e;
   border-radius: 8px;
   padding: 10px 16px;
 }
