@@ -487,6 +487,7 @@ a:hover {
 .home-screen-links {
   margin: 0 0 24px;
   font-size: 15px;
+  text-align: center;
 }
 
 .home-screen-links a {
