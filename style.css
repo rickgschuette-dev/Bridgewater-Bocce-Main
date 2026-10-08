@@ -104,6 +104,24 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Fall ’26 Rec League nav button: gold box so it stands out in the menu row (added Oct 2026).
+   Matches by link target so it applies on every page without editing each HTML file;
+   the gray Fall Rec League sub-nav is excluded. */
+.site-nav:not(.fall-rec-subnav) a[href="fall-rec-league.html"] {
+  background: var(--brand-gold);
+  color: var(--brand-blue-dark);
+  border: 1px solid #e3c458;
+  border-radius: 8px;
+  padding: 8px 14px;
+  box-shadow: 0 2px 4px rgba(10, 20, 50, 0.35);
+}
+
+.site-nav:not(.fall-rec-subnav) a[href="fall-rec-league.html"]:hover {
+  background: #dbb637;
+  color: var(--brand-blue-dark);
+  text-decoration: none;
+}
+
 .fall-rec-subnav {
   max-width: none;
   margin: 0 0 20px;
