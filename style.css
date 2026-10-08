@@ -279,15 +279,6 @@ a:hover {
   background: #f5f3ec;
 }
 
-/* Keep the season standings table (with its Win % column) inside the screen on phones (added Oct 2026). */
-@media (max-width: 600px) {
-  #standings-table-wrap .standings-table th,
-  #standings-table-wrap .standings-table td {
-    padding: 10px 7px;
-    white-space: nowrap;
-  }
-}
-
 /* ---------- Team Rosters ---------- */
 
 .roster-columns {

@@ -5,11 +5,15 @@
     1) a season point-differential table (id="pd-season"): for every team, games
        played, points for, points against and point differential (PD = points
        for minus points against, summed over every game entered so far).
-    2) a week-by-week table (id="pd-weekly"): each team's cumulative PD after
-       every week that has scores. A team on a bye keeps its previous total.
+    2) a winning-percentage table (id="wp-season"): games won, games lost and
+       winning percentage (games won divided by games played), plus each team's
+       PD rank beside its WP rank so the two measures can be compared at a glance.
 
+  Ranks are shared on ties (for example, four teams tied for first are all
+  ranked 1 and the next team is ranked 5).
   A game counts only when BOTH of its score cells are filled in (same rule as
-  the standings page). Ties are counted for points like any other game.
+  the standings page). A tied game (equal scores) adds to points but is not
+  counted as a win or a loss, matching standings-sync.js.
   If the fetch fails, the page shows a friendly message and never breaks.
   This file is read-only: it never writes anything back to the sheet.
 */
@@ -35,10 +39,6 @@
     return rows;
   }
 
-  function escapeHtml(s) {
-    return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
-
   function parseScore(raw) {
     raw = (raw || "").trim();
     if (raw === "") return null;
@@ -46,104 +46,106 @@
     return isNaN(n) ? null : n;
   }
 
-  // Same grouping rules as standings-sync.js:
-  // [{ n, dateStr, matches: [{ vis, home, games: [{ v, h }] }] }]
-  function buildWeeks(rows) {
-    var byWeek = {}, order = [];
-    rows.slice(1).forEach(function (cols) {
+  // Every completed game in the sheet: [{ vis, home, v, h }]
+  // A game is included only when both of its score cells are filled in.
+  function buildGames(rows) {
+    var games = [];
+    rows.slice(1).forEach(function (cols) { // row 0 is the header
       var week = (cols[0] || "").trim();
-      var dateStr = (cols[1] || "").trim();
       var vis = parseInt((cols[3] || "").trim(), 10);
       var home = parseInt((cols[4] || "").trim(), 10);
       if (!week || isNaN(vis) || isNaN(home)) return;
-      var games = [];
       for (var g = 0; g < 3; g++) {
         var v = parseScore(cols[5 + g * 2]);
         var h = parseScore(cols[6 + g * 2]);
-        if (v !== null && h !== null) games.push({ v: v, h: h });
+        if (v !== null && h !== null) games.push({ vis: vis, home: home, v: v, h: h });
       }
-      if (!byWeek[week]) { byWeek[week] = { n: week, dateStr: dateStr, matches: [] }; order.push(week); }
-      if (dateStr && !byWeek[week].dateStr) byWeek[week].dateStr = dateStr;
-      byWeek[week].matches.push({ vis: vis, home: home, games: games });
     });
-    return order.map(function (w) { return byWeek[w]; });
+    return games;
   }
 
-  function weekHasScores(wk) {
-    return wk.matches.some(function (m) { return m.games.length > 0; });
-  }
-
-  // Season totals plus the running PD after each scored week.
-  function computeStats(weeks) {
+  // Season totals per team: games played, points for/against, games won/lost.
+  function computeStats(games) {
     var teams = {};
-    for (var t = 1; t <= TEAM_COUNT; t++) teams[t] = { gp: 0, pf: 0, pa: 0 };
-    var scored = weeks.filter(weekHasScores);
-    var running = []; // running[i][team] = cumulative PD after scored[i]
-    scored.forEach(function (wk) {
-      wk.matches.forEach(function (m) {
-        m.games.forEach(function (g) {
-          if (teams[m.vis]) { teams[m.vis].gp += 1; teams[m.vis].pf += g.v; teams[m.vis].pa += g.h; }
-          if (teams[m.home]) { teams[m.home].gp += 1; teams[m.home].pf += g.h; teams[m.home].pa += g.v; }
-        });
-      });
-      var snap = {};
-      for (var t2 = 1; t2 <= TEAM_COUNT; t2++) snap[t2] = teams[t2].pf - teams[t2].pa;
-      running.push(snap);
+    for (var t = 1; t <= TEAM_COUNT; t++) teams[t] = { gp: 0, pf: 0, pa: 0, w: 0, l: 0 };
+    games.forEach(function (g) {
+      var a = teams[g.vis], b = teams[g.home];
+      if (a) { a.gp += 1; a.pf += g.v; a.pa += g.h; }
+      if (b) { b.gp += 1; b.pf += g.h; b.pa += g.v; }
+      if (g.v === g.h) return; // tie — not a win or a loss
+      var win = g.v > g.h ? a : b, lose = g.v > g.h ? b : a;
+      if (win) win.w += 1;
+      if (lose) lose.l += 1;
     });
-    return { teams: teams, scored: scored, running: running };
+    var list = [];
+    for (var n = 1; n <= TEAM_COUNT; n++) {
+      var s = teams[n];
+      var decided = s.w + s.l;
+      list.push({ team: n, gp: s.gp, pf: s.pf, pa: s.pa, pd: s.pf - s.pa, w: s.w, l: s.l, wp: decided ? s.w / decided : null });
+    }
+    return { list: list, anyGames: games.length > 0 };
+  }
+
+  // Shared ranks on ties: rank = 1 + number of teams with a strictly better value.
+  // Teams with no games get no rank (null).
+  function assignRanks(list, valueKey, rankKey) {
+    list.forEach(function (a) {
+      if (a[valueKey] === null || a.gp === 0) { a[rankKey] = null; return; }
+      var better = 0;
+      list.forEach(function (b) {
+        if (b.gp > 0 && b[valueKey] !== null && b[valueKey] > a[valueKey]) better += 1;
+      });
+      a[rankKey] = better + 1;
+    });
   }
 
   function signed(n) { return (n > 0 ? "+" : "") + n; }
+  function pctText(x) { return x === null ? "&ndash;" : (x * 100).toFixed(1) + "%"; }
+  function rankText(r) { return r === null ? "&ndash;" : String(r); }
 
-  function seasonHtml(stats) {
-    var items = [];
-    for (var t = 1; t <= TEAM_COUNT; t++) {
-      var s = stats.teams[t];
-      items.push({ team: t, gp: s.gp, pf: s.pf, pa: s.pa, pd: s.pf - s.pa });
-    }
-    // Highest PD first; ties by points for, then team number.
-    // A team with no games played yet is listed last.
-    items.sort(function (a, b) {
-      if ((a.gp === 0) !== (b.gp === 0)) return a.gp === 0 ? 1 : -1;
-      if (b.pd !== a.pd) return b.pd - a.pd;
-      if (b.pf !== a.pf) return b.pf - a.pf;
+  function sortedBy(list, valueKey, tieKey) {
+    return list.slice().sort(function (a, b) {
+      if ((a.gp === 0) !== (b.gp === 0)) return a.gp === 0 ? 1 : -1; // no games: last
+      var av = a[valueKey] === null ? -1 : a[valueKey];
+      var bv = b[valueKey] === null ? -1 : b[valueKey];
+      if (bv !== av) return bv - av;
+      if (b[tieKey] !== a[tieKey]) return b[tieKey] - a[tieKey];
       return a.team - b.team;
     });
+  }
+
+  function pdTableHtml(list) {
     var html = '<div class="pd-scroll"><table class="standings-table"><tr><th>Rank</th><th>Team</th><th>Games</th><th title="Points for">PF</th><th title="Points against">PA</th><th title="Point differential">PD</th></tr>';
-    items.forEach(function (it, i) {
-      html += "<tr><td>" + (it.gp ? i + 1 : "&ndash;") + "</td><td>Team " + it.team + "</td><td>" + it.gp +
+    sortedBy(list, "pd", "pf").forEach(function (it) {
+      html += "<tr><td>" + rankText(it.pdRank) + "</td><td>Team " + it.team + "</td><td>" + it.gp +
         "</td><td>" + it.pf + "</td><td>" + it.pa + "</td><td><b>" + signed(it.pd) + "</b></td></tr>";
     });
     return html + "</table></div>";
   }
 
-  function weeklyHtml(stats) {
-    if (!stats.scored.length) return "";
-    var html = '<div class="pd-scroll"><table class="standings-table"><tr><th>Team</th>';
-    stats.scored.forEach(function (wk) {
-      html += "<th>Wk " + escapeHtml(wk.n) + (wk.dateStr ? "<br><span class=\"pd-date\">" + escapeHtml(wk.dateStr) + "</span>" : "") + "</th>";
+  function wpTableHtml(list) {
+    var html = '<div class="pd-scroll"><table class="standings-table"><tr><th>Rank</th><th>Team</th><th>W</th><th>L</th><th title="Winning percentage">WP</th><th title="Rank by point differential, for comparison">PD Rank</th></tr>';
+    sortedBy(list, "wp", "w").forEach(function (it) {
+      html += "<tr><td>" + rankText(it.wpRank) + "</td><td>Team " + it.team + "</td><td>" + it.w + "</td><td>" + it.l +
+        "</td><td><b>" + pctText(it.wp) + "</b></td><td>" + rankText(it.pdRank) + "</td></tr>";
     });
-    html += "</tr>";
-    for (var t = 1; t <= TEAM_COUNT; t++) {
-      html += "<tr><td>Team " + t + "</td>";
-      stats.running.forEach(function (snap) { html += "<td>" + signed(snap[t]) + "</td>"; });
-      html += "</tr>";
-    }
     return html + "</table></div>";
   }
 
   function render(rows) {
-    var weeks = buildWeeks(rows);
-    var stats = computeStats(weeks);
-    var seasonEl = document.getElementById("pd-season");
-    var weeklyEl = document.getElementById("pd-weekly");
-    if (!stats.scored.length) {
-      if (seasonEl) seasonEl.innerHTML = '<p class="pd-note">No scores have been entered yet. Point differentials will appear here once Week 1 is scored.</p>';
-      if (weeklyEl) weeklyEl.innerHTML = "";
+    var stats = computeStats(buildGames(rows));
+    var pdEl = document.getElementById("pd-season");
+    var wpEl = document.getElementById("wp-season");
+    if (!stats.anyGames) {
+      var msg = '<p class="pd-note">No scores have been entered yet. These tables will fill in once Week 1 is scored.</p>';
+      if (pdEl) pdEl.innerHTML = msg;
+      if (wpEl) wpEl.innerHTML = "";
       return;
     }
-    if (seasonEl) seasonEl.innerHTML = seasonHtml(stats);
-    if (weeklyEl) weeklyEl.innerHTML = weeklyHtml(stats);
+    assignRanks(stats.list, "pd", "pdRank");
+    assignRanks(stats.list, "wp", "wpRank");
+    if (pdEl) pdEl.innerHTML = pdTableHtml(stats.list);
+    if (wpEl) wpEl.innerHTML = wpTableHtml(stats.list);
   }
 
   function load() {
@@ -154,8 +156,8 @@
       })
       .then(function (text) { render(parseCSV(text)); })
       .catch(function () {
-        var seasonEl = document.getElementById("pd-season");
-        if (seasonEl) seasonEl.innerHTML = '<p class="pd-note">Scores couldn&rsquo;t be loaded right now &mdash; please check back soon.</p>';
+        var pdEl = document.getElementById("pd-season");
+        if (pdEl) pdEl.innerHTML = '<p class="pd-note">Scores couldn&rsquo;t be loaded right now &mdash; please check back soon.</p>';
       });
   }
 

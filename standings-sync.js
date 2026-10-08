@@ -203,8 +203,6 @@
       var cells = row.querySelectorAll("td:not(.place)");
       if (cells[1]) cells[1].textContent = stats[team].w;
       if (cells[2]) cells[2].textContent = stats[team].l;
-      var played = stats[team].w + stats[team].l;
-      if (cells[3]) cells[3].textContent = played ? (stats[team].w / played * 100).toFixed(1) + "%" : "\u2013";
       items.push({ team: team, row: row, w: stats[team].w, l: stats[team].l });
     }
     items.sort(function (a, b) {

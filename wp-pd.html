@@ -49,10 +49,13 @@ if ('serviceWorker' in navigator) {
 </nav>
 <main class="page-content">
   <h1>Win Percentage &amp; Point Differential</h1>
-  <p class="pd-note">League admin view. PF = points for, PA = points against, PD = point differential (PF minus PA), added up over every game entered so far. Winning percentage is coming next.</p>
+  <p class="pd-note">League admin view. PF = points for, PA = points against, PD = point differential (PF minus PA), WP = winning percentage (games won divided by games played), all counted over every game entered so far. Teams with equal values share a rank. PD Rank is shown beside WP so the two can be compared.</p>
 
   <h2 class="pd-heading">Season point differential</h2>
   <div id="pd-season"><p class="pd-note">Loading scores&hellip;</p></div>
+
+  <h2 class="pd-heading">Winning percentage</h2>
+  <div id="wp-season"></div>
 
   <div class="legal-link-wrap">
     <a class="legal-link" href="standings.html">&larr; Back to Standings</a>
