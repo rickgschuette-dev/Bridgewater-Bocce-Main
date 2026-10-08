@@ -519,8 +519,13 @@ a:hover {
 }
 
 .add-home-page .section-title {
-  font-size: 16px;
-  margin: 10px 0 6px;
+  font-size: 24px;
+  margin: 16px 0 8px;
+}
+
+/* Extra white space between the Android and iPhone instruction sets */
+.add-home-page .install-banner + .section-title {
+  margin-top: 40px;
 }
 
 .add-home-page .install-banner {
