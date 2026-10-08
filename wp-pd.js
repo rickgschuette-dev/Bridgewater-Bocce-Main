@@ -109,12 +109,12 @@
       if (b.pf !== a.pf) return b.pf - a.pf;
       return a.team - b.team;
     });
-    var html = '<table class="standings-table"><tr><th>Rank</th><th>Team</th><th>Games</th><th>Pts For</th><th>Pts Against</th><th>Point Diff</th></tr>';
+    var html = '<div class="pd-scroll"><table class="standings-table"><tr><th>Rank</th><th>Team</th><th>Games</th><th title="Points for">PF</th><th title="Points against">PA</th><th title="Point differential">PD</th></tr>';
     items.forEach(function (it, i) {
       html += "<tr><td>" + (it.gp ? i + 1 : "&ndash;") + "</td><td>Team " + it.team + "</td><td>" + it.gp +
         "</td><td>" + it.pf + "</td><td>" + it.pa + "</td><td><b>" + signed(it.pd) + "</b></td></tr>";
     });
-    return html + "</table>";
+    return html + "</table></div>";
   }
 
   function weeklyHtml(stats) {

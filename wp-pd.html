@@ -28,6 +28,10 @@ if ('serviceWorker' in navigator) {
   .pd-note { font-size: 15px; color: #555; }
   .pd-scroll { overflow-x: auto; }
   .pd-date { font-weight: 400; font-size: 12px; }
+  .pd-scroll td, .pd-scroll th { white-space: nowrap; }
+  @media (max-width: 600px) {
+    .pd-scroll th, .pd-scroll td { padding: 8px 8px; font-size: 14px; }
+  }
 </style>
 </head>
 <body>
@@ -45,7 +49,7 @@ if ('serviceWorker' in navigator) {
 </nav>
 <main class="page-content">
   <h1>Win Percentage &amp; Point Differential</h1>
-  <p class="pd-note">League admin view. Point differential (PD) is each team&rsquo;s points scored minus points allowed, added up over every game entered so far. Winning percentage is coming next.</p>
+  <p class="pd-note">League admin view. PF = points for, PA = points against, PD = point differential (PF minus PA), added up over every game entered so far. Winning percentage is coming next.</p>
 
   <h2 class="pd-heading">Season point differential</h2>
   <div id="pd-season"><p class="pd-note">Loading scores&hellip;</p></div>
