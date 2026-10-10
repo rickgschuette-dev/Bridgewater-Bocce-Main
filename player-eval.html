@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Player Evaluations — Bridgewater Bocce</title>
+<link rel="stylesheet" href="style.css">
+
+<!-- PWA: install-to-home-screen support -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#142850">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Bridgewater Bocce">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
+</script>
+<style>
+  .pe-page { max-width: 1200px; }
+  .pe-note { font-size: 15px; color: #555; }
+  .pe-entry { margin: 18px 0 6px; border: 1px solid #bbb; border-radius: 6px; background: #fff; }
+  .pe-entry summary { cursor: pointer; padding: 12px 16px; font-weight: 600; font-size: 17px; }
+  .pe-entry[open] summary { border-bottom: 1px solid #ddd; }
+  .pe-entry iframe { display: block; width: 100%; height: 1100px; border: 0; }
+  .pe-tools { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; margin: 18px 0 12px; }
+  .pe-tools label { font-weight: 600; font-size: 15px; }
+  .pe-tools input[type="search"] { font-size: 16px; padding: 8px 10px; min-width: 240px; border: 1px solid #bbb; border-radius: 4px; }
+  .pe-count { font-size: 14px; color: #555; }
+  .pe-refresh { font-size: 14px; padding: 7px 12px; cursor: pointer; }
+  .pe-scroll { overflow-x: auto; }
+  .pe-table th, .pe-table td { vertical-align: top; }
+  .pe-table td.pe-date, .pe-table td.pe-name, .pe-table td.pe-rating { white-space: nowrap; }
+  .pe-table td.pe-notes { white-space: pre-wrap; min-width: 320px; width: 60%; }
+  @media (max-width: 600px) {
+    .pe-table th, .pe-table td { padding: 8px 8px; font-size: 14px; }
+    .pe-tools input[type="search"] { min-width: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <img class="logo" src="logo-home.png" alt="Bridgewater Bocce crest">
+  <h1 class="site-title">Bridgewater Bocce</h1>
+</header>
+<nav class="site-nav">
+  <a href="index.html">Home</a>
+  <a href="tournaments.html">Tournaments<br>&amp; Events</a>
+  <a href="registration.html">League<br>Registration</a>
+  <a href="fall-rec-league.html">Fall &rsquo;26<br>Rec League</a>
+  <a href="brevard-travel-league.html">Brevard Bocce<br>Travel League</a>
+  <a href="contact.html">Contact</a>
+</nav>
+<main class="page-content pe-page">
+  <h1>Player Evaluations</h1>
+  <p class="pe-note">League admin view. Notes are entered through the Player Evaluation form and appear here automatically; earlier notes stay on this page. Newest evaluation date first.</p>
+
+  <!-- Form box: the address below is the published Google Form (embedded view). Opened on demand by player-eval.js. -->
+  <details class="pe-entry" id="pe-entry">
+    <summary>Add an evaluation</summary>
+    <iframe id="pe-form" title="Player evaluation form" height="1100" sandbox="allow-scripts allow-forms allow-same-origin allow-popups" data-src="https://docs.google.com/forms/d/e/1FAIpQLSfheH53a0AaXyBF_CaQCorbnFKOFZY_AqNyEGTE7tjH-Mz6eA/viewform?embedded=true">Loading&hellip;</iframe>
+  </details>
+
+  <div class="pe-tools">
+    <label for="pe-search">Find a player</label>
+    <input type="search" id="pe-search" placeholder="Type a name, rating or word from the notes" autocomplete="off">
+    <span class="pe-count" id="pe-count"></span>
+    <button type="button" class="pe-refresh" id="pe-refresh">Refresh list</button>
+  </div>
+
+  <div id="pe-list"><p class="pe-note">Loading evaluations&hellip;</p></div>
+
+  <div class="legal-link-wrap">
+    <a class="legal-link" href="standings.html">&larr; Back to Standings</a>
+  </div>
+</main>
+<footer class="site-footer">
+  Bridgewater Bocce
+</footer>
+<script src="player-eval.js"></script>
+</body>
+</html>
