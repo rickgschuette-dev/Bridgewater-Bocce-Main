@@ -26,6 +26,21 @@ if ('serviceWorker' in navigator) {
 <style>
   .pe-page { max-width: 1200px; }
   .pe-note { font-size: 15px; color: #555; }
+  .pe-views { display: inline-flex; border: 1px solid #142850; border-radius: 4px; overflow: hidden; }
+  .pe-view-btn { font-size: 14px; padding: 7px 14px; border: 0; background: #fff; color: #142850; cursor: pointer; }
+  .pe-view-btn.pe-on { background: #142850; color: #fff; }
+  .pe-small-btn { font-size: 14px; padding: 7px 12px; cursor: pointer; }
+  .pe-player { border: 1px solid #bbb; border-radius: 6px; background: #fff; margin: 10px 0; }
+  .pe-player > summary { cursor: pointer; padding: 12px 16px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; }
+  .pe-player[open] > summary { border-bottom: 1px solid #ddd; background: #f5f3ec; }
+  .pe-pname { font-weight: 700; font-size: 18px; }
+  .pe-pmeta { font-size: 14px; color: #555; }
+  .pe-pmeta b { color: #142850; }
+  .pe-entry-note { padding: 12px 16px; border-top: 1px solid #eee; }
+  .pe-entry-note:first-of-type { border-top: 0; }
+  .pe-nhead { font-size: 14px; color: #555; margin-bottom: 4px; }
+  .pe-nhead b { color: #222; }
+  .pe-ntext { white-space: pre-wrap; font-size: 16px; }
   .pe-entry { margin: 18px 0 6px; border: 1px solid #bbb; border-radius: 6px; background: #fff; }
   .pe-entry summary { cursor: pointer; padding: 12px 16px; font-weight: 600; font-size: 17px; }
   .pe-entry[open] summary { border-bottom: 1px solid #ddd; }
@@ -60,7 +75,7 @@ if ('serviceWorker' in navigator) {
 </nav>
 <main class="page-content pe-page">
   <h1>Player Evaluations</h1>
-  <p class="pe-note">League admin view. Notes are entered through the Player Evaluation form and appear here automatically; earlier notes stay on this page. Newest evaluation date first.</p>
+  <p class="pe-note">League admin view. Notes are entered through the Player Evaluation form and appear here automatically; earlier notes stay on this page. Each player's notes are grouped under his or her name.</p>
 
   <!-- Form box: the address below is the published Google Form (embedded view). Opened on demand by player-eval.js. -->
   <details class="pe-entry" id="pe-entry">
@@ -71,6 +86,14 @@ if ('serviceWorker' in navigator) {
   <div class="pe-tools">
     <label for="pe-search">Find a player</label>
     <input type="search" id="pe-search" placeholder="Type a name, rating or word from the notes" autocomplete="off">
+    <span class="pe-views" role="group" aria-label="View">
+      <button type="button" class="pe-view-btn pe-on" id="pe-view-player" data-view="player">By player</button>
+      <button type="button" class="pe-view-btn" id="pe-view-date" data-view="date">All notes by date</button>
+    </span>
+    <span id="pe-fold-tools">
+      <button type="button" class="pe-small-btn" id="pe-expand">Expand all</button>
+      <button type="button" class="pe-small-btn" id="pe-collapse">Collapse all</button>
+    </span>
     <span class="pe-count" id="pe-count"></span>
     <button type="button" class="pe-refresh" id="pe-refresh">Refresh list</button>
   </div>
