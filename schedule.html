@@ -112,6 +112,81 @@ if ('serviceWorker' in navigator) {
     font-size: 20px;
     margin: 30px 0 6px;
   }
+  .print-all-wrap {
+    margin: 0 0 18px;
+  }
+  .print-all-btn {
+    background: var(--brand-blue);
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .print-all-btn:hover,
+  .print-all-btn:focus {
+    background: var(--brand-blue-dark);
+  }
+  .print-only {
+    display: none;
+  }
+  @media print {
+    @page { margin: 0.5in; }
+    .site-header, .site-nav, .site-footer, .legal-link-wrap,
+    .print-all-wrap, .schedule-intro, .mrec,
+    .schedule-week summary::before {
+      display: none !important;
+    }
+    .print-only {
+      display: block;
+      margin: 0 0 2px;
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .page-content h1 {
+      font-size: 22px;
+      margin: 0 0 10px;
+    }
+    .schedule-week {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      margin-bottom: 4px;
+    }
+    .schedule-week summary {
+      padding: 2px 8px;
+      font-size: 13px;
+    }
+    .matchup-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      padding: 0 8px 3px;
+    }
+    .matchup {
+      gap: 1px;
+      padding: 2px 4px;
+      font-size: 12px;
+    }
+    body {
+      background: #fff !important;
+    }
+    .page-content {
+      margin: 0 !important;
+      padding: 0 !important;
+      max-width: none !important;
+      background: none !important;
+      box-shadow: none !important;
+    }
+    .schedule-note {
+      margin: 0 0 3px;
+      padding: 0 8px;
+      font-size: 12px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -135,8 +210,13 @@ if ('serviceWorker' in navigator) {
     <a href="team-rosters.html">Team Rosters</a>
     <a href="standings.html">Results &amp; Standings</a>
   </nav>
+  <p class="print-only">Bridgewater Bocce</p>
   <h1>Monday Fall Rec League Schedule</h1>
     <p class="schedule-intro">The 9-week regular season schedule below has every team playing one game each Monday, except the team with a bye that week. Tap a week to see that week’s match-up and team records.</p>
+
+  <div class="print-all-wrap">
+    <button type="button" class="print-all-btn" id="print-all-btn">Print Full Schedule</button>
+  </div>
 
   <details class="schedule-week">
     <summary>Week 1 &mdash; Oct 5</summary>
@@ -246,6 +326,27 @@ if ('serviceWorker' in navigator) {
   Bridgewater Bocce
 </footer>
 
+<script>
+(function () {
+  var saved = [];
+  function openAll() {
+    if (saved.length) return;
+    var weeks = document.querySelectorAll('details.schedule-week');
+    for (var i = 0; i < weeks.length; i++) {
+      saved.push({ el: weeks[i], open: weeks[i].open });
+      weeks[i].open = true;
+    }
+  }
+  function restoreAll() {
+    for (var i = 0; i < saved.length; i++) saved[i].el.open = saved[i].open;
+    saved = [];
+  }
+  window.addEventListener('beforeprint', openAll);
+  window.addEventListener('afterprint', restoreAll);
+  var btn = document.getElementById('print-all-btn');
+  if (btn) btn.addEventListener('click', function () { openAll(); window.print(); });
+})();
+</script>
 <script src="standings-sync.js"></script>
 </body>
 </html>
