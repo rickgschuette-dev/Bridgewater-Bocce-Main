@@ -8,7 +8,8 @@
        Beneath the weekly boxes, an "Up next" strip shows the next unplayed
        week's match-ups with each team's current games won-lost record.
     2) the season standings table (rows tagged data-team="1".."9" inside
-       #standings-table-wrap) — Wins/Losses are total GAMES won and lost.
+       #standings-table-wrap) — Wins/Losses are total GAMES won and lost;
+       "Last 6" is the won-lost record over each team's 6 most recent games.
     3) on the Schedule page, each team's games won-lost record beneath its
        name in every match-up box, as of the START of that week.
 
@@ -95,7 +96,7 @@
   // i.e. the records as they stood going into that week.
   function computeStats(weeks, beforeWeek) {
     var stats = {};
-    for (var t = 1; t <= TEAM_COUNT; t++) stats[t] = { w: 0, l: 0 };
+    for (var t = 1; t <= TEAM_COUNT; t++) stats[t] = { w: 0, l: 0, form: [] };
     weeks.forEach(function (wk) {
       if (beforeWeek !== undefined && parseInt(wk.n, 10) >= beforeWeek) return;
       wk.matches.forEach(function (m) {
@@ -103,12 +104,20 @@
           if (g.v === g.h) return; // tie — not expected, skipped rather than guessed
           var winner = g.v > g.h ? m.vis : m.home;
           var loser = g.v > g.h ? m.home : m.vis;
-          if (stats[winner]) stats[winner].w += 1;
-          if (stats[loser]) stats[loser].l += 1;
+          if (stats[winner]) { stats[winner].w += 1; stats[winner].form.push("W"); }
+          if (stats[loser]) { stats[loser].l += 1; stats[loser].form.push("L"); }
         });
       });
     });
     return stats;
+  }
+
+  // Won-lost over a team's most recent 6 games played (oldest games drop off).
+  // A team with fewer than 6 games shows whatever it has so far.
+  function last6Text(stats, team) {
+    var form = stats[team].form.slice(-6), w = 0;
+    for (var i = 0; i < form.length; i++) { if (form[i] === "W") w++; }
+    return w + "\u2013" + (form.length - w);
   }
 
   function recordText(stats, team) {
@@ -206,6 +215,8 @@
       var cells = row.querySelectorAll("td:not(.place)");
       if (cells[1]) cells[1].textContent = stats[team].w;
       if (cells[2]) cells[2].textContent = stats[team].l;
+      if (!cells[3]) { row.appendChild(document.createElement("td")); cells = row.querySelectorAll("td:not(.place)"); }
+      cells[3].textContent = last6Text(stats, team);
       items.push({ team: team, row: row, w: stats[team].w, l: stats[team].l });
     }
     items.sort(function (a, b) {
