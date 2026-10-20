@@ -127,10 +127,12 @@ a:hover {
 }
 
 .fall-rec-subnav {
-  max-width: none;
-  margin: 0 0 20px;
+  /* Strip shrinks to fit its two buttons and is centred on the page */
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 20px;
   padding: 14px 20px;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 16px;
   border-radius: 8px;
 }
