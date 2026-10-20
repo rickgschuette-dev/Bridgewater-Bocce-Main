@@ -23,6 +23,16 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 <style>
+  /* Centre the page heading between the blue sub-nav and the Weekly results box:
+     +16px above, and the empty spacer line below it shortened by 16px so the
+     results box itself does not move. */
+  .page-content > h1 {
+    margin-top: 36px;
+  }
+  .page-content > p.schedule-intro[aria-hidden="true"] {
+    height: 8px;
+    overflow: hidden;
+  }
   .schedule-current {
     margin: 6px 0 26px;
   }
