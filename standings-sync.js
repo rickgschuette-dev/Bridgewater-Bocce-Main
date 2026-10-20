@@ -10,7 +10,7 @@
     2) the season standings table (rows tagged data-team="1".."9" inside
        #standings-table-wrap) — Wins/Losses are total GAMES won and lost.
     3) on the Schedule page, each team's games won-lost record beneath its
-       name in every match-up box.
+       name in every match-up box, as of the START of that week.
 
   SHEET FORMAT (row 1 is a header row; columns in this exact order):
     A Week | B Date | C Time | D Visiting Team | E Home Team |
@@ -91,10 +91,13 @@
   }
 
   // Total games won / lost per team across every game entered so far.
-  function computeStats(weeks) {
+  // If beforeWeek is given, only weeks numbered LOWER than it are counted,
+  // i.e. the records as they stood going into that week.
+  function computeStats(weeks, beforeWeek) {
     var stats = {};
     for (var t = 1; t <= TEAM_COUNT; t++) stats[t] = { w: 0, l: 0 };
     weeks.forEach(function (wk) {
+      if (beforeWeek !== undefined && parseInt(wk.n, 10) >= beforeWeek) return;
       wk.matches.forEach(function (m) {
         m.games.forEach(function (g) {
           if (g.v === g.h) return; // tie — not expected, skipped rather than guessed
@@ -224,15 +227,28 @@
     });
   }
 
-  // Schedule page: put each team's games won-lost record beneath its name in every match-up box.
-  function renderScheduleRecords(stats) {
+  // Schedule page: put each team's games won-lost record beneath its name in
+  // every match-up box. Each week's box shows the records going INTO that week
+  // (Week 1 = 0-0, Week 2 = after Week 1, and so on), so visitors can see how
+  // teams are trending. Weeks not yet played show the current records.
+  function renderScheduleRecords(weeks) {
     var labels = document.querySelectorAll(".mnum");
     if (!labels.length) return; // not the Schedule page
+    var cache = {};
     for (var i = 0; i < labels.length; i++) {
       var label = labels[i];
       if (label.querySelector(".mrec")) continue;
       var found = /Team\s+(\d+)/.exec(label.textContent);
-      if (!found || !stats[found[1]]) continue;
+      if (!found) continue;
+      var box = label.parentNode;
+      while (box && !(box.tagName === "DETAILS")) box = box.parentNode;
+      var heading = box && box.querySelector("summary");
+      var wkMatch = heading && /Week\s+(\d+)/.exec(heading.textContent);
+      if (!wkMatch) continue;
+      var wkNum = parseInt(wkMatch[1], 10);
+      if (!cache[wkNum]) cache[wkNum] = computeStats(weeks, wkNum);
+      var stats = cache[wkNum];
+      if (!stats[found[1]]) continue;
       var rec = document.createElement("span");
       rec.className = "mrec";
       rec.textContent = recordText(stats, found[1]);
@@ -257,7 +273,7 @@
         renderStandings(stats);
         var previousEl = document.getElementById("standings-previous");
         if (previousEl) previousEl.innerHTML = ""; // older weeks now live inside the weekly results box
-        renderScheduleRecords(stats);
+        renderScheduleRecords(weeks);
       })
       .catch(function (err) {
         console.error("Standings sync error:", err);
