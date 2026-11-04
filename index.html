@@ -281,22 +281,6 @@ font-size: 14.5px;
 }
 }
 
-/* Third news card: full-width banner on wide screens, stacks like the others on narrow screens */
-@media (min-width: 761px) {
-.home-promos .womens-group-news {
-grid-column: 1 / -1;
-flex-direction: row;
-text-align: left;
-}
-.home-promos .womens-group-news .street-brawl-promo-text {
-align-items: flex-start;
-}
-.home-promos .womens-group-news .street-brawl-promo-logo {
-width: 90px;
-height: 90px;
-}
-}
-
 @media (max-width: 760px) {
 .home-promos {
 grid-template-columns: 1fr;
@@ -418,28 +402,21 @@ font-size: 17px;
 <p class="home-screen-links"><a href="add-to-home-screen.html">Add Bridgewater Bocce to your phone</a></p>
 
 <div class="home-promos">
+<section class="street-brawl-promo womens-group-news">
+<img src="assets/womens-group-logo.png" alt="Bridgewater Bocce Women's Group logo" class="street-brawl-promo-logo">
+<div class="street-brawl-promo-text">
+<h2>Coming Soon &mdash;<br>Bridgewater Bocce Women&rsquo;s Group</h2>
+<p>Play will start in January. Watch for further details.</p>
+<a href="https://bridgewaterwomensbocce.netlify.app/" class="street-brawl-promo-btn" target="_blank" rel="noopener">Visit the Women&rsquo;s Group site</a>
+</div>
+</section>
+
 <section class="street-brawl-promo battle-royale-news">
 <img src="assets/battle-royale-logo.png" alt="Bridgewater Bocce Battle Royale, Saturday, January 9th" class="street-brawl-promo-logo">
 <div class="street-brawl-promo-text">
 <h2>Battle Royale &mdash;<br>Saturday, January 9th</h2>
 <p><strong>This time, EVERYONE plays.</strong> <strong>Rookies. Regulars. Ringers.</strong> From every street, challengers arise! Bridgewater Bocce&rsquo;s next tournament takes place on Saturday, January 9th, and everyone is invited into the arena. Early registration is open now.</p>
 <a href="tournaments.html" class="street-brawl-promo-btn">Register Now!</a>
-</div>
-</section>
-
-<section class="street-brawl-promo">
-<img src="assets/street-brawl-championship-logo.png" alt="Bridgewater Bocce Street Brawl Championship, Saturday, October 10th" class="street-brawl-promo-logo">
-<div class="street-brawl-promo-text">
-<h2>Great Belt W Wins Street&nbsp;Brawl<br>Championship</h2>
-<p>After falling behind early 4-1, Great Belt West rallied for 9 consecutive points to win the first Street Brawl Championship 10-4 against Chapel Bridge/Caravan on Court #1 at the Charles Felger Honorary Bocce Courts Thursday, Oct. 15th.</p>
-<p>CB/C had advanced to the finals earlier in the day by defeating Alister West 10-8 in a semi-final game that leap-frogged up the scoreboard until Ed Young put the game away with the final shot.</p>
-</div>
-</section>
-<section class="street-brawl-promo womens-group-news">
-<img src="assets/womens-group-logo.png" alt="Bridgewater Bocce Women's Group logo" class="street-brawl-promo-logo">
-<div class="street-brawl-promo-text">
-<h2>Coming Soon &mdash;<br>Bridgewater Bocce Women&rsquo;s Group</h2>
-<p>Play will start in January. Watch for further details.</p>
 </div>
 </section>
 </div>
