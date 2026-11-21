@@ -16,12 +16,14 @@
   SHEET FORMAT (row 1 is a header row; columns in this exact order):
     A Week | B Date | C Time | D Visiting Team | E Home Team |
     F Visiting G1 | G Home G1 | H Visiting G2 | I Home G2 |
-    J Visiting G3 | K Home G3 | (L blank) | M note (ignored)
+     J Visiting G3 | K Home G3 | (L blank) | M optional status
    - Visiting Team is the team shown on the LEFT of the scoreboard and
      website; Home Team is the team on the RIGHT.
    - Leave a game's two score cells blank until that game has been played.
      A game counts only when BOTH of its score cells are filled in; the
      higher score wins that game.
+   - Enter "Rainout" or "No games" in column M for a date that should stay
+     visible on the schedule but be skipped by the "Up next" box.
    - If the fetch fails, or nothing has been scored yet, the page falls
      back to a friendly message / the static 0-0 table already in the
      HTML — it never breaks.
@@ -73,6 +75,7 @@
       var timeStr = (cols[2] || "").trim();
       var vis = (cols[3] || "").trim();
       var home = (cols[4] || "").trim();
+      var status = (cols[12] || "").trim();
       if (!week || !vis || !home) return;
 
       var games = [];
@@ -84,9 +87,10 @@
 
       var key = week + "::" + dateStr;
       if (!byWeek[key]) {
-        byWeek[key] = { n: week, dateStr: dateStr, matches: [], sequence: order.length };
+        byWeek[key] = { n: week, dateStr: dateStr, matches: [], sequence: order.length, status: "" };
         order.push(key);
       }
+      if (/^(rainout|no games)$/i.test(status)) byWeek[key].status = status;
       byWeek[key].matches.push({ vis: vis, home: home, time: timeStr, games: games });
     });
     return order.map(function (w) { return byWeek[w]; });
@@ -151,7 +155,7 @@
   function nextWeekHtml(weeks, stats) {
     var next = null;
     for (var i = 0; i < weeks.length; i++) {
-      if (!weekHasScores(weeks[i])) { next = weeks[i]; break; }
+      if (!weeks[i].status && !weekHasScores(weeks[i])) { next = weeks[i]; break; }
     }
     if (!next) return ""; // every week already has scores — season over
     var playing = {};
@@ -272,10 +276,17 @@
     var html = '';
     weeks.forEach(function (wk) {
       var stats = computeStats(weeks, wk.sequence);
-      html += '<details class="schedule-week"><summary>' + weekHeading(wk) + '</summary>' +
-        '<div class="matchup-grid">';
-      wk.matches.forEach(function (m) { html += scheduleMatchHtml(m, stats); });
-      html += '</div>' + scheduleByeText(wk) + '</details>';
+      var heading = weekHeading(wk) + (wk.status ? ' &mdash; ' + escapeHtml(wk.status) : '');
+      html += '<details class="schedule-week' + (wk.status ? ' makeup-round' : '') + '"><summary>' + heading + '</summary>';
+      if (wk.status) {
+        var statusMessage = /^no games$/i.test(wk.status) ? 'no games were scheduled on this date.' : 'no games were played on this date.';
+        html += '<p class="schedule-note"><strong>' + escapeHtml(wk.status) + '</strong> &mdash; ' + statusMessage + '</p>';
+      } else {
+        html += '<div class="matchup-grid">';
+        wk.matches.forEach(function (m) { html += scheduleMatchHtml(m, stats); });
+        html += '</div>' + scheduleByeText(wk);
+      }
+      html += '</details>';
     });
     el.innerHTML = html || '<p class="schedule-loading">No schedule has been posted yet.</p>';
   }
