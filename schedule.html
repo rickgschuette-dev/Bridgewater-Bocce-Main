@@ -212,12 +212,13 @@ if ('serviceWorker' in navigator) {
   </nav>
   <p class="print-only">Bridgewater Bocce</p>
   <h1>Monday Fall Rec League Schedule</h1>
-    <p class="schedule-intro">The 9-week regular season schedule below has every team playing one game each Monday, except the team with a bye that week. Tap a week to see that week’s match-up and team records.</p>
+    <p class="schedule-intro">The schedule below has every team playing one game each Monday, except the team with a bye that week. Tap a week to see that date’s match-ups and team records.</p>
 
   <div class="print-all-wrap">
     <button type="button" class="print-all-btn" id="print-all-btn">Print Full Schedule</button>
   </div>
 
+  <div id="schedule-weeks">
   <details class="schedule-week">
     <summary>Week 1 &mdash; Oct 5</summary>
     <div class="matchup-grid">
@@ -316,6 +317,8 @@ if ('serviceWorker' in navigator) {
     </div>
     <p class="schedule-note">Team 9 has a bye this week.</p>
   </details>
+
+  </div>
 
   <div class="legal-link-wrap">
     <a class="legal-link" href="index.html">Home</a>

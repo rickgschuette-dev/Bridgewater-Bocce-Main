@@ -59,8 +59,10 @@
     return isNaN(n) ? null : n;
   }
 
-  // Groups the sheet's rows into an ordered array of week objects:
-  // { n, dateStr, matches: [{ vis, home, games: [{ v, h }] }] }
+  // Groups the sheet's rows into an ordered array of scheduled dates:
+  // { n, dateStr, matches: [{ vis, home, games: [{ v, h }] }], sequence }
+  // The Week + Date pair is the key so a rain-out can be rescheduled on a
+  // later date without being merged into the original week's match-ups.
   // A game is included only when both of its score cells are filled in.
   function buildWeeks(rows) {
     var byWeek = {};
@@ -80,9 +82,12 @@
         if (v !== null && h !== null) games.push({ v: v, h: h });
       }
 
-      if (!byWeek[week]) { byWeek[week] = { n: week, dateStr: dateStr, matches: [] }; order.push(week); }
-      if (dateStr && !byWeek[week].dateStr) byWeek[week].dateStr = dateStr;
-      byWeek[week].matches.push({ vis: vis, home: home, time: timeStr, games: games });
+      var key = week + "::" + dateStr;
+      if (!byWeek[key]) {
+        byWeek[key] = { n: week, dateStr: dateStr, matches: [], sequence: order.length };
+        order.push(key);
+      }
+      byWeek[key].matches.push({ vis: vis, home: home, time: timeStr, games: games });
     });
     return order.map(function (w) { return byWeek[w]; });
   }
@@ -92,13 +97,14 @@
   }
 
   // Total games won / lost per team across every game entered so far.
-  // If beforeWeek is given, only weeks numbered LOWER than it are counted,
-  // i.e. the records as they stood going into that week.
-  function computeStats(weeks, beforeWeek) {
+  // If beforeSequence is given, only earlier scheduled dates are counted,
+  // i.e. the records as they stood going into that date. This also supports
+  // rescheduled rain-out dates that retain the original Week number.
+  function computeStats(weeks, beforeSequence) {
     var stats = {};
     for (var t = 1; t <= TEAM_COUNT; t++) stats[t] = { w: 0, l: 0, form: [] };
     weeks.forEach(function (wk) {
-      if (beforeWeek !== undefined && parseInt(wk.n, 10) >= beforeWeek) return;
+      if (beforeSequence !== undefined && wk.sequence >= beforeSequence) return;
       wk.matches.forEach(function (m) {
         m.games.forEach(function (g) {
           if (g.v === g.h) return; // tie — not expected, skipped rather than guessed
@@ -238,38 +244,47 @@
     });
   }
 
-  // Schedule page: put each team's games won-lost record beneath its name in
-  // every match-up box. Each week's box shows the records going INTO that week
-  // (Week 1 = 0-0, Week 2 = after Week 1, and so on), so visitors can see how
-  // teams are trending. Weeks not yet played show the current records.
-  function renderScheduleRecords(weeks) {
-    var labels = document.querySelectorAll(".mnum");
-    if (!labels.length) return; // not the Schedule page
-    var cache = {};
-    for (var i = 0; i < labels.length; i++) {
-      var label = labels[i];
-      if (label.querySelector(".mrec")) continue;
-      var found = /Team\s+(\d+)/.exec(label.textContent);
-      if (!found) continue;
-      var box = label.parentNode;
-      while (box && !(box.tagName === "DETAILS")) box = box.parentNode;
-      var heading = box && box.querySelector("summary");
-      var wkMatch = heading && /Week\s+(\d+)/.exec(heading.textContent);
-      if (!wkMatch) continue;
-      var wkNum = parseInt(wkMatch[1], 10);
-      if (!cache[wkNum]) cache[wkNum] = computeStats(weeks, wkNum);
-      var stats = cache[wkNum];
-      if (!stats[found[1]]) continue;
-      var rec = document.createElement("span");
-      rec.className = "mrec";
-      rec.textContent = recordText(stats, found[1]);
-      label.appendChild(rec);
+  // Schedule page: builds the accordion entirely from the sheet. Each team's
+  // record is calculated as of the start of that specific scheduled date.
+  function scheduleMatchHtml(m, stats) {
+    return '<div class="matchup">' +
+      (m.time ? '<span class="mtime">' + escapeHtml(m.time) + '</span>' : '') +
+      '<div class="matchup-teams">' +
+      '<span class="mnum">Team ' + escapeHtml(m.vis) + '<span class="mrec">' + recordText(stats, m.vis) + '</span></span>' +
+      '<span class="mvs">vs</span>' +
+      '<span class="mnum">Team ' + escapeHtml(m.home) + '<span class="mrec">' + recordText(stats, m.home) + '</span></span>' +
+      '</div></div>';
+  }
+
+  function scheduleByeText(wk) {
+    var playing = {};
+    wk.matches.forEach(function (m) { playing[m.vis] = true; playing[m.home] = true; });
+    var byes = [];
+    for (var t = 1; t <= TEAM_COUNT; t++) {
+      if (!playing[t]) byes.push('Team ' + t);
     }
+    if (!byes.length) return '';
+    return '<p class="schedule-note">' + byes.join(', ') +
+      (byes.length === 1 ? ' has a bye this week.</p>' : ' have byes this week.</p>');
+  }
+
+  function renderSchedule(el, weeks) {
+    var html = '';
+    weeks.forEach(function (wk) {
+      var stats = computeStats(weeks, wk.sequence);
+      html += '<details class="schedule-week"><summary>' + weekHeading(wk) + '</summary>' +
+        '<div class="matchup-grid">';
+      wk.matches.forEach(function (m) { html += scheduleMatchHtml(m, stats); });
+      html += '</div>' + scheduleByeText(wk) + '</details>';
+    });
+    el.innerHTML = html || '<p class="schedule-loading">No schedule has been posted yet.</p>';
   }
 
   function load() {
     var resultsEl = document.getElementById("standings-current");
+    var scheduleEl = document.getElementById("schedule-weeks");
     if (resultsEl) resultsEl.innerHTML = '<p class="schedule-loading">Loading results&hellip;</p>';
+    if (scheduleEl) scheduleEl.innerHTML = '<p class="schedule-loading">Loading schedule&hellip;</p>';
 
     fetch(SCORES_CSV_URL)
       .then(function (res) {
@@ -282,13 +297,14 @@
         var stats = computeStats(weeks);
         if (resultsEl) renderResults(resultsEl, weeks, stats);
         renderStandings(stats);
+        if (scheduleEl) renderSchedule(scheduleEl, weeks);
         var previousEl = document.getElementById("standings-previous");
         if (previousEl) previousEl.innerHTML = ""; // older weeks now live inside the weekly results box
-        renderScheduleRecords(weeks);
       })
       .catch(function (err) {
         console.error("Standings sync error:", err);
         if (resultsEl) resultsEl.innerHTML = '<p class="schedule-loading">Results couldn&rsquo;t be loaded right now &mdash; please check back soon.</p>';
+        if (scheduleEl) scheduleEl.innerHTML = '<p class="schedule-loading">The schedule couldn&rsquo;t be loaded right now &mdash; please check back soon.</p>';
       });
   }
 
